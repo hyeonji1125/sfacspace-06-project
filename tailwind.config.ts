@@ -13,7 +13,6 @@ const config: Config = {
         "custom-dark-bg": "#121212",
         "custom-dark-text": "#e5e7eb",
         "custom-dark-accent": "#3b82f6",
-
         // 밝은 모드 색상 조합
         "custom-light-bg": "#ffffff",
         "custom-light-text": "#3f3f3f",
