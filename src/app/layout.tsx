@@ -12,7 +12,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}>) {
+}) {
   const darkMode = useDarkModeStore((state) => state.darkMode);
   const setDarkMode = useDarkModeStore((state) => state.setDarkMode);
 
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${darkMode ? "dark:bg-custom-dark-bg" : "bg-custom-light-bg"} max-w-screen-[1920px] mx-auto flex flex-col min-h-screen`}
+        className={`${darkMode ? "dark:bg-custom-dark-bg" : "bg-custom-light-bg"} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
       >
         <Header />
         <main className="flex-grow">{children}</main>
