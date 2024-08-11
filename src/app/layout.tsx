@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
+import useDarkModeStore from "../store/useDarkModeStore";
 import "../styles/globals.css";
-
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
-import useDarkModeStore from "../store/useDarkModeStore";
 import TopButton from "@/components/TopButton";
 import AskButton from "@/components/AskButton";
 
