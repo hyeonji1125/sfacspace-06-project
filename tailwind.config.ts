@@ -8,13 +8,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        // Next.js 다크 모드 색상 조합 추가
+        "custom-dark-bg": "#121212",
+        "custom-dark-text": "#e5e7eb",
+        "custom-dark-accent": "#3b82f6",
+
+        // 밝은 모드 색상 조합
+        "custom-light-bg": "#ffffff",
+        "custom-light-text": "#3f3f3f",
+        "custom-light-accent": "#3b82f6",
+
+        "custom-text-footer-gray": "#969696",
+        "custom-text-footer-black": "#3f3f3f",
+        "primary-purple-500": "#6100FF",
+        "primary-purple-400": "#9747FF",
+        "primary-purple-300": "#A66FFF",
+        "primary-purple-200": "#C9A8FF",
+        "primary-purple-100": "#E0CEFF",
+        "primary-purple-50": "#F2EBFF",
       },
     },
   },
   plugins: [],
+  darkMode: "class",
 };
 export default config;
