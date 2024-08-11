@@ -10,7 +10,7 @@ import AskButton from "@/components/AskButton";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
 }>) {
   const darkMode = useDarkModeStore((state) => state.darkMode);
