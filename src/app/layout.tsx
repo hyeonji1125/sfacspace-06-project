@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
 import { useEffect } from "react";
-import "./globals.css";
+import "../styles/globals.css";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-import useDarkModeStore from "./store/useDarkModeStore";
-
+import useDarkModeStore from "../store/useDarkModeStore";
+import TopButton from "@/components/TopButton";
+import AskButton from "@/components/AskButton";
 
 export default function RootLayout({
   children,
@@ -18,16 +19,18 @@ export default function RootLayout({
   const setDarkMode = useDarkModeStore((state) => state.setDarkMode);
 
   useEffect(() => {
-    setDarkMode(localStorage.getItem('darkMode') === 'true');
+    setDarkMode(localStorage.getItem("darkMode") === "true");
   }, [setDarkMode]);
 
   return (
     <html lang="en">
-      <body className={`${darkMode ? 'dark:bg-custom-dark-bg' : 'bg-custom-light-bg'} max-w-screen-[1920px] mx-auto flex flex-col min-h-screen`}>
+      <body
+        className={`${darkMode ? "dark:bg-custom-dark-bg" : "bg-custom-light-bg"} max-w-screen-[1920px] mx-auto flex flex-col min-h-screen`}
+      >
         <Header />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
+        <AskButton />
+        <TopButton />
         <Footer />
       </body>
     </html>

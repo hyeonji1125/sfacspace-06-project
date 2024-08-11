@@ -13,7 +13,6 @@ const config: Config = {
         "custom-dark-bg": "#121212",
         "custom-dark-text": "#e5e7eb",
         "custom-dark-accent": "#3b82f6",
-        
         // 밝은 모드 색상 조합
         "custom-light-bg": "#ffffff",
         "custom-light-text": "#3f3f3f",
@@ -21,6 +20,12 @@ const config: Config = {
 
         "custom-text-footer-gray": "#969696",
         "custom-text-footer-black": "#3f3f3f",
+        "primary-purple-500": "#6100FF",
+        "primary-purple-400": "#9747FF",
+        "primary-purple-300": "#A66FFF",
+        "primary-purple-200": "#C9A8FF",
+        "primary-purple-100": "#E0CEFF",
+        "primary-purple-50": "#F2EBFF",
       },
     },
   },
