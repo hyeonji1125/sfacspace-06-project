@@ -1,7 +1,11 @@
-export default function page() {
+import Image from "next/image";
+import Header from "../components/Header";
+
+export default function Home() {
   return (
     <>
-      <h1 className="w-full text-4xl font-bold">page</h1>
+      <div className="h-screen">랜딩 페이지1</div>
+      <div className="h-screen">랜딩 페이지2</div>
     </>
   );
 }
