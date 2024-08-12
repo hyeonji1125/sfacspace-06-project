@@ -45,13 +45,13 @@ export default function Modal({
         ref={modalRef}
         onClick={modalOutsideClick}
         className={twMerge(
-          "fixed inset-0 z-10 flex h-full w-full items-center justify-center",
+          "fixed inset-0 z-50 flex h-full w-full items-center justify-center",
           dimmed && "bg-black bg-opacity-60",
         )}
       >
         <div
           className={twMerge(
-            "relative flex flex-col items-center justify-center gap-6 rounded-[20px] bg-white p-8",
+            "relative flex flex-col items-center justify-center gap-6 rounded-[20px] bg-white p-8 dark:bg-custom-dark-bg",
             className,
             shadow && "shadow-custom-shadow",
           )}
@@ -80,7 +80,7 @@ function Description({ children }: { children: React.ReactNode }) {
 }
 
 function Content({ children }: { children: React.ReactNode }) {
-  return <div className="flex w-full flex-col justify-center">{children}</div>;
+  return <div className="flex flex-col justify-center">{children}</div>;
 }
 
 function Button({ children }: { children: React.ReactNode }) {
