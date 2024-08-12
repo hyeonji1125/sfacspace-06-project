@@ -49,7 +49,6 @@ const Header: React.FC = () => {
             <label className="relative cursor-pointer" htmlFor="light-switch">
               <LightModeIcon className={`${darkMode ? "hidden" : "block"}`} />
               <DarkModeIcon className={`${darkMode ? "block" : "hidden"}`} />
-              <span className="sr-only">Switch to light / dark version</span>
             </label>
           </div>
         </div>

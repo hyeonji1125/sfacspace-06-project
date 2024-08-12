@@ -8,3 +8,8 @@ export interface DarkModeState {
 
   toggleDarkMode: () => void;
 }
+export interface DropdownProps {
+  type: 'Type' | 'Sort';
+  selectedOption: string;
+  onSelect: (option: string) => void;
+}
