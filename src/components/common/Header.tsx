@@ -1,9 +1,12 @@
 "use client";
 
 import React from "react";
-import useDarkModeStore from "../store/useDarkModeStore";
-import { LightModeIcon, DarkModeIcon } from "../../public/assets/svg/SvgIcons";
-import icons from "../../public/assets/icons";
+import useDarkModeStore from "../../store/useDarkModeStore";
+import {
+  LightModeIcon,
+  DarkModeIcon,
+} from "../../../public/assets/svg/SvgIcons";
+import icons from "../../../public/assets/icons";
 import Image from "next/image";
 
 const Header: React.FC = () => {
@@ -12,7 +15,7 @@ const Header: React.FC = () => {
   const toggleDarkMode = useDarkModeStore((state) => state.toggleDarkMode);
 
   return (
-    <header className=" bg-custom-light-bg dark:bg-custom-dark-bg px-20 py-12">
+    <header className="bg-custom-light-bg px-20 py-12 dark:bg-custom-dark-bg">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
         <div className="flex items-center">
           <Image
@@ -20,14 +23,14 @@ const Header: React.FC = () => {
             alt="Flaw Detector Logo"
             className="h-[35px]"
           />
-          <span className="ml-4 text-[40px] tracking-[-0.01em] text-center">
+          <span className="ml-4 text-center text-[40px] tracking-[-0.01em]">
             FLAWDETECTOR
           </span>
         </div>
         <div className="flex items-center space-x-8 text-[18px] font-medium">
           <span>취약점 DB</span>
           <span>MY 저장소</span>
-          <div className="flex flex-col justify-center border-2 rounded-[50%]">
+          <div className="flex flex-col justify-center rounded-[50%] border-2">
             <input
               type="checkbox"
               id="light-switch"

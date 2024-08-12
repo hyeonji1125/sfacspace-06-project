@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import useDarkModeStore from "../store/useDarkModeStore";
 import "../styles/globals.css";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import TopButton from "@/components/TopButton";
-import AskButton from "@/components/AskButton";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import TopButton from "@/components/common/TopButton";
+import AskButton from "@/components/common/AskButton";
 
 export default function RootLayout({
   children,

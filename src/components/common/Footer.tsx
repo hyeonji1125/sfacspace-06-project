@@ -1,9 +1,9 @@
 import Image from "next/image";
-import icons from "../../public/assets/icons";
+import icons from "../../../public/assets/icons";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-transparent dark:bg-custom-dark-bg h-auto">
+    <footer className="relative h-auto bg-transparent dark:bg-custom-dark-bg">
       <Image
         src={icons.FooterPattern}
         alt="FooterBackgroundPattern"
@@ -11,23 +11,23 @@ export default function Footer() {
         objectFit="cover"
         className="dark:opacity-20"
       />
-      <div className="relative flex justify-between items-center h-full px-20 py-[60px]">
-        <div className="flex flex-col w-[525px] gap-2">
+      <div className="relative flex h-full items-center justify-between px-20 py-[60px]">
+        <div className="flex w-[525px] flex-col gap-2">
           <Image
             src={icons.SfacLogo}
             alt="SFAC SPACE Logo"
-            className="w-[120px] h-[55px] flex-shrink-0 max-w-full overflow-hidden mb-[30px]"
+            className="mb-[30px] h-[55px] w-[120px] max-w-full flex-shrink-0 overflow-hidden"
           />
           <p className="text-xl font-semibold text-gray-900 dark:text-white">
             CONTACT
           </p>
-          <div className="flex flex-wrap text-base font-medium text-gray-700 dark:text-gray-300 gap-10">
+          <div className="flex flex-wrap gap-10 text-base font-medium text-gray-700 dark:text-gray-300">
             <div>
               <div className="flex gap-[26px]">
                 <p className="text-custom-text-footer-gray">(주)스팩스페이스</p>
                 <p className="text-custom-text-footer-gray">
                   대표자{" "}
-                  <span className="text-custom-text-footer-black dark:text-gray-300 ml-[11px]">
+                  <span className="ml-[11px] text-custom-text-footer-black dark:text-gray-300">
                     염민호
                   </span>
                 </p>
