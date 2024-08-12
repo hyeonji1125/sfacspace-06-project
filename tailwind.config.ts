@@ -61,6 +61,9 @@ const config: Config = {
         "bg-gray-light": "#F1F1F1",
         "bg-gray-dark": "#C2C2C2",
       },
+      boxShadow: {
+        "custom-shadow": "0px 0px 24.8px 0px rgba(0, 0, 0, 0.25)",
+      },
     },
   },
   plugins: [],
