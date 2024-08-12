@@ -33,6 +33,7 @@ export default function RootLayout({
         <AskButton />
         <TopButton />
         <Footer />
+        <div id="modal-root" />
       </body>
     </html>
   );
