@@ -1,21 +1,15 @@
-import { ReactNode } from "react";
+import { TButtonProps } from "@/types";
 import { twMerge } from "tailwind-merge";
 
 export default function Button({
-  style,
+  theme,
   size,
   isRound,
   disabled,
   children,
   ...rest
-}: {
-  style: "filled" | "outlined" | "tonal";
-  size?: "middle" | "small";
-  isRound?: boolean;
-  disabled: boolean;
-  children: ReactNode;
-}) {
-  const styles = {
+}: TButtonProps) {
+  const themes = {
     filled:
       "bg-primary-purple-500 text-white disabled:bg-bg-gray-light disabled:text-text-gray-default dark:disabled:bg-bg-gray-dark",
     outlined:
@@ -33,7 +27,7 @@ export default function Button({
     <button
       className={twMerge(
         "flex h-14 items-center justify-center rounded-lg px-14 py-4 text-2xl font-semibold hover:shadow-lg disabled:hover:shadow-none",
-        styles[style],
+        themes[theme],
         size && sizes[size],
         isRound && "rounded-full",
       )}
