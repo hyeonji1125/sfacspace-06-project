@@ -1,5 +1,5 @@
 /* Header */
-import MainLogo from "./images/flaw-detector-main-logo.svg";
+import MainLogo from "./images/flaw-detector-main-logo.svg"
 
 /* Footer */
 import FooterPattern from "./images/footer-pattern.svg";
@@ -15,3 +15,4 @@ const icons = {
 };
 
 export default icons;
+

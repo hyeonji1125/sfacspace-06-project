@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Aldrich } from "next/font/google";
-import useDarkModeStore from "../../store/useDarkModeStore";
 import {
   LightModeIcon,
   DarkModeIcon,
@@ -10,12 +9,11 @@ import {
 import icons from "../../../public/assets/icons";
 import Image from "next/image";
 import { twJoin } from "tailwind-merge";
+import { useDarkMode } from "@/contexts/DarkModeContext";
 
 const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
 const Header: React.FC = () => {
-  const darkMode = useDarkModeStore((state) => state.darkMode);
-  const toggleDarkMode = useDarkModeStore((state) => state.toggleDarkMode);
-
+  const { darkMode, toggleDarkMode } = useDarkMode();
   return (
     <header className="fixed w-full bg-custom-light-bg px-4 py-4 dark:bg-custom-dark-bg md:px-20 md:py-12">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
@@ -49,7 +47,6 @@ const Header: React.FC = () => {
             <label className="relative cursor-pointer" htmlFor="light-switch">
               <LightModeIcon className={`${darkMode ? "hidden" : "block"}`} />
               <DarkModeIcon className={`${darkMode ? "block" : "hidden"}`} />
-              <span className="sr-only">Switch to light / dark version</span>
             </label>
           </div>
         </div>

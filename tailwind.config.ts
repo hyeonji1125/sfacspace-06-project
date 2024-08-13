@@ -21,6 +21,7 @@ const config: Config = {
 
         "custom-text-footer-gray": "#969696",
         "custom-text-footer-black": "#3f3f3f",
+
         "text-gray-light": "#D6D6D6",
 
         // primary color
@@ -30,6 +31,11 @@ const config: Config = {
         "primary-purple-200": "#C9A8FF",
         "primary-purple-100": "#E0CEFF",
         "primary-purple-50": "#F2EBFF",
+
+        // 드롭다운 커스텀
+        "custom-dropdown-dark-bg": "#242424",
+        "custom-dropdown-light-bg": "#ffffff",
+        "custom-dropdown-light-border": "#444444",
 
         // neutral color
         "grayscale-100": "#030303",
