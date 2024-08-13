@@ -1,5 +1,4 @@
 import { SvgState } from "@/types";
-import React from "react";
 
 export const LightModeIcon: React.FC<SvgState> = ({ className }) => (
   <svg className={className} width="16" height="16" xmlns="http://www.w3.org/2000/svg">
