@@ -15,7 +15,7 @@ const config: Config = {
         "custom-dark-accent": "#3b82f6",
 
         // 밝은 모드 색상 조합
-        "custom-light-bg": "#ffffff",
+        "custom-light-bg": "#f1f1f1",
         "custom-light-text": "#3f3f3f",
         "custom-light-accent": "#3b82f6",
 
@@ -37,8 +37,9 @@ const config: Config = {
 
         // 드롭다운 커스텀
         "custom-dropdown-dark-bg": "#242424",
-        "custom-dropdown-light-bg": "#ffffff",
+        "custom-dropdown-light-bg": "#f2f3f4",
         "custom-dropdown-light-border": "#444444",
+        "custom-dropdown-option-light-bg": "#e3e1e7",
 
         // neutral color
         grayscale: {
