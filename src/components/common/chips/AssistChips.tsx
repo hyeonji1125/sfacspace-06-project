@@ -1,17 +1,15 @@
 'use client'
-import { AssistChipsPrimary } from "@/types/chips/chips";
+import { AssistType } from "@/types/chips/chips";
 import { ReactNode, useState } from "react";
 
-function AssistChips({width , height , bgColor,children } : {width : string , height : string , bgColor? :AssistChipsPrimary ,children : ReactNode}) {
+function AssistChips({width , height , assistType, disabled ,children } : {width : string , height : string , assistType?:AssistType , disabled?:boolean, children : ReactNode}) {
 
   const [onClickButton, setOnClickButton] = useState(false);
 
-  const backGroundClasses = {
-    gray1 : 'bg-gray-100' ,
-    gray2 : 'bg-gray-200',
-    gray3 : 'bg-gray-300',
-    gray4 :  'bg-gray-400',
-    white : 'bg-white',
+  const AssistChipsClasses = {
+    outline : disabled  ? 'text-gray-400 border-gray-300' : ` border-black hover:bg-gray-200 focus:bg-gray-300  active:border-slate-500  ${onClickButton && 'bg-gray-300'}`,
+    elevated : disabled ? 'text-gray-400 border-gray-300' : `bg-violet-50  hover:bg-violet-100 focus:bg-violet-200 active:bg-violet-300 ${onClickButton && 'bg-violet-200'}` ,
+    outlinePrimary : disabled  ? `text-gray-300 border-violet-300 ` : `bg-violet-50 border-violet-300 text-violet-700  hover:bg-violet-100 focus:border-violet-700 active:border-violet-900 ${onClickButton && 'bg-violet-200'}`
   }
 
     return (
@@ -19,8 +17,8 @@ function AssistChips({width , height , bgColor,children } : {width : string , he
       <div
       onClick={() => setOnClickButton(!onClickButton)}
       style={{width: `${width}px` , height : `${height}px`}}
-      className={`flex gap-[10px] p-[15px] text-black border border-black text-md justify-center items-center rounded-2xl hover:cursor-pointer hover:bg-purple-100 focus:bg-purple-100 active:bg-primary-purple-100 active:shadow-xl
-      ${bgColor ? backGroundClasses[bgColor]:''} ${onClickButton && 'bg-purple-200 shadow-xl text-purple-700 border-1 border-purple-400'} } `}
+      className={` flex gap-[10px] p-[15px] text-md justify-center items-center rounded-full border-2  
+        ${assistType ? AssistChipsClasses[assistType]:''} `}
     >
       {children}
     </div>
@@ -30,3 +28,4 @@ function AssistChips({width , height , bgColor,children } : {width : string , he
 
   export default AssistChips;
   
+  //드래그 할 때 사용 : shadow-xl
