@@ -1,5 +1,5 @@
 /* Header */
-import MainLogo from "./images/flaw-detector-main-logo.png"
+import MainLogo from "./images/flaw-detector-main-logo.svg"
 
 /* Footer */
 import FooterPattern from "./images/footer-pattern.svg";
