@@ -15,10 +15,10 @@ export default function ProgressBar({ percent = 0 }: ProgressBarProps) {
 
   return (
     <div className={twMerge("flex w-full items-center")}>
-      <div className={twMerge("h-3 rounded-full bg-[#E6E6E6]", "w-[100%]")}>
+      <div className={twMerge("h-3 rounded-full bg-grayscale-10", "w-[100%]")}>
         <div
           className={twMerge(
-            "h-full rounded-full bg-[#00C308]",
+            "h-full rounded-full bg-accent-green",
             "transition-all duration-300 ease-linear",
           )}
           style={{ width: `${width}%` }}
