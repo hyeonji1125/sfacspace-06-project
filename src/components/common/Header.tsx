@@ -9,11 +9,17 @@ import {
 import icons from "../../../public/assets/icons";
 import Image from "next/image";
 import { twJoin } from "tailwind-merge";
-import { useDarkMode } from "@/contexts/DarkModeContext";
+import { useTheme } from "next-themes"; // useTheme 훅을 사용하여 테마 관리
 
 const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
+
 const Header: React.FC = () => {
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const { theme, setTheme } = useTheme(); // 테마 관련 훅
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
     <header className="sticky w-full bg-custom-light-bg px-4 py-4 dark:bg-custom-dark-bg md:px-20 md:py-12">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
@@ -35,19 +41,12 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
           <span>취약점 DB</span>
           <span>MY 저장소</span>
-          <div className="flex items-center justify-center rounded-full border-2 p-1">
-            <input
-              type="checkbox"
-              id="light-switch"
-              name="light-switch"
-              className="light-switch sr-only"
-              checked={darkMode}
-              onChange={toggleDarkMode}
-            />
-            <label className="relative cursor-pointer" htmlFor="light-switch">
-              <LightModeIcon className={`${darkMode ? "hidden" : "block"}`} />
-              <DarkModeIcon className={`${darkMode ? "block" : "hidden"}`} />
-            </label>
+          <div
+            className="flex items-center justify-center rounded-full border-2 p-1 cursor-pointer"
+            onClick={toggleTheme}
+          >
+            <LightModeIcon className={`${theme === "dark" ? "hidden" : "block"}`} />
+            <DarkModeIcon className={`${theme === "dark" ? "block" : "hidden"}`} />
           </div>
         </div>
       </div>
