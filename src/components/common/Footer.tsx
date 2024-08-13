@@ -3,13 +3,14 @@ import icons from "../../../public/assets/icons";
 
 export default function Footer() {
   return (
-    <footer className="relative h-auto bg-transparent dark:bg-custom-dark-bg">
+    <footer className="relative h-auto bg-custom-light-bg dark:bg-custom-dark-bg">
       <div className="absolute inset-0 z-0">
         <Image
           src={icons.FooterPattern}
           alt="FooterBackgroundPattern"
-          layout="fill"
-          objectFit="cover"
+          fill
+          priority
+          style={{ objectFit: "cover" }}
           className="opacity-100 dark:opacity-10"
         />
       </div>

@@ -6,18 +6,17 @@ import { DarkModeState } from "@/types";
 const DarkModeContext = createContext<DarkModeState | null>(null);
 
 export function DarkModeProvider({ children }: { children: React.ReactNode }) {
-  const [darkMode, setDarkModeState] = useState<boolean>(false);
-
-  // localStorage에서 다크 모드 상태를 불러와 초기 설정
-  useEffect(() => {
+  const [darkMode, setDarkModeState] = useState<boolean>(() => {
+    
+    // localStorage에서 초기 값을 가져와 설정
     const savedMode = localStorage.getItem('darkMode') === 'true';
-    setDarkModeState(savedMode);
     if (savedMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-  }, []);
+    return savedMode;
+  });
 
   // 다크 모드 상태 변경 시 documentElement 클래스 업데이트
   useEffect(() => {

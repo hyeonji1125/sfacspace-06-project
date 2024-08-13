@@ -24,7 +24,7 @@ export default function RootLayout({
           <body className={`${inter.className} max-w-screen-[1920px] mx-auto flex flex-col min-h-screen`}>
             <DarkModeProvider>
               <Header />
-              <main className="flex-grow bg-white dark:bg-custom-dark-bg text-gray-900 dark:text-white mt-[62px] md:mt-[156px] px-4 md:px-20">
+              <main className="flex-grow bg-custom-light-bg dark:bg-custom-dark-bg text-gray-900 dark:text-white px-4 md:px-20">
                 {children}
               </main>
               <AskButton />

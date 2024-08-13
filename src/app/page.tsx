@@ -1,3 +1,6 @@
+import CommoneTest from "./CommoneTest";
+
+
 export default function Home() {
   return (
     <>
