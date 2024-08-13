@@ -9,7 +9,13 @@ export type DarkModeState = {
 };
 
 export type DropdownProps = {
-  type: 'Type' | 'Sort';
+  type: "Type" | "Sort";
   selectedOption: string;
   onSelect: (option: string) => void;
 };
+
+export type TButtonProps = {
+  theme: "filled" | "outlined" | "tonal";
+  size?: "middle" | "small";
+  isRound?: boolean;
+} & React.ComponentPropsWithoutRef<"button">;
