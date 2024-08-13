@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DropdownProps } from '@/types';
-import { DropdownArrowIcon } from '../../public/assets/svg/SvgIcons';
+import { DropdownArrowIcon } from '../../../public/assets/svg/SvgIcons';
 
 const Dropdown: React.FC<DropdownProps> = ({ type, selectedOption, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
