@@ -8,6 +8,7 @@ type TModalProps = {
   className?: string;
   shadow?: boolean;
   dimmed?: boolean;
+  isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 };
@@ -28,6 +29,7 @@ export default function Modal({
   className,
   shadow,
   dimmed,
+  isOpen,
   onClose,
   children,
 }: TModalProps) {
@@ -38,6 +40,16 @@ export default function Modal({
       onClose();
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   return (
     <ModalPortal>
@@ -73,14 +85,18 @@ function Title({ children }: { children: React.ReactNode }) {
 
 function Description({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col justify-center gap-[20px] p-[10px] text-custom-text-footer-gray">
+    <div className="flex flex-col items-center justify-center gap-[20px] p-[10px] text-custom-text-footer-gray">
       {children}
     </div>
   );
 }
 
 function Content({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col justify-center">{children}</div>;
+  return (
+    <div className="flex w-full flex-col items-center justify-center">
+      {children}
+    </div>
+  );
 }
 
 function Button({ children }: { children: React.ReactNode }) {
