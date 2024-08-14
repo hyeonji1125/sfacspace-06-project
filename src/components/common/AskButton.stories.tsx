@@ -1,9 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
 import AskButton from "@/components/common/AskButton";
-import TopButton from "./TopButton";
+import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof AskButton> = {
-  title: "common/AskButton",
+  title: "common/Buttons/AskButton",
   component: AskButton,
   parameters: {
     layout: "padded",

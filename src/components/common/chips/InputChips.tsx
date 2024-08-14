@@ -10,8 +10,8 @@ function InputChips({inputType, width, height, children}: {inputType: InputChips
     <div
       onClick={() => setOnClickButton(!onClickButton)}
       style={{width: `${width}px` , height : `${height}px`}}
-      className={`flex gap-[10px] p-[15px] text-black border text-md items-center rounded-xl hover:cursor-pointer hover:bg-purple-100 focus:bg-purple-100 active:bg-primary-purple-100 active:shadow-lg
-      ${onClickButton ? 'bg-primary-purple-100 shadow-xl' : ''} ${inputType === 'percentage' ? 'justify-between' : ''} `}
+      className={`flex gap-[10px] p-[15px] text-black border text-md items-center rounded-xl hover:cursor-pointer hover:bg-purple-100  focus:bg-purple-100 active:bg-primary-purple-100 active:shadow-lg
+      ${onClickButton && 'bg-primary-purple-100 shadow-xl'} ${(inputType === 'percentage' || inputType === 'sideIcon') && 'justify-between'} `}
     >
       {/* 이미지 */}
       {inputType !== 'textOnly' && (
