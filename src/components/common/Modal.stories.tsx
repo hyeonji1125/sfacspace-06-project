@@ -38,6 +38,10 @@ const meta = {
       description:
         "모달 내부에 전달될 아이템을 정의합니다. <Modal.Title>, <Modal.Desc>, <Modal.Box>, <Modal.Button>, <Modal.Content>",
     },
+    isOpen: {
+      description:
+        "modal open 상태일 경우 scroll 방지를 위해 전달하는 값입니다.",
+    },
   },
   args: {
     className: "w-[400px]",
