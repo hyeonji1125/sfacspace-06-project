@@ -8,7 +8,7 @@ export default function SuggestionChips({width , height, color ,children} : {wid
     const [onClickButton,setOnClickButton] = useState(false)
 
     const chipsTypeClasses = {
-        new : `text-white bg-blue-300` ,
+        new : `text-white bg-blue-400` ,
         hot : "text-white bg-red-400" ,
         warning : "text-red-400 bg-red-50" ,
         notification : "text-violet-600 bg-purple-50" ,

@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
 import TopButton from "@/components/common/TopButton";
+import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof TopButton> = {
-  title: "common/TopButton",
+  title: "common/Buttons/TopButton",
   component: TopButton,
   parameters: {
     layout: "padded",
