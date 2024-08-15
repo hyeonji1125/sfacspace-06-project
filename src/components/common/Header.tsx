@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "next-themes"; // useTheme 훅을 사용하여 테마 관리
+import { useTheme } from "next-themes"; 
 import { Aldrich } from "next/font/google";
 import Image from "next/image";
 import React from "react";
@@ -11,10 +11,12 @@ import {
   LightModeIcon,
 } from "../../../public/assets/svg/SvgIcons";
 
+import Link from "next/link";
+
 const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
 
 const Header: React.FC = () => {
-  const { theme, setTheme } = useTheme(); // 테마 관련 훅
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -34,8 +36,11 @@ const Header: React.FC = () => {
             fill="currentColor"
           />
         </h1>
+
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
-          <span>취약점 DB</span>
+          <Link href="/vulnerability-db">
+            <span className="cursor-pointer hover:text-custom-text-hover">취약점 DB</span>
+          </Link>
           <span>MY 저장소</span>
           <div
             className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1 py-1"

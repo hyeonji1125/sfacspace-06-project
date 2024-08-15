@@ -15,15 +15,14 @@ const config: Config = {
         "custom-dark-accent": "#3b82f6",
 
         // 밝은 모드 색상 조합
-        "custom-light-bg": "#f1f1f1",
+        "custom-light-bg": "#ffffff",
         "custom-light-text": "#3f3f3f",
         "custom-light-accent": "#3b82f6",
 
         "custom-text-footer-gray": "#969696",
         "custom-text-footer-black": "#3f3f3f",
 
-        "text-gray-light": "#D6D6D6",
-        "text-gray-default": "#969696",
+        "custom-text-hover": "#2593FF",
 
         // primary color
         "primary-purple": {
@@ -35,25 +34,24 @@ const config: Config = {
           50: "#F2EBFF",
         },
 
+        "primary-gray": {
+          100: "#D6D6D6",
+          90: "#969696",
+          80: "#8f8f8f",
+          70: "#B3B3B3",
+          50: "#CCCCCC",
+          40: "#999999",
+          30: "#4D4D4D",
+          20: "#333333",
+          10: "#1A1A1A",
+          5: "#030303",
+        },
+
         // 드롭다운 커스텀
         "custom-dropdown-dark-bg": "#242424",
         "custom-dropdown-light-bg": "#f2f3f4",
         "custom-dropdown-light-border": "#444444",
         "custom-dropdown-option-light-bg": "#e3e1e7",
-
-        // neutral color
-        grayscale: {
-          100: "#030303",
-          90: "#1A1A1A",
-          80: "#333333",
-          70: "#4D4D4D",
-          50: "#808080",
-          40: "#999999",
-          30: "#B3B3B3",
-          20: "#CCCCCC",
-          10: "#E6E6E6",
-          5: "#F3F3F3",
-        },
 
         // stroke & line color
         "line-gray-10": "#E6E6E6",
