@@ -10,7 +10,7 @@ export default function HeroSection() {
 
   return (
     <>
-      <div className="relative flex w-full h-[87vh] text-primary-purple-500 overflow-hidden dark:text-purple-50 dark:font-bold z-20">   
+      <section className="relative flex w-full h-[81vh] text-primary-purple-500 overflow-hidden dark:text-purple-50 dark:font-bold z-20">   
         <div className="z-1">
         <Image
           src="/assets/images/circle.svg"
@@ -30,7 +30,7 @@ export default function HeroSection() {
 </div>  
           <HiOutlineChevronDoubleDown size={50} className="text-primary-purple-500 mt-[10vh] animate-float dark:text-purple-200"/>
         </div>
-      </div>
+      </section>
     </>
   );
 }
