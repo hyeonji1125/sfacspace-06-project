@@ -77,6 +77,21 @@ const config: Config = {
       boxShadow: {
         "custom-shadow": "0px 0px 24.8px 0px rgba(0, 0, 0, 0.25)",
       },
+      //메인페이지 DoubleDown 애니메이션
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        moveCircle : {
+          '0%, 100%' : {transform : 'scale(1)'} ,
+          '50%' : {transform : 'scale(1.2)'}
+        }
+      },
+      animation: {
+        float: 'float 2.04s ease-in-out infinite',
+        moveCircle: 'moveCircle 5s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

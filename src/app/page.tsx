@@ -1,11 +1,13 @@
-import CommoneTest from "./CommoneTest";
+import HeroSection from "./(home)/_components/HeroSection";
+
 
 
 export default function Home() {
   return (
     <>
-      <div>랜딩 페이지1</div>
-      <div>랜딩 페이지2</div>
+    <HeroSection/>
+      
+    
     </>
   );
 }

@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
-import TopButton from "@/components/common/TopButton";
 import AskButton from "@/components/common/AskButton";
-import { Inter } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
+import TopButton from "@/components/common/TopButton";
 import "@/styles/globals.css";
+import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
+import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +25,8 @@ export default function RootLayout({
         className={`${inter.className} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
       >
         <ThemeProvider attribute="class">
-          <Header />
-          <main className="flex-grow bg-custom-light-bg px-4 text-gray-900 dark:bg-custom-dark-bg dark:text-white md:px-20">
+          <Header/>
+          <main className=" flex flex-grow flex-col">
             {children}
           </main>
           <AskButton />
