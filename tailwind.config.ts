@@ -83,9 +83,14 @@ const config: Config = {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        moveCircle : {
+          '0%, 100%' : {transform : 'scale(1)'} ,
+          '50%' : {transform : 'scale(1.2)'}
+        }
       },
       animation: {
         float: 'float 2.04s ease-in-out infinite',
+        moveCircle: 'moveCircle 5s ease-in-out infinite',
       },
     },
   },

@@ -1,11 +1,12 @@
-import FirstComponent from "./(home)/FirstComponent/FirstComponent";
+import HeroSection from "./(home)/_components/HeroSection";
+
 
 
 export default function Home() {
   return (
     <>
-    
-      <FirstComponent/>
+    <HeroSection/>
+      
     
     </>
   );

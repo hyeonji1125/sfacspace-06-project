@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky w-full bg-white dark:bg-custom-dark-bg px-5 md:px-10 py-[2vh] md:py-[3vh] ">
+    <header className="sticky top-0 z-40 w-full dark:text-white bg-white dark:bg-custom-dark-bg px-5 md:px-10 py-[4vh] sm:py-[6vh] ">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
         <h1>
           <Image
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
           <span>취약점 DB</span>
           <span>MY 저장소</span>
           <div
-            className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1"
+            className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1 py-1"
             onClick={toggleTheme}
           >
             <LightModeIcon
