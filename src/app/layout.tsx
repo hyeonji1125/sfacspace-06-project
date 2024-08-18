@@ -25,10 +25,8 @@ export default function RootLayout({
         className={`${inter.className} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
       >
         <ThemeProvider attribute="class">
-          <Header/>
-          <main className=" flex flex-grow flex-col">
-            {children}
-          </main>
+          <Header />
+          <main className="flex flex-grow flex-col">{children}</main>
           <AskButton />
           <TopButton />
           <Footer />
