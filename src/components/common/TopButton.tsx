@@ -34,7 +34,7 @@ export default function TopButton() {
       <button
         onClick={scrollToTop}
         className={twJoin(
-          "fixed bottom-8 right-8 z-20 flex h-[76px] w-[76px] flex-col items-center justify-center gap-2 rounded-full border-[1.46px] px-4",
+          "fixed bottom-5 right-5 z-20 flex h-12 w-12 flex-col items-center justify-center gap-0 rounded-full border-[1.46px] px-5 sm:h-16 sm:w-16 sm:gap-1 md:bottom-8 md:right-8 md:h-[76px] md:w-[76px] md:gap-2",
           "border-primary-purple-500 bg-white text-primary-purple-500 shadow-md transition-all duration-200 ease-in-out",
           "hover:border-none hover:bg-primary-purple-500 hover:text-white",
           "dark:border-none dark:bg-primary-purple-500 dark:text-white",
@@ -44,8 +44,8 @@ export default function TopButton() {
             : "pointer-events-none scale-0 opacity-0",
         )}
       >
-        <FaArrowUp className="h-8 w-8 p-[2px]" />
-        <span className="text-xs">TOP</span>
+        <FaArrowUp className="h-8 w-8 p-[6px] sm:p-[2px]" />
+        <span className="hidden text-xs sm:block">TOP</span>
       </button>
     </>
   );

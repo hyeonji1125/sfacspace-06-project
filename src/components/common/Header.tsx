@@ -31,7 +31,7 @@ const Header: React.FC = () => {
           />
           <FlawDetectorLogo
             className={"hidden md:block"}
-            fill={theme === "dark" ? "white" : "black"}
+            fill="currentColor"
           />
         </h1>
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">

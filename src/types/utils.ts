@@ -1,6 +1,6 @@
 export type SvgState = {
   className?: string;
-  fill?:string;
+  fill?: string;
 };
 
 export type DarkModeState = {
@@ -27,10 +27,8 @@ export type VisibilityState = {
   setTopButtonVisible: (visible: boolean) => void;
 };
 
-
 export type TButtonProps = {
   theme: "filled" | "outlined" | "tonal";
-  size?: "middle" | "small";
+  size?: "large" | "middle" | "small";
   isRound?: boolean;
 } & React.ComponentPropsWithoutRef<"button">;
-

@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
-    <div className="flex h-[800px] items-center justify-center">
+    <div className="flex h-[1000px] items-center justify-center">
       <p className="">Scroll down to see the button</p>
       <TopButton />
     </div>
