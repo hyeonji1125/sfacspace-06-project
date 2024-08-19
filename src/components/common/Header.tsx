@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full dark:text-white bg-white dark:bg-custom-dark-bg px-5 md:px-10 py-[4vh] sm:py-[6vh] ">
+    <header className="sticky top-0 z-40 w-full bg-white px-5 py-[4vh] dark:bg-custom-dark-bg dark:text-white sm:py-[6vh] md:px-10">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
         <h1>
           <Image

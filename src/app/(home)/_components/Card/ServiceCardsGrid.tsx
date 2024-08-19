@@ -39,9 +39,9 @@ export default function ServiceCardsGrid() {
         labelBg="#FFFBE4"
         emoji="🔄"
         labelColor="#FF8A00"
-        labelchildren="미션 크리티컬한 개발에 적합"
-        description1="미션 크리티컬한 개발 특별 제작"
-        description2="안전한 솔루션 제공"
+        labelchildren="효율적인 개발"
+        description1="보안 취약점 자동 분석후 수정"
+        description2="개발 집중 및 생산성 향상"
       />
       <ServiceCard
         labelBg="#FFEAE4"
