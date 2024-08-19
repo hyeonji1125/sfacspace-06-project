@@ -12,7 +12,7 @@ export default function NewestTrendSection() {
   return (
     <section
       id="section3"
-      className="h-auto w-full overflow-hidden px-[20px] pt-20 2xl:flex 2xl:h-[1024px] 2xl:max-w-[1920px] 2xl:justify-center 2xl:pl-[192px] 2xl:pr-[145px] 2xl:pt-0"
+      className="mx-auto h-auto w-full overflow-hidden px-[20px] pt-20 2xl:flex 2xl:h-[1024px] 2xl:max-w-[1920px] 2xl:justify-center 2xl:pl-[192px] 2xl:pr-[145px] 2xl:pt-0"
     >
       <div className="flex h-full flex-grow flex-col items-center justify-between 2xl:flex-row">
         <div className="order-2 mx-auto flex h-full w-full justify-center 2xl:order-1 2xl:mx-0 2xl:w-[725px] 2xl:pt-[94px]">
