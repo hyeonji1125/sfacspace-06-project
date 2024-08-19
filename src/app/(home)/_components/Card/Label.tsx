@@ -18,7 +18,7 @@ export default function Label({
           border: `1px solid ${color}`,
           color: color,
         }}
-        className="flex h-[38px] items-center justify-center rounded-full px-3 py-2 text-sm md:h-[46px] md:text-xl"
+        className="flex h-[38px] items-center justify-center whitespace-nowrap rounded-full px-3 py-2 text-sm md:h-[46px] md:text-xl"
       >
         {children}
       </div>
