@@ -92,10 +92,9 @@ export default function Inquiry() {
             </div>
 
             <Button
-              type="submit" 
-              theme="filled" 
-              size="middle" 
-              className="w-full bg-primary-purple-500 text-white py-3 lg:py-4 px-4 rounded-md text-base lg:text-lg font-semibold"
+              type="submit"
+              theme="filled"
+              size="large"
             >
               문의 보내기
             </Button>

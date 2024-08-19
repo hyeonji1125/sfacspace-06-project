@@ -29,7 +29,6 @@ export type VisibilityState = {
 
 export type TButtonProps = {
   theme: "filled" | "outlined" | "tonal";
-  size?: "middle" | "small";
+  size?: "large" | "middle" | "small";
   isRound?: boolean;
 } & React.ComponentPropsWithoutRef<"button">;
-

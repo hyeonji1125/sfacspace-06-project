@@ -14,8 +14,8 @@ export default function HeroSection() {
           <Image
             src="/assets/images/circle.svg"
             alt="Background Image"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             className="animate-moveCircle absolute inset-0 h-full w-full dark:opacity-20"
           />
         </div>
