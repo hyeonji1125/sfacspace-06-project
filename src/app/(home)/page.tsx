@@ -11,7 +11,9 @@ export default function Home() {
       <NewestTrendSection />
       <FindindFlawSection />
       <SecureProcessSection />
-      <ContactForm />
+      <div className="px-4 sm:px-8 md:px-[60px] lg:px-[120px] xl:px-[190px]">
+        <ContactForm />
+      </div>
     </>
   );
 }

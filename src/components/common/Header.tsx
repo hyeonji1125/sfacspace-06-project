@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "next-themes"; 
+import { useTheme } from "next-themes";
 import { Aldrich } from "next/font/google";
 import Image from "next/image";
 import React from "react";
@@ -23,24 +23,26 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white px-5 py-[4vh] dark:bg-custom-dark-bg dark:text-white sm:py-[6vh] md:px-10">
+    <header className="sticky top-0 z-40 w-full px-4 py-4 md:px-20 md:py-12 border-b border-white dark:border-custom-dark-bg bg-[rgba(255,255,255,0.16)] backdrop-blur-md dark:bg-[rgba(0,0,0,0.16)]">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
-        <h1>
-          <Image
-            src={icons.MainLogo}
-            alt="FlawDetector"
-            className="h-[30px] w-[30px] md:hidden"
-          />
-          <FlawDetectorLogo
-            className={"hidden md:block"}
-            fill="currentColor"
-          />
-        </h1>
-
+        <Link href="/">
+          <h1>
+            <Image
+              src={icons.MainLogo}
+              alt="FlawDetector"
+              className="h-[30px] w-[30px] md:hidden"
+            />
+            <FlawDetectorLogo
+              className={"hidden md:block"}
+              fill="currentColor"
+            />
+          </h1>
+        </Link>
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
-          <Link href="/vulnerability-db">
-            <span className="cursor-pointer hover:text-custom-text-hover">취약점 DB</span>
+          <Link href="/vulnerability-db" className="cursor-pointer hover:text-accent-blue">
+            취약점 DB
           </Link>
+
           <span>MY 저장소</span>
           <div
             className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1 py-1"

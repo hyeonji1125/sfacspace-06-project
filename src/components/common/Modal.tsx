@@ -85,7 +85,7 @@ function Title({ children }: { children: React.ReactNode }) {
 
 function Description({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-[20px] p-[10px] text-custom-text-footer-gray">
+    <div className="flex flex-col items-center justify-center gap-[20px] p-[10px] text-text-gray-default">
       {children}
     </div>
   );

@@ -1,5 +1,5 @@
 'use client'
-import { AssistType } from "@/types/chips/chips";
+import { AssistType } from "@/types/chips";
 import { ReactNode, useState } from "react";
 
 function AssistChips({width , height , assistType, disabled ,children } : {width : string , height : string , assistType?:AssistType , disabled?:boolean, children : ReactNode}) {

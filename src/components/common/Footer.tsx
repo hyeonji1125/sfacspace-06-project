@@ -28,8 +28,8 @@ export default function Footer() {
           <div className="flex flex-wrap gap-3 text-base font-medium text-gray-700 dark:text-gray-300 md:gap-10">
             <div>
               <div className="flex gap-[26px]">
-                <p className="text-custom-text-footer-gray">(주)스팩스페이스</p>
-                <p className="text-custom-text-footer-gray">
+                <p className="text-text-gray-default">(주)스팩스페이스</p>
+                <p className="text-text-gray-default">
                   대표자{" "}
                   <span className="ml-[11px] text-custom-text-footer-black dark:text-gray-300">
                     염민호
@@ -40,7 +40,7 @@ export default function Footer() {
                 서울 강서구 마곡중앙2로 11, 3층 303호
               </p>
               <div className="flex gap-[23px]">
-                <p className="text-custom-text-footer-gray">Email</p>
+                <p className="text-text-gray-default">Email</p>
                 <p className="text-custom-text-footer-black dark:text-gray-300">
                   admin@sfacspace.com
                 </p>
@@ -48,19 +48,19 @@ export default function Footer() {
             </div>
             <div>
               <div className="flex gap-2">
-                <p className="text-custom-text-footer-gray">사업자등록번호</p>
+                <p className="text-text-gray-default">사업자등록번호</p>
                 <p className="text-custom-text-footer-black dark:text-gray-300">
                   450-87-01864
                 </p>
               </div>
               <div className="flex gap-2">
-                <p className="text-custom-text-footer-gray">대표전화</p>
+                <p className="text-text-gray-default">대표전화</p>
                 <p className="text-custom-text-footer-black dark:text-gray-300">
                   02-6217-1119
                 </p>
               </div>
               <div className="flex gap-2">
-                <p className="text-custom-text-footer-gray">팩스</p>
+                <p className="text-text-gray-default">팩스</p>
                 <p className="text-custom-text-footer-black dark:text-gray-300">
                   02-6217-1115
                 </p>
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-auto w-full items-end justify-end text-gray-700 dark:text-gray-400 md:w-auto md:flex-row">
-          <div className="flex gap-10 text-[16px] text-custom-text-footer-gray md:gap-14">
+          <div className="flex gap-10 text-[16px] text-text-gray-default md:gap-14">
             <p className="underline">서비스 이용약관</p>
             <p className="underline">개인정보 처리방침</p>
           </div>
