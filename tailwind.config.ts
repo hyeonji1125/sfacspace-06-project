@@ -86,11 +86,24 @@ const config: Config = {
         moveCircle : {
           '0%, 100%' : {transform : 'scale(1)'} ,
           '50%' : {transform : 'scale(1.2)'}
-        }
+        },
+
+        //SecureProcessSection 무한회전 애니메이션
+        rotateForward: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        rotateBackward: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         float: 'float 2.04s ease-in-out infinite',
         moveCircle: 'moveCircle 5s ease-in-out infinite',
+
+        rotateForward: "rotateForward 50s linear infinite",
+        rotateBackward: "rotateBackward 50s linear infinite",
       },
     },
   },
