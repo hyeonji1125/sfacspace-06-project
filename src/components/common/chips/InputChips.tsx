@@ -1,5 +1,5 @@
 'use client'
-import { InputChipsType } from '@/types/chips/chips';
+import { InputChipsType } from '@/types/chips';
 import Image from 'next/image';
 import { ReactNode, useState } from 'react';
 

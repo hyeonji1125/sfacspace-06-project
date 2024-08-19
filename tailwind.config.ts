@@ -19,7 +19,6 @@ const config: Config = {
         "custom-light-text": "#3f3f3f",
         "custom-light-accent": "#3b82f6",
 
-        "custom-text-footer-gray": "#969696",
         "custom-text-footer-black": "#3f3f3f",
 
         "text-gray-light": "#D6D6D6",

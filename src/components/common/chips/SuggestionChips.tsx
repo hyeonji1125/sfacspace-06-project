@@ -1,5 +1,5 @@
 'use client'
-import { SuggestionChipsColor } from '@/types/chips/chips'
+import { SuggestionChipsColor } from '@/types/chips'
 import { ReactNode, useState } from 'react'
 
 

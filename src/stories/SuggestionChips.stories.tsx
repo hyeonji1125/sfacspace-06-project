@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import SuggestionChips from "./SuggestionChips";
+import SuggestionChips from "@/components/common/chips/SuggestionChips";
 
 
 const meta: Meta<typeof SuggestionChips> = {

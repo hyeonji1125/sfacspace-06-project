@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import InputChips from "./InputChips";
+import InputChips from "@/components/common/chips/InputChips";
 
 const meta: Meta<typeof InputChips> = {
     title : "common/chips/InputChips" ,

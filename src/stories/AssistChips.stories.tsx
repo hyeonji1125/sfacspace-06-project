@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import AssistChips from "./AssistChips";
+import AssistChips from "@/components/common/chips/AssistChips";
 
 const meta: Meta<typeof AssistChips> = {
     title : 'common/chips/AssistChips' ,
