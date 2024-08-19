@@ -7,6 +7,7 @@ export default function Button({
   isRound,
   disabled,
   children,
+  className,
   ...rest
 }: TButtonProps) {
   const themes = {
@@ -19,17 +20,19 @@ export default function Button({
   };
 
   const sizes = {
-    middle: "px-6 font-light",
-    small: "px-5 py-2 text-xl font-light",
+    large: "text-base md:text-lg px-4 w-full",
+    middle: "px-4 md:px-6 font-light",
+    small: "px-3 md:px-5 py-2 text-base sm:text-lg md:text-xl font-light",
   };
 
   return (
     <button
       className={twMerge(
-        "flex h-14 items-center justify-center rounded-lg px-14 py-4 text-2xl font-semibold hover:shadow-lg disabled:hover:shadow-none",
+        "flex items-center justify-center rounded-lg px-10 py-3 text-lg font-semibold hover:shadow-lg disabled:hover:shadow-none sm:text-xl md:px-14 md:py-4 md:text-2xl",
         themes[theme],
         size && sizes[size],
         isRound && "rounded-full",
+        className && className,
       )}
       disabled={disabled}
       {...rest}

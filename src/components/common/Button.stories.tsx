@@ -14,16 +14,21 @@ const meta: Meta<typeof Button> = {
       control: "select",
       options: ["filled", "outlined", "tonal"],
     },
-    size: { control: "select", options: ["default", "middle", "small"] },
+    size: {
+      control: "select",
+      options: ["default", "large", "middle", "small"],
+    },
     isRound: { control: "boolean" },
     disabled: { control: "boolean" },
     children: { control: "text" },
+    className: { control: "text" },
   },
   args: {
     onClick: fn(),
     size: undefined,
     isRound: false,
     disabled: false,
+    className: "",
   },
 };
 
