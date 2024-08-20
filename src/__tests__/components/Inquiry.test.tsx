@@ -5,9 +5,23 @@ import { useInquiryStore } from '@/store/useInquiryStore';
 import { InquiryState } from '@/types';
 
 // 모킹을 위한 설정
-jest.mock('@/components/common/Input', () => ({ ...props }: { [key: string]: any }) => <input {...props} />);
-jest.mock('@/components/common/Textarea', () => ({ ...props }: { [key: string]: any }) => <textarea {...props} />);
-jest.mock('@/components/common/Button', () => ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => <button {...props}>{children}</button>);
+jest.mock('@/components/common/Input', () => {
+  const MockInput = (props: { [key: string]: any }) => <input {...props} />;
+  MockInput.displayName = 'MockInput';
+  return MockInput;
+});
+
+jest.mock('@/components/common/Textarea', () => {
+  const MockTextarea = (props: { [key: string]: any }) => <textarea {...props} />;
+  MockTextarea.displayName = 'MockTextarea';
+  return MockTextarea;
+});
+
+jest.mock('@/components/common/Button', () => {
+  const MockButton = ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => <button {...props}>{children}</button>;
+  MockButton.displayName = 'MockButton';
+  return MockButton;
+});
 
 // useInquiryStore 모킹
 jest.mock('@/store/useInquiryStore');
@@ -19,15 +33,17 @@ const mockSetIsSubmitting = jest.fn();
 const mockUseInquiryStore = useInquiryStore as jest.MockedFunction<typeof useInquiryStore>;
 
 describe('Inquiry Component', () => {
+  const initialState: InquiryState = {
+    formData: { name: '', email: '', message: '' },
+    isSubmitting: false,
+    setFormData: mockSetFormData,
+    submitForm: mockSubmitForm,
+    setIsSubmitting: mockSetIsSubmitting,
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseInquiryStore.mockReturnValue({
-      formData: { name: '', email: '', message: '' },
-      isSubmitting: false,
-      setFormData: mockSetFormData,
-      submitForm: mockSubmitForm,
-      setIsSubmitting: mockSetIsSubmitting,
-    } as unknown as InquiryState);
+    mockUseInquiryStore.mockReturnValue(initialState);
   });
 
   it('UI 렌더링 테스트', () => {
@@ -64,12 +80,9 @@ describe('Inquiry Component', () => {
 
   it('Form 제출 중 제출 버튼 비활성화 및 로딩 텍스트 출력 테스트', () => {
     mockUseInquiryStore.mockReturnValue({
-      formData: { name: '', email: '', message: '' },
+      ...initialState,
       isSubmitting: true,
-      setFormData: jest.fn(),
-      submitForm: jest.fn(),
-      setIsSubmitting: jest.fn(),
-    } as unknown as InquiryState);
+    });
 
     render(<Inquiry />);
     
