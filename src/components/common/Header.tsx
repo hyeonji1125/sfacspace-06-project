@@ -1,22 +1,29 @@
-"use client";
+'use client'
 
 import { useTheme } from "next-themes";
 import { Aldrich } from "next/font/google";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import icons from "../../../public/assets/icons";
 import {
   DarkModeIcon,
   FlawDetectorLogo,
   LightModeIcon,
 } from "../../../public/assets/svg/SvgIcons";
-
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
 
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
+  const { data: session, status } = useSession();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -47,17 +54,26 @@ const Header: React.FC = () => {
           </Link>
 
           <span>MY 저장소</span>
-          <div
-            className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1 py-1"
-            onClick={toggleTheme}
-          >
-            <LightModeIcon
-              className={`${theme === "dark" ? "hidden" : "block"}`}
-            />
-            <DarkModeIcon
-              className={`${theme === "dark" ? "block" : "hidden"}`}
-            />
-          </div>
+
+          {status === "authenticated" && (
+            <span className="cursor-pointer hover:text-accent-blue" onClick={() => signOut({ callbackUrl: '/' })}>
+              로그아웃
+            </span>
+          )}
+
+          {mounted && (
+            <div
+              className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1 py-1"
+              onClick={toggleTheme}
+            >
+              <LightModeIcon
+                className={`${theme === "dark" ? "hidden" : "block"}`}
+              />
+              <DarkModeIcon
+                className={`${theme === "dark" ? "block" : "hidden"}`}
+              />
+            </div>
+          )}
         </div>
       </div>
     </header>

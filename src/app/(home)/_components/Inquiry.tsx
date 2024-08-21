@@ -1,14 +1,29 @@
 "use client";
 
+import { useEffect } from "react";
+
 import Input from "@/components/common/Input";
 import Textarea from "@/components/common/Textarea";
 import Button from "@/components/common/Button";
 
 import { InquiryForm } from "@/types";
 import { useInquiryStore } from "@/store/useInquiryStore";
+import { useSession } from "next-auth/react";
 
 export default function Inquiry() {
   const { formData, isSubmitting, setFormData, submitForm } = useInquiryStore();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user) {
+      setFormData("name", session.user.name || "");
+      setFormData("email", session.user.email || "");
+    } else if (status === "unauthenticated") {
+      setFormData("name", "");
+      setFormData("email", "");
+    }
+  }, [status, session, setFormData]);
+  
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -101,6 +116,7 @@ export default function Inquiry() {
                 onChange={handleChange}
                 className="placeholder:text-sm dark:placeholder:text-gray-400 md:placeholder:text-base"
                 placeholder="justin@flawfactory.kr"
+                readOnly={status === "authenticated"}
               />
             </div>
 

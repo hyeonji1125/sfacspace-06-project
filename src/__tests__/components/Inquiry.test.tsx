@@ -3,8 +3,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Inquiry from '@/app/(home)/_components/Inquiry';
 import { useInquiryStore } from '@/store/useInquiryStore';
 import { InquiryState } from '@/types';
+import { useSession } from 'next-auth/react';
 
-// 모킹을 위한 설정
+// 모킹 설정
 jest.mock('@/components/common/Input', () => {
   const MockInput = (props: { [key: string]: any }) => <input {...props} />;
   MockInput.displayName = 'MockInput';
@@ -18,19 +19,20 @@ jest.mock('@/components/common/Textarea', () => {
 });
 
 jest.mock('@/components/common/Button', () => {
-  const MockButton = ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => <button {...props}>{children}</button>;
+  const MockButton = ({ children, ...props }: { children: React.ReactNode;[key: string]: any }) => <button {...props}>{children}</button>;
   MockButton.displayName = 'MockButton';
   return MockButton;
 });
 
-// useInquiryStore 모킹
 jest.mock('@/store/useInquiryStore');
+jest.mock('next-auth/react');
 
 const mockSetFormData = jest.fn();
 const mockSubmitForm = jest.fn();
 const mockSetIsSubmitting = jest.fn();
 
 const mockUseInquiryStore = useInquiryStore as jest.MockedFunction<typeof useInquiryStore>;
+const mockUseSession = useSession as jest.MockedFunction<typeof useSession>;
 
 describe('Inquiry Component', () => {
   const initialState: InquiryState = {
@@ -44,6 +46,11 @@ describe('Inquiry Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseInquiryStore.mockReturnValue(initialState);
+    mockUseSession.mockReturnValue({
+      data: null,
+      status: 'unauthenticated',
+      update: jest.fn(),
+    });
   });
 
   it('UI 렌더링 테스트', () => {
@@ -57,7 +64,7 @@ describe('Inquiry Component', () => {
 
   it('사용자의 입력 업데이트 테스트', () => {
     render(<Inquiry />);
-    
+
     fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'John Doe' } });
     expect(mockSetFormData).toHaveBeenCalledWith('name', 'John Doe');
 
@@ -70,7 +77,7 @@ describe('Inquiry Component', () => {
 
   it('문의 Form 제출 테스트', async () => {
     render(<Inquiry />);
-    
+
     fireEvent.click(screen.getByText('문의 보내기'));
 
     await waitFor(() => {
@@ -85,8 +92,42 @@ describe('Inquiry Component', () => {
     });
 
     render(<Inquiry />);
-    
+
     const submitButton = screen.getByText('전송 중...');
     expect(submitButton).toBeDisabled();
+  });
+
+  it('인증된 사용자의 이름과 이메일이 자동으로 채워지는지 테스트', async () => {
+    mockUseSession.mockReturnValue({
+      data: {
+        user: { name: 'John Doe', email: 'john@example.com' },
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24시간 후 만료
+      },
+      status: 'authenticated',
+      update: jest.fn(),
+    });
+
+    render(<Inquiry />);
+
+    await waitFor(() => {
+      expect(mockSetFormData).toHaveBeenCalledWith('name', 'John Doe');
+      expect(mockSetFormData).toHaveBeenCalledWith('email', 'john@example.com');
+    });
+  });
+
+  it('인증된 사용자의 경우 이메일 필드가 읽기 전용인지 테스트', () => {
+    mockUseSession.mockReturnValue({
+      data: {
+        user: { name: 'John Doe', email: 'john@example.com' },
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24시간 후 만료
+      },
+      status: 'authenticated',
+      update: jest.fn(),
+    });
+
+    render(<Inquiry />);
+
+    const emailInput = screen.getByLabelText('Email') as HTMLInputElement;
+    expect(emailInput.readOnly).toBe(true);
   });
 });

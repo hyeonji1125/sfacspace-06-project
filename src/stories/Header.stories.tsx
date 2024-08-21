@@ -2,6 +2,7 @@ import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Header from "@/components/common/Header";
 import { ThemeProvider } from "next-themes";
+import { Providers } from "@/app/providers";
 
 const meta: Meta<typeof Header> = {
   title: "common/Header",
@@ -24,9 +25,11 @@ const meta: Meta<typeof Header> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <ThemeProvider>
-        <Story />
-      </ThemeProvider>
+      <Providers>
+        <ThemeProvider>
+          <Story />
+        </ThemeProvider>
+      </Providers>
     ),
   ],
 };
