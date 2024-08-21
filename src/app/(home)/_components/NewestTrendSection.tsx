@@ -61,13 +61,9 @@ export default function NewestTrendSection() {
             transition={{ duration: 0.5, ease: "easeIn" }}
             viewport={{ once: true }}
           >
-            <h2 className="inter flex flex-col text-3xl font-bold tracking-[-1px] text-primary-purple-500 dark:text-primary-purple-500 md:text-5xl 2xl:text-6xl">
-              <span className="whitespace-nowrap leading-snug">
-                최신 보안 동향을
-              </span>
-              <span className="whitespace-nowrap leading-snug">
-                실시간으로 확인하세요.
-              </span>
+            <h2 className="inter flex flex-col text-3xl font-bold !leading-snug tracking-[-1px] text-primary-purple-500 dark:text-primary-purple-500 md:text-5xl 2xl:text-6xl">
+              <span className="whitespace-nowrap">최신 보안 동향을</span>
+              <span className="whitespace-nowrap">실시간으로 확인하세요.</span>
             </h2>
           </motion.div>
           <motion.div
@@ -76,14 +72,14 @@ export default function NewestTrendSection() {
             transition={{ duration: 0.5, delay: 0.2, ease: "easeIn" }}
             viewport={{ once: true }}
           >
-            <p className="flex flex-col text-sm tracking-[-0.2px] text-text-gray-default md:text-base 2xl:text-xl">
-              <span className="whitespace-nowrap leading-snug">
+            <p className="flex flex-col text-sm !leading-normal tracking-[-0.2px] text-text-gray-default md:text-base 2xl:text-xl">
+              <span className="whitespace-nowrap">
                 실시간으로 최신 보안 동향을 제공하여
               </span>
-              <span className="whitespace-nowrap leading-snug">
+              <span className="whitespace-nowrap">
                 개발자들이 보안 취약점에 대한 최신 정보를 받을 수 있어
               </span>
-              <span className="whitespace-nowrap leading-snug">
+              <span className="whitespace-nowrap">
                 보안 강화를 위한 코딩 관행을 지속적으로 개선할 수 있습니다.
               </span>
             </p>

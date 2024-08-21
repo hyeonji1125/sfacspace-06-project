@@ -38,7 +38,7 @@ export default function FindindFlawSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeIn" }}
                 viewport={{ once: true }}
-                className="flex flex-col gap-1 text-sm font-medium text-text-gray-default sm:text-base xl:gap-1 xl:text-lg"
+                className="flex flex-col text-sm font-medium !leading-normal text-text-gray-default sm:text-base xl:text-lg"
               >
                 <p className="whitespace-nowrap">
                   플로디텍터는 안전한 소프트웨어 개발을 위한 필수 도구로,

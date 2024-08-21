@@ -30,7 +30,7 @@ export default function Inquiry() {
             서비스이용에 <br />
             문제가 생겼나요?
           </h2>
-          <p className="text-sm font-medium !leading-snug text-text-gray-default md:text-base 2xl:text-xl">
+          <p className="text-sm font-medium !leading-normal text-text-gray-default md:text-base 2xl:text-xl">
             이용하면서 문제가 생겼다면 언제든지 문의주세요.
             <br />
             서비스 개발과 성장에 큰 도움이 됩니다.
