@@ -23,23 +23,26 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full px-4 py-4 md:px-20 md:py-12 border-b border-white dark:border-custom-dark-bg bg-[rgba(255,255,255,0.16)] backdrop-blur-md dark:bg-[rgba(0,0,0,0.16)]">
+    <header className="sticky top-0 z-40 w-full border-b border-white bg-[rgba(255,255,255,0.16)] px-4 py-4 backdrop-blur-md dark:border-custom-dark-bg dark:bg-[rgba(0,0,0,0.16)] md:px-20 md:py-12">
       <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
         <Link href="/">
           <h1>
             <Image
               src={icons.MainLogo}
               alt="FlawDetector"
-              className="h-[30px] w-[30px] md:hidden"
+              className="h-[30px] w-[30px] lg:hidden"
             />
             <FlawDetectorLogo
-              className={"hidden md:block"}
+              className={"hidden lg:block"}
               fill="currentColor"
             />
           </h1>
         </Link>
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
-          <Link href="/vulnerability-db" className="cursor-pointer hover:text-accent-blue">
+          <Link
+            href="/vulnerability-db"
+            className="cursor-pointer hover:text-accent-blue"
+          >
             취약점 DB
           </Link>
 
