@@ -30,11 +30,19 @@ function Chip({ children }: { children: React.ReactNode }) {
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return <h4 className="text-text-gray-dark text-[28px]">{children}</h4>;
+  return (
+    <h4 className="text-text-gray-dark max-w-[250px] truncate text-[28px]">
+      {children}
+    </h4>
+  );
 }
 
 function Desc({ children }: { children: React.ReactNode }) {
-  return <span className="text-base text-text-gray-default">{children}</span>;
+  return (
+    <span className="max-w-[250px] truncate text-base text-text-gray-default">
+      {children}
+    </span>
+  );
 }
 
 function TextBox({ children }: { children: React.ReactNode }) {
