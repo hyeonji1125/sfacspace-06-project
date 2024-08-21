@@ -8,7 +8,7 @@ function MenuItem({
   onClick,
 }: {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   return (
     <li>
@@ -23,22 +23,18 @@ function MenuItem({
   );
 }
 
-export default function KebobButton({
-  id,
-}: {
-  id?: number;
-  onDelete?: () => void;
-  onShare?: () => void;
-}) {
+export default function KebobButton({ id }: { id?: number }) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleDelete = () => {
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     console.log(`delete item ${id}`);
     setOpen(false);
   };
 
-  const handleShare = () => {
+  const handleShare = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     console.log(`share item ${id}`);
     setOpen(false);
   };
@@ -62,14 +58,15 @@ export default function KebobButton({
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => {
+        onClick={(event) => {
+          event.preventDefault();
           setOpen((prev) => !prev);
         }}
       >
         <Kebob />
       </button>
       {open && (
-        <ul className="shadow-custom-dropdown-shadow absolute right-0 top-8 overflow-hidden rounded-lg">
+        <ul className="shadow-custom-dropdown-shadow absolute right-0 top-8 overflow-hidden rounded-lg bg-white">
           <MenuItem onClick={handleDelete}>삭제</MenuItem>
           <MenuItem onClick={handleShare}>공유</MenuItem>
         </ul>
