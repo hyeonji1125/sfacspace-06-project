@@ -191,7 +191,7 @@ export const CaretLeft:React.FC<SvgState> = ({className}) => (
   </svg>
 );
 
-export const Toggle:React.FC<SvgState> = ({className}) => (
+export const Kebob:React.FC<SvgState> = ({className}) => (
   <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="11.5" cy="5.5" r="1.5" fill="#3F3F3F"/>
     <circle cx="11.5" cy="12.5" r="1.5" fill="#3F3F3F"/>
