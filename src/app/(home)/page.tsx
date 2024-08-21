@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <NewestTrendSection />
       <FindindFlawSection />
+      <NewestTrendSection />
       <SecureProcessSection />
-      <div className="px-4 sm:px-8 md:px-[60px] lg:px-[80px] xl:px-[90px] 2xl:px-[190px]">
+      <div className="">
         <ContactForm />
       </div>
     </>

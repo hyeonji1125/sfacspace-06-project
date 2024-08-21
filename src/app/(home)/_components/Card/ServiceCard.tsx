@@ -28,8 +28,8 @@ export default function ServiceCard({
         <p className="text-[70px] md:text-[120px]">{emoji}</p>
       </div>
       <div className="flex flex-1 flex-col justify-center text-center text-xs text-[#606060] md:text-base">
-        <p>{description1}</p>
-        <p>{description2}</p>
+        <p className="whitespace-nowrap tracking-tight">{description1}</p>
+        <p className="whitespace-nowrap tracking-tight">{description2}</p>
       </div>
     </div>
   );
