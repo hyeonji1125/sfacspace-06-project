@@ -1,33 +1,33 @@
 "use client";
 import useVisibilityStore from "@/store/useVisibilityStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FaArrowUp } from "react-icons/fa6";
 import { twJoin } from "tailwind-merge";
 
 export default function TopButton() {
   const { topButtonVisible, setTopButtonVisible } = useVisibilityStore();
 
-  const handleScroll = () => {
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-
-    if (scrollY > 300) {
-      setTopButtonVisible(true);
-    } else {
-      setTopButtonVisible(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollY > 300) {
+        setTopButtonVisible(true);
+      } else {
+        setTopButtonVisible(false);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [setTopButtonVisible]); 
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function TopButton() {
           "dark:hover:bg-primary-purple-400 dark:hover:text-white",
           topButtonVisible
             ? "scale-100 opacity-100"
-            : "pointer-events-none scale-0 opacity-0",
+            : "pointer-events-none scale-0 opacity-0"
         )}
       >
         <FaArrowUp className="h-8 w-8 p-[6px] sm:p-[2px]" />
