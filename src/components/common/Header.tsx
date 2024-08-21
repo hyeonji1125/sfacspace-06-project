@@ -12,11 +12,14 @@ import {
 } from "../../../public/assets/svg/SvgIcons";
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
 
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
+  const { data: session, status } = useSession();
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -47,6 +50,13 @@ const Header: React.FC = () => {
           </Link>
 
           <span>MY 저장소</span>
+          
+          {status === "authenticated" && (
+            <span className="cursor-pointer hover:text-accent-blue" onClick={() => signOut({ callbackUrl: '/' })}>
+              로그아웃
+            </span>
+          )}
+
           <div
             className="flex cursor-pointer items-center justify-center rounded-full border-2 px-1 py-1"
             onClick={toggleTheme}

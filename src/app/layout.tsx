@@ -5,6 +5,7 @@ import TopButton from "@/components/common/TopButton";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
+import { Providers } from "./providers";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,13 +25,15 @@ export default function RootLayout({
       <body
         className={`${inter.className} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
       >
-        <ThemeProvider attribute="class">
-          <Header />
-          <main className="flex flex-grow flex-col">{children}</main>
-          <AskButton />
-          <TopButton />
-          <Footer />
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class">
+            <Header />
+            <main className="flex flex-grow flex-col">{children}</main>
+            <AskButton />
+            <TopButton />
+            <Footer />
+          </ThemeProvider>
+        </Providers>
         <div id="modal-root" />
       </body>
     </html>
