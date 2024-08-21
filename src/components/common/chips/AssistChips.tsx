@@ -1,7 +1,5 @@
-'use client'
-
 import { AssistType } from "@/types/chips";
-import { ReactNode, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 function AssistChips({
   width,
@@ -14,35 +12,33 @@ function AssistChips({
   height?: string;
   assistType?: AssistType;
   disabled?: boolean;
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
-  const [onClickButton, setOnClickButton] = useState(false);
-
   const AssistChipsClasses = {
     outline: disabled
-      ? "text-gray-400 border-gray-300"
-      : ` border-black hover:bg-gray-200 focus:bg-gray-300 active:bg-gray-300}`,
+      ? "text-text-gray-default border-text-gray-dark"
+      : "text-black border-text-gray-dark hover:bg-black hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",
     elevated: disabled
-      ? "text-gray-400 border-gray-300"
-      : `bg-violet-50  hover:bg-violet-100 focus:bg-violet-200 active:bg-violet-300 ${onClickButton && "bg-violet-200"}`,
+      ? "text-bg-purple-dark border-none bg-bg-purple-light"
+      : "text-black bg-bg-purple-light hover:bg-bg-purple-chip border-none hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",
     outlinePrimary: disabled
-      ? `text-gray-300 border-violet-300 `
-      : `bg-violet-50 border-violet-300 text-violet-700  hover:bg-violet-100 focus:border-violet-700 active:border-violet-900 ${onClickButton && "bg-violet-200"}`,
+      ? "text-bg-purple-dark bg-bg-purple-light border-primary-purple-300"
+      : "bg-bg-purple-light border-primary-purple-300 text-primary-purple-500 hover:bg-bg-purple-chip hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] focus:border-primary-purple-500 active:bg-opacity-[0.12]",
   };
 
   return (
-    <>
-      <div
-        onClick={() => setOnClickButton(!onClickButton)}
-        style={{
-          width: width ? `${width}px` : "auto",
-          height: height ? `${height}px` : "auto",
-        }}
-        className={`text-md flex items-center justify-center gap-[10px] rounded-full border px-3 py-2 ${assistType ? AssistChipsClasses[assistType] : ""} `}
-      >
-        {children}
-      </div>
-    </>
+    <div
+      style={{
+        width: width ? `${width}px` : "auto",
+        height: height ? `${height}px` : "auto",
+      }}
+      className={twMerge(
+        "flex items-center justify-center rounded-full border px-3 py-2 text-base leading-none",
+        assistType && AssistChipsClasses[assistType],
+      )}
+    >
+      {children}
+    </div>
   );
 }
 
