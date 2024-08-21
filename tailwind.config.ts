@@ -76,6 +76,7 @@ const config: Config = {
       },
       boxShadow: {
         "custom-shadow": "0px 0px 24.8px 0px rgba(0, 0, 0, 0.25)",
+        "custom-dropdown-shadow": "0px 4px 12px 0px rgba(0, 0, 0, 0.08)",
       },
       //메인페이지 DoubleDown 애니메이션
       keyframes: {
