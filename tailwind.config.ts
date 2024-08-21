@@ -70,6 +70,7 @@ const config: Config = {
         "bg-red-light": "#FFEFEF",
         "bg-purple-light": "#FAF8FF",
         "bg-purple-dark": "#E3E1E7",
+        "bg-purple-chip": "#7E5AFF",
         "bg-gray-light": "#F1F1F1",
         "bg-gray-dark": "#C2C2C2",
       },
