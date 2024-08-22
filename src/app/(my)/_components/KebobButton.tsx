@@ -66,7 +66,7 @@ export default function KebobButton({ id }: { id?: number }) {
         <Kebob />
       </button>
       {open && (
-        <ul className="shadow-custom-dropdown-shadow absolute right-0 top-8 overflow-hidden rounded-lg bg-white">
+        <ul className="absolute right-0 top-8 overflow-hidden rounded-lg bg-white shadow-custom-dropdown-shadow">
           <MenuItem onClick={handleDelete}>삭제</MenuItem>
           <MenuItem onClick={handleShare}>공유</MenuItem>
         </ul>
