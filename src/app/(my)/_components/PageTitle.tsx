@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CaretLeft } from "../../../../public/assets/svg/SvgIcons";
+import { TitleCaret } from "../../../../public/assets/svg/SvgIcons";
 import { twMerge } from "tailwind-merge";
 
 export default function PageTitle({
@@ -19,7 +19,7 @@ export default function PageTitle({
       )}
     >
       <Link href={link ? link : "/me/profile"}>
-        <CaretLeft />
+        <TitleCaret />
       </Link>
       <h2 className="select-none text-5xl text-primary-purple-500">
         {children}

@@ -1,12 +1,11 @@
 import SuggestionChips from "@/components/common/chips/SuggestionChips";
 import { SuggestionChipsColor } from "@/types";
-import { twMerge } from "tailwind-merge";
 
-type TClippingArticle = {
+export type TClippingArticle = {
   type: SuggestionChipsColor;
   title: string;
   date: string;
-  className?: string;
+  id: number;
 };
 
 function Label({ type }: { type: SuggestionChipsColor }) {
@@ -33,15 +32,9 @@ export default function ClippingArticle({
   type,
   title,
   date,
-  className,
 }: TClippingArticle) {
   return (
-    <div
-      className={twMerge(
-        "flex h-auto w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-10",
-        className && className,
-      )}
-    >
+    <div className="flex h-auto w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-10">
       <div className="flex flex-col items-start gap-2">
         <Label type={type} />
         <h4 className="text-overflow text-2xl font-medium leading-normal text-black dark:text-custom-dark-text">
