@@ -2,12 +2,12 @@
 
 import { twMerge } from "tailwind-merge";
 import { usePagination } from "../_hook/usePagination";
-import Dropdown from "@/components/common/Dropdown";
 import { CaretLeft, CaretRight } from "../../../../public/assets/svg/SvgIcons";
 import RoundButton from "./RoundButton";
 import { Repository } from "@/types/repository";
 import RepositoryItem from "../mylibrary/_components/RepositoryItem";
 import LibraryToolbar from "./LibraryToolbar";
+import DetectedFile from "../me/detected-files/_components/DetectedFile";
 
 const FILES = [
   { label: "label", title: "sfacweb - 1", subtitle: "sub title", id: 1 },
@@ -76,7 +76,11 @@ export default function LibraryList({
           {currentFiles &&
             currentFiles.map((file) => (
               <li key={file.id}>
-                <RepositoryItem {...file} />
+                {type === "REPO" ? (
+                  <RepositoryItem {...file} />
+                ) : (
+                  <DetectedFile {...file} />
+                )}
               </li>
             ))}
         </ul>
