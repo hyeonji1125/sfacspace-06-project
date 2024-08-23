@@ -6,7 +6,7 @@ import {
   FindingFlawRowImg,
 } from "../../../../public/assets/svg/SvgIcons";
 
-export default function FindindFlawSection() {
+export default function FindingFlawSection() {
   return (
     <section className="flex h-full justify-center bg-primary-purple-50 dark:bg-[#160D25]">
       <div className="flex h-[700px] w-full max-w-[1920px] overflow-hidden md:h-[900px] xl:h-[1020px]">
