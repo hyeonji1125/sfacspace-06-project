@@ -1,34 +1,46 @@
-'use client'
-import { InputChipsType } from '@/types/chips';
-import Image from 'next/image';
-import { ReactNode, useState } from 'react';
+import { InputChipsType } from "@/types/chips";
+import Image from "next/image";
+import { ReactNode } from "react";
+import { IoIosClose } from "react-icons/io";
 
-function InputChips({inputType, width, height, children}: {inputType: InputChipsType, width : string, height : string, children: ReactNode}) {
-  const [onClickButton, setOnClickButton] = useState(false);
-
+function InputChips({
+  inputType,
+  children,
+  isSelected,
+  percent,
+}: {
+  inputType: InputChipsType;
+  children: ReactNode;
+  isSelected: boolean;
+  percent?: number;
+}) {
   return (
     <div
-      onClick={() => setOnClickButton(!onClickButton)}
-      style={{width: `${width}px` , height : `${height}px`}}
-      className={`flex gap-[10px] p-[15px] text-black border text-md items-center rounded-xl hover:cursor-pointer hover:bg-purple-100  focus:bg-purple-100 active:bg-primary-purple-100 active:shadow-lg
-      ${onClickButton && 'bg-primary-purple-100 shadow-xl'} ${(inputType === 'percentage' || inputType === 'sideIcon') && 'justify-between'} `}
+      className={`text-md flex w-[221px] items-center gap-[10px] rounded-xl px-3 py-2 text-black hover:cursor-pointer hover:bg-purple-100 focus:bg-purple-100 active:bg-primary-purple-100 active:shadow-lg ${isSelected && "bg-primary-purple-100 shadow-xl"} ${(inputType === "percentage" || inputType === "sideIcon") && "justify-between"} `}
     >
       {/* 이미지 */}
-      {inputType !== 'textOnly' && (
-        <div className="flex items-center w-[20px] h-[20px] flex-shrink-0">
-          <Image alt="파일이미지" width={40} height={20} src="/assets/images/chipsIcon.svg"/>
+      {inputType !== "textOnly" && (
+        <div className="flex h-[20px] w-[20px] flex-shrink-0 items-center">
+          <Image
+            alt="파일이미지"
+            width={40}
+            height={20}
+            src="/assets/images/chipsIcon.svg"
+          />
         </div>
       )}
       {/* 칠드런 박스 */}
-      <div className="overflow-hidden whitespace-nowrap text-ellipsis">{children}</div>  
+      <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+        {children}
+      </div>
       {/* 퍼센트 */}
-      {inputType === 'percentage' && (
+      {isSelected && percent && (
         <div className="flex gap-[15px]">
-          <div>90%</div> 
+          <div>{percent}%</div>
         </div>
       )}
       {/* X표시 */}
-      {(inputType === 'percentage' || inputType === 'sideIcon') && <div>X</div>}
+      {inputType === "sideIcon" && <IoIosClose className="text-xl" />}
     </div>
   );
 }
