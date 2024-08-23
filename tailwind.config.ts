@@ -32,6 +32,7 @@ const config: Config = {
           200: "#C9A8FF",
           100: "#E0CEFF",
           50: "#F2EBFF",
+          light: "#FAF8FF",
         },
 
         // 드롭다운 커스텀
