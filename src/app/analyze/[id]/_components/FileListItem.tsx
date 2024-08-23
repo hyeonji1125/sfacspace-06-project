@@ -1,9 +1,9 @@
 import { FaCheck, FaRegFolderOpen } from "react-icons/fa6";
 import { GoCheckCircleFill, GoFile } from "react-icons/go";
-import { Tfile } from "./FileList";
 import Image from "next/image";
 import { TbAlertTriangleFilled } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
+import { Tfile } from "@/store/useFileStore";
 
 export default function FileListItem({
   category,
@@ -42,14 +42,14 @@ export default function FileListItem({
   return (
     <div
       className={twMerge(
-        "flex items-center justify-between gap-[10px] border-b border-line-gray-10 bg-white p-[10px] text-custom-light-text transition-all duration-200",
+        "flex items-center justify-between gap-[10px] border-b border-line-gray-10 bg-white p-[10px] text-custom-light-text transition-all duration-200 last:border-b-0",
         isSelected && "bg-primary-purple-50",
       )}
     >
       <div
         className={twMerge(
           "flex w-[120px] items-center gap-1",
-          status === "none" && "w-full",
+          status === "none" && "w-44",
         )}
       >
         {isSelected && (

@@ -22,7 +22,8 @@ export default function Button({
   const sizes = {
     large: "text-base md:text-lg px-4 w-full",
     middle: "px-4 md:px-6 font-light",
-    small: "px-3 md:px-5 py-2 text-base sm:text-lg md:text-xl font-light",
+    small:
+      "px-3 md:px-5 py-1 md:py-2 text-base sm:text-lg md:text-xl font-light",
   };
 
   return (
