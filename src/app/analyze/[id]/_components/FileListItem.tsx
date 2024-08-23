@@ -41,7 +41,10 @@ export default function FileListItem({
 
   return (
     <div
-      className={`flex items-center justify-between gap-[10px] border-b border-line-gray-10 p-[10px] text-custom-light-text ${isSelected && "bg-primary-purple-50"}`}
+      className={twMerge(
+        "flex items-center justify-between gap-[10px] border-b border-line-gray-10 bg-white p-[10px] text-custom-light-text transition-all duration-200",
+        isSelected && "bg-primary-purple-50",
+      )}
     >
       <div
         className={twMerge(
