@@ -59,6 +59,7 @@ const config: Config = {
         "line-gray-5": "#F3F3F3",
         "line-blue": "#99BDFF",
         "line-default": "#C3C3C3",
+        "line-dark": "#ADADAD",
 
         // accent color
         "accent-red": "#FF6D6D",
