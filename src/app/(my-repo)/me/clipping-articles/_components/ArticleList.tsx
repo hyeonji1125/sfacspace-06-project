@@ -1,9 +1,10 @@
 "use client";
 
-import LibraryToolbar from "@/app/(my)/_components/LibraryToolbar";
-import { usePagination } from "@/app/(my)/_hook/usePagination";
 import ClippingArticle, { TClippingArticle } from "./ClippingArticle";
 import { Plus } from "../../../../../../public/assets/svg/SvgIcons";
+import { usePagination } from "@/app/(my-repo)/_hook/usePagination";
+import LibraryToolbar from "@/app/(my-repo)/_components/LibraryToolbar";
+import Link from "next/link";
 
 const FILES = [
   { type: "warning", title: "sfacweb - 1", date: "2024-08-22", id: 1 },
@@ -53,11 +54,13 @@ export default function ArticleList({
         <div className="flex w-full flex-col gap-12">
           <LibraryToolbar />
           <div className="h-auto w-full">
-            <ul className="grid w-full grid-cols-3 gap-x-6 gap-y-12">
+            <ul className="grid w-full grid-cols-3 gap-6">
               {currentFiles &&
                 currentFiles.map((file) => (
                   <li key={file.id}>
-                    <ClippingArticle {...file} />
+                    <Link href={`/vulnerability-db/${file.id}`}>
+                      <ClippingArticle {...file} />
+                    </Link>
                   </li>
                 ))}
             </ul>

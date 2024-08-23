@@ -52,7 +52,7 @@ export default function LibraryList({
   return (
     <section className="flex flex-col gap-12">
       <LibraryToolbar />
-      <div className="relative h-[696px]">
+      <div className="relative h-auto">
         <div className="absolute left-[50%] top-[50%] flex w-full translate-x-[-50%] translate-y-[-50%] justify-between">
           <RoundButton
             icon={<CaretLeft />}
