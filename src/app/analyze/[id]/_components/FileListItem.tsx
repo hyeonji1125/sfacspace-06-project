@@ -3,6 +3,7 @@ import { GoCheckCircleFill, GoFile } from "react-icons/go";
 import { Tfile } from "./FileList";
 import Image from "next/image";
 import { TbAlertTriangleFilled } from "react-icons/tb";
+import { twMerge } from "tailwind-merge";
 
 export default function FileListItem({
   category,
@@ -42,16 +43,27 @@ export default function FileListItem({
     <div
       className={`flex items-center justify-between gap-[10px] border-b border-line-gray-10 p-[10px] text-custom-light-text ${isSelected && "bg-primary-purple-50"}`}
     >
-      <div className="flex items-center gap-1">
-        {isSelected && <FaCheck className="text-primary-purple-500" />}
-        {category === "folder" ? (
-          <FaRegFolderOpen className="text-xl" />
-        ) : (
-          <GoFile className="text-xl" />
+      <div
+        className={twMerge(
+          "flex w-[120px] items-center gap-1",
+          status === "none" && "w-full",
         )}
-        <span>{name}</span>
+      >
+        {isSelected && (
+          <FaCheck className="flex-shrink-0 text-primary-purple-500" />
+        )}
+        {category === "folder" ? (
+          <FaRegFolderOpen className="flex-shrink-0 text-xl" />
+        ) : (
+          <GoFile className="flex-shrink-0 text-xl" />
+        )}
+        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+          {name}
+        </span>
       </div>
-      <div className="flex items-center gap-1">{statusIcons[status]}</div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        {statusIcons[status]}
+      </div>
     </div>
   );
 }
