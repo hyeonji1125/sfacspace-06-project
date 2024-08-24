@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { TitleCaret } from "../../../../public/assets/svg/SvgIcons";
+
 import { twMerge } from "tailwind-merge";
+import { TitleCaret } from "../../../public/assets/svg/SvgIcons";
 
 export default function PageTitle({
   children,
