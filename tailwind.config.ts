@@ -19,8 +19,8 @@ const config: Config = {
         "custom-light-text": "#3f3f3f",
         "custom-light-accent": "#3b82f6",
 
-        "custom-text-footer-black": "#3f3f3f",
-
+        // 텍스트 전용
+        "text-gray-dark": "#3f3f3f",
         "text-gray-light": "#D6D6D6",
         "text-gray-default": "#969696",
 
@@ -59,6 +59,7 @@ const config: Config = {
         "line-gray-5": "#F3F3F3",
         "line-blue": "#99BDFF",
         "line-default": "#C3C3C3",
+        "line-dark": "#ADADAD",
 
         // accent color
         "accent-red": "#FF6D6D",
@@ -70,21 +71,23 @@ const config: Config = {
         "bg-red-light": "#FFEFEF",
         "bg-purple-light": "#FAF8FF",
         "bg-purple-dark": "#E3E1E7",
+        "bg-purple-chip": "#7E5AFF",
         "bg-gray-light": "#F1F1F1",
         "bg-gray-dark": "#C2C2C2",
       },
       boxShadow: {
         "custom-shadow": "0px 0px 24.8px 0px rgba(0, 0, 0, 0.25)",
+        "custom-dropdown-shadow": "0px 4px 12px 0px rgba(0, 0, 0, 0.08)",
       },
       //메인페이지 DoubleDown 애니메이션
       keyframes: {
         float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
         },
-        moveCircle : {
-          '0%, 100%' : {transform : 'scale(1)'} ,
-          '50%' : {transform : 'scale(1.2)'}
+        moveCircle: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.2)" },
         },
 
         //SecureProcessSection 무한회전 애니메이션
@@ -98,8 +101,8 @@ const config: Config = {
         },
       },
       animation: {
-        float: 'float 2.04s ease-in-out infinite',
-        moveCircle: 'moveCircle 5s ease-in-out infinite',
+        float: "float 2.04s ease-in-out infinite",
+        moveCircle: "moveCircle 5s ease-in-out infinite",
 
         rotateForward: "rotateForward 50s linear infinite",
         rotateBackward: "rotateBackward 50s linear infinite",

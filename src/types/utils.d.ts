@@ -1,6 +1,6 @@
 export type SvgState = {
   className?: string;
-  fill?:string;
+  fill?: string;
 };
 
 export type DarkModeState = {
@@ -11,8 +11,6 @@ export type DarkModeState = {
 
 export type DropdownProps = {
   type: "Type" | "Sort";
-  selectedOption: string;
-  onSelect: (option: string) => void;
 };
 
 export type DropdownState = {

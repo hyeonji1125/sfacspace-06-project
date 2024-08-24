@@ -28,7 +28,7 @@ export default function FindindFlawSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeIn" }}
                 viewport={{ once: true }}
-                className="flex flex-col text-xl font-bold text-custom-text-footer-black dark:text-custom-dark-text sm:text-2xl xl:text-[28px]"
+                className="text-custom-text-gray-dark flex flex-col text-xl font-bold dark:text-custom-dark-text sm:text-2xl xl:text-[28px]"
               >
                 <p className="leading-snug">코드 보안</p>
                 <p className="leading-snug">어떻게 관리하시나요?</p>

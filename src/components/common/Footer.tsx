@@ -31,17 +31,17 @@ export default function Footer() {
                 <p className="text-text-gray-default">(주)스팩스페이스</p>
                 <p className="text-text-gray-default">
                   대표자{" "}
-                  <span className="ml-[11px] text-custom-text-footer-black dark:text-gray-300">
+                  <span className="ml-[11px] text-text-gray-dark dark:text-gray-300">
                     염민호
                   </span>
                 </p>
               </div>
-              <p className="text-custom-text-footer-black dark:text-gray-300">
+              <p className="text-text-gray-dark dark:text-gray-300">
                 서울 강서구 마곡중앙2로 11, 3층 303호
               </p>
               <div className="flex gap-[23px]">
                 <p className="text-text-gray-default">Email</p>
-                <p className="text-custom-text-footer-black dark:text-gray-300">
+                <p className="text-text-gray-dark dark:text-gray-300">
                   admin@sfacspace.com
                 </p>
               </div>
@@ -49,19 +49,19 @@ export default function Footer() {
             <div>
               <div className="flex gap-2">
                 <p className="text-text-gray-default">사업자등록번호</p>
-                <p className="text-custom-text-footer-black dark:text-gray-300">
+                <p className="text-text-gray-dark dark:text-gray-300">
                   450-87-01864
                 </p>
               </div>
               <div className="flex gap-2">
                 <p className="text-text-gray-default">대표전화</p>
-                <p className="text-custom-text-footer-black dark:text-gray-300">
+                <p className="text-text-gray-dark dark:text-gray-300">
                   02-6217-1119
                 </p>
               </div>
               <div className="flex gap-2">
                 <p className="text-text-gray-default">팩스</p>
-                <p className="text-custom-text-footer-black dark:text-gray-300">
+                <p className="text-text-gray-dark dark:text-gray-300">
                   02-6217-1115
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function Footer() {
             <p className="underline">서비스 이용약관</p>
             <p className="underline">개인정보 처리방침</p>
           </div>
-          <div className="mt-1 text-custom-text-footer-black dark:text-gray-300 md:mt-3">
+          <div className="mt-1 text-text-gray-dark dark:text-gray-300 md:mt-3">
             © 2024 Spacspace. All right reserved.
           </div>
         </div>

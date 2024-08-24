@@ -1,31 +1,47 @@
-'use client'
 import { AssistType } from "@/types/chips";
-import { ReactNode, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-function AssistChips({width , height , assistType, disabled ,children } : {width : string , height : string , assistType?:AssistType , disabled?:boolean, children : ReactNode}) {
-
-  const [onClickButton, setOnClickButton] = useState(false);
-
+function AssistChips({
+  width,
+  height,
+  assistType,
+  disabled,
+  children,
+}: {
+  width?: string;
+  height?: string;
+  assistType?: AssistType;
+  disabled?: boolean;
+  children: React.ReactNode;
+}) {
   const AssistChipsClasses = {
-    outline : disabled  ? 'text-gray-400 border-gray-300' : ` border-black hover:bg-gray-200 focus:bg-gray-300  active:border-slate-500  ${onClickButton && 'bg-gray-300'}`,
-    elevated : disabled ? 'text-gray-400 border-gray-300' : `bg-violet-50  hover:bg-violet-100 focus:bg-violet-200 active:bg-violet-300 ${onClickButton && 'bg-violet-200'}` ,
-    outlinePrimary : disabled  ? `text-gray-300 border-violet-300 ` : `bg-violet-50 border-violet-300 text-violet-700  hover:bg-violet-100 focus:border-violet-700 active:border-violet-900 ${onClickButton && 'bg-violet-200'}`
-  }
+    outline: disabled
+      ? "text-text-gray-default border-text-gray-dark"
+      : "text-black border-text-gray-dark hover:bg-black hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",
+    elevated: disabled
+      ? "text-bg-purple-dark border-none bg-bg-purple-light"
+      : "text-black bg-bg-purple-light hover:bg-bg-purple-chip border-none hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",
+    outlinePrimary: disabled
+      ? "text-bg-purple-dark bg-bg-purple-light border-primary-purple-300"
+      : "bg-bg-purple-light border-primary-purple-300 text-primary-purple-500 hover:bg-bg-purple-chip hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] focus:border-primary-purple-500 active:bg-opacity-[0.12]",
+  };
 
-    return (
-      <>
-      <div
-      onClick={() => setOnClickButton(!onClickButton)}
-      style={{width: `${width}px` , height : `${height}px`}}
-      className={` flex gap-[10px] p-[15px] text-md justify-center items-center rounded-full border-2  
-        ${assistType ? AssistChipsClasses[assistType]:''} `}
+  return (
+    <div
+      style={{
+        width: width ? `${width}px` : "auto",
+        height: height ? `${height}px` : "auto",
+      }}
+      className={twMerge(
+        "flex items-center justify-center whitespace-nowrap rounded-full border px-3 py-2 text-base leading-none",
+        assistType && AssistChipsClasses[assistType],
+      )}
     >
       {children}
     </div>
-      </>
-    );
-  }
+  );
+}
 
-  export default AssistChips;
-  
-  //드래그 할 때 사용 : shadow-xl
+export default AssistChips;
+
+//드래그 할 때 사용 : shadow-xl
