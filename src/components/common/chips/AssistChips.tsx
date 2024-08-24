@@ -33,7 +33,7 @@ function AssistChips({
         height: height ? `${height}px` : "auto",
       }}
       className={twMerge(
-        "flex items-center justify-center rounded-full border px-3 py-2 text-base leading-none",
+        "flex items-center justify-center whitespace-nowrap rounded-full border px-3 py-2 text-base leading-none",
         assistType && AssistChipsClasses[assistType],
       )}
     >

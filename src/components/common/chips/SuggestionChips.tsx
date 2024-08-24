@@ -20,17 +20,15 @@ export default function SuggestionChips({
   };
 
   return (
-    <>
-      <div
-        style={{
-          width: width ? `${width}px` : "auto",
-          height: height ? `${height}px` : "auto",
-        }}
-        className={`inline-flex items-center justify-center rounded-full px-3 py-2 text-base font-semibold ${color ? chipsTypeClasses[color] : ""}`}
-      >
-        {children}
-      </div>
-    </>
+    <div
+      style={{
+        width: width ? `${width}px` : "auto",
+        height: height ? `${height}px` : "auto",
+      }}
+      className={`inline-flex items-center justify-center whitespace-nowrap rounded-full px-3 py-2 text-base font-semibold ${color ? chipsTypeClasses[color] : ""}`}
+    >
+      {children}
+    </div>
   );
 }
 
