@@ -20,7 +20,7 @@ export default function CompletedFileViewer() {
               width={40}
               height={40}
               alt="inspection"
-            ></Image>
+            />
           </div>
           <div className="mb-2 flex w-3/5 justify-center rounded-md border border-accent-green bg-accent-green/10 p-2 text-center text-accent-green">
             분석 완료
@@ -45,7 +45,7 @@ export default function CompletedFileViewer() {
                 height={50}
                 alt="bugImage"
                 src="/assets/images/myRepository/bug.svg"
-              ></Image>
+              />
               <div className="flex justify-center text-lg font-extrabold">
                 분석 대기중
               </div>

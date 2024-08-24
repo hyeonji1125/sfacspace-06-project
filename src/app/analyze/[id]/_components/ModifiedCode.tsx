@@ -33,7 +33,10 @@ export default function ModifiedCode() {
                 <code className="text-2xl font-medium text-accent-red">
                   {el.error}
                 </code>
-                <button className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white">
+                <button
+                  type="button"
+                  className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white"
+                >
                   위치보기
                 </button>
               </div>

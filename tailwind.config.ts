@@ -100,6 +100,11 @@ const config: Config = {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
         },
+
+        scan: {
+          "0%": { top: "-16px" },
+          "100%": { top: "100%" },
+        },
       },
       animation: {
         float: "float 2.04s ease-in-out infinite",
@@ -107,6 +112,8 @@ const config: Config = {
 
         rotateForward: "rotateForward 50s linear infinite",
         rotateBackward: "rotateBackward 50s linear infinite",
+
+        scan: "scan 1.5s linear infinite",
       },
     },
   },
