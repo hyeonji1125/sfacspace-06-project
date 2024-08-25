@@ -3,13 +3,42 @@
 import Button from "@/components/common/Button";
 import UserPic from "@/components/common/UserPic";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
-export default function UserItem() {
+export default function UserItem({
+  buttonType = "LOGOUT",
+}: {
+  buttonType?: "LOGOUT" | "PROFILE";
+}) {
   const { data, status } = useSession();
   const { user } = data ?? {};
 
   if (status === "loading") {
     return <p>loading...</p>;
+  }
+
+  let button;
+
+  if (buttonType === "LOGOUT") {
+    button = (
+      <Button
+        theme="outlined"
+        size="small"
+        className="border-2 border-primary-purple-500 font-normal"
+        onClick={() => signOut({ redirect: true, callbackUrl: "/mylibrary" })}
+      >
+        로그아웃
+      </Button>
+    );
+  } else {
+    button = (
+      <Link
+        href="/me"
+        className="rounded-lg border-2 border-primary-purple-500 px-5 py-4 text-xl font-normal text-primary-purple-500 hover:bg-primary-purple-500/10 hover:shadow focus:bg-primary-purple-500/15"
+      >
+        프로필 정보
+      </Link>
+    );
   }
 
   return (
@@ -24,14 +53,7 @@ export default function UserItem() {
               <span>{user?.email}</span>
             </p>
           </div>
-          <Button
-            theme="outlined"
-            size="small"
-            className="border-2 border-primary-purple-500 font-normal"
-            onClick={() => signOut()}
-          >
-            로그아웃
-          </Button>
+          {button}
         </div>
       )}
     </>
