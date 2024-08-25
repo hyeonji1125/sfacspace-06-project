@@ -14,8 +14,9 @@ export default function UserItem() {
 
   return (
     <>
+      {!user && <p>유저 데이터를 찾을 수 없습니다.</p>}
       {user && user.image && user.name && (
-        <div className="flex items-center justify-between">
+        <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-11">
             <UserPic image={user.image} name={user.name} />
             <p className="flex flex-col text-[40px] font-medium leading-[1.2] tracking-tighter text-text-gray-dark dark:text-custom-dark-text">

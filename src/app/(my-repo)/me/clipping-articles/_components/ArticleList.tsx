@@ -50,7 +50,7 @@ export default function ArticleList({
 
   return (
     <>
-      <section className="flex flex-col items-center justify-center gap-[124px]">
+      <section className="flex w-full flex-col items-center justify-center gap-[124px]">
         <div className="flex w-full flex-col gap-12">
           <LibraryToolbar />
           <div className="h-auto w-full">
