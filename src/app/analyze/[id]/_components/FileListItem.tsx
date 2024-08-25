@@ -42,8 +42,8 @@ export default function FileListItem({
   return (
     <div
       className={twMerge(
-        "flex items-center justify-between gap-[10px] border-b border-line-gray-10 bg-white p-[10px] text-custom-light-text transition-all duration-200 last:border-b-0",
-        isSelected && "bg-primary-purple-50",
+        "flex items-center justify-between gap-[10px] border-b border-line-gray-10 bg-white p-[10px] text-custom-light-text transition-all duration-200 last:border-b-0 dark:bg-transparent dark:text-white",
+        isSelected && "bg-primary-purple-50 dark:bg-white/20",
       )}
     >
       <div
@@ -53,7 +53,7 @@ export default function FileListItem({
         )}
       >
         {isSelected && (
-          <FaCheck className="flex-shrink-0 text-primary-purple-500" />
+          <FaCheck className="flex-shrink-0 text-primary-purple-500 dark:text-primary-purple-200" />
         )}
         {category === "folder" ? (
           <FaRegFolderOpen className="flex-shrink-0 text-xl" />

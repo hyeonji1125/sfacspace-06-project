@@ -35,12 +35,14 @@ export default function ModifiedCode() {
                 </code>
                 <button
                   type="button"
-                  className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white"
+                  className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white dark:hover:bg-white/20"
                 >
                   위치보기
                 </button>
               </div>
-              <p className="text-lg text-custom-light-text">{el.description}</p>
+              <p className="text-lg text-custom-light-text dark:text-custom-dark-text">
+                {el.description}
+              </p>
             </div>
           ))}
         </div>

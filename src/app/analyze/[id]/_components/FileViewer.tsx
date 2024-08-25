@@ -20,7 +20,7 @@ export default function FileViewer() {
               alt="inspection"
             ></Image>
           </div>
-          <div className="mb-2 flex w-3/5 justify-center rounded-md border border-primary-purple-500 bg-primary-purple-50 p-2 text-center text-primary-purple-500">
+          <div className="mb-2 flex w-3/5 justify-center rounded-md border border-primary-purple-500 bg-primary-purple-50 p-2 text-center text-primary-purple-500 dark:bg-primary-purple-500 dark:text-white">
             취약성 실시간 검사중
           </div>
           <div className="custom-scrollbar h-full w-full overflow-y-auto">

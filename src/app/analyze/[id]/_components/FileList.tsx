@@ -10,11 +10,11 @@ export default function FileList() {
 
   return (
     <div className="max-h-[988px] overflow-hidden rounded-lg border border-line-default">
-      <div className="bg-primary-purple-light flex items-center justify-between border-b border-line-default p-5">
-        <p className="text-lg">2024.06.08</p>
+      <div className="flex items-center justify-between border-b border-line-default bg-primary-purple-light p-5 dark:bg-primary-purple-200">
+        <p className="text-lg dark:text-black">2024.06.08</p>
         <div className="flex gap-3 text-2xl">
           <button type="button">
-            <PiChecks />
+            <PiChecks className="dark:text-black" />
           </button>
           <button type="button">
             <Image
