@@ -1,7 +1,29 @@
-export default function SettingPage() {
+import PageTitle from "@/components/common/PageTitle";
+import UserItem from "../../_components/UserItem";
+import EmailToggle from "./_components/EmailToggle";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+
+export default async function SettingPage() {
+  const session = await getServerSession(authOptions);
+  const { user } = session ?? {};
+
   return (
     <>
-      <h1>SettingPage</h1>
+      <PageTitle>Setting</PageTitle>
+      <div className="flex w-full flex-col">
+        <UserItem />
+        <hr className="my-20" />
+        <div className="flex gap-8 text-2xl text-black">
+          <h4 className="font-semibold">계정 유형</h4>
+          <span className="font-normal">깃허브 연동</span>
+        </div>
+        <hr className="my-20" />
+        <div className="mb-[87px] flex flex-col gap-12 text-2xl text-black">
+          <h4 className="font-semibold">계정 유형</h4>
+          <EmailToggle />
+        </div>
+      </div>
     </>
   );
 }
