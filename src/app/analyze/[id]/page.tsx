@@ -11,6 +11,7 @@ import PcOnlyMessage from "@/components/common/PcOnlyMessage";
 import AnalyzeModal from "./_components/AnalyzeModal";
 import { useState } from "react";
 import { useFileStore } from "@/store/useFileStore";
+import PageTitle from "@/components/common/PageTitle";
 
 export default function AnalyzePage() {
   // 임시 code
@@ -38,13 +39,9 @@ export default function AnalyzePage() {
     <>
       <PcOnlyMessage />
       <section className="m-auto mb-20 hidden min-h-screen w-full max-w-[1920px] flex-col gap-11 px-20 xl:flex">
-        {/*최상단 리포지토리 이름 bar*/}
-        <h1 className="flex items-center gap-6 rounded-full border-4 border-primary-purple-500 px-5 py-2 text-4xl text-primary-purple-500">
-          <button>
-            <IoIosArrowBack />
-          </button>
-          <span className="font-medium -tracking-[0.01rem]">sfacweb - 1</span>
-        </h1>
+        <PageTitle className="min-w-full justify-start px-5 py-2">
+          sfacweb-1
+        </PageTitle>
 
         {/* 메인 컨텐츠 영역 */}
         <div className="flex items-stretch gap-7">

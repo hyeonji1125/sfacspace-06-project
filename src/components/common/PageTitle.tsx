@@ -22,7 +22,7 @@ export default function PageTitle({
       <Link href={link ? link : "/me/profile"}>
         <TitleCaret />
       </Link>
-      <h2 className="select-none text-5xl text-primary-purple-500">
+      <h2 className="select-none text-[40px] text-primary-purple-500">
         {children}
       </h2>
     </div>
