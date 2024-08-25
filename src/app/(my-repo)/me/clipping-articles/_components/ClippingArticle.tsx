@@ -37,7 +37,7 @@ export default function ClippingArticle({
     <div className="flex h-auto w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-10">
       <div className="flex flex-col items-start gap-2">
         <Label type={type} />
-        <h4 className="text-overflow text-2xl font-medium leading-normal text-black dark:text-custom-dark-text">
+        <h4 className="text-overflow h-[72px] text-2xl font-medium leading-normal text-black dark:text-custom-dark-text">
           {title}
         </h4>
       </div>

@@ -34,7 +34,7 @@ export default function LibraryList({
   if (error) return <div>{error}</div>;
 
   return (
-    <section className="flex flex-col gap-12">
+    <section className="flex w-full flex-col gap-12">
       <LibraryToolbar />
       <div className="relative h-auto">
         <div className="absolute left-[50%] top-[50%] flex w-full translate-x-[-50%] translate-y-[-50%] justify-between">
@@ -53,7 +53,7 @@ export default function LibraryList({
         </div>
         <ul
           className={twMerge(
-            "grid w-full grid-cols-4 gap-x-6 gap-y-12",
+            "grid w-full grid-cols-4 grid-rows-3 gap-x-6 gap-y-12",
             className && className,
           )}
         >
