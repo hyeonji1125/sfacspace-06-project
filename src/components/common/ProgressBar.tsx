@@ -18,7 +18,7 @@ export default function ProgressBar({ percent = 0 }: ProgressBarProps) {
       <div className={twMerge("h-3 rounded-full bg-grayscale-10", "w-[100%]")}>
         <div
           className={twMerge(
-            "h-full rounded-full bg-accent-green",
+            "h-full rounded-full bg-primary-purple-500",
             "transition-all duration-300 ease-linear",
           )}
           style={{ width: `${width}%` }}

@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #a8a8a8;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-corner {
+    background: #888;
+  }
+}
