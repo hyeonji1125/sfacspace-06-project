@@ -1,11 +1,11 @@
 // src/components/common/Header.tsx
-'use client';
+"use client";
 
 import { useTheme } from "next-themes";
 import { Aldrich } from "next/font/google";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 import icons from "../../../public/assets/icons";
 import {
   DarkModeIcon,
@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const [mounted, setMounted] = useState(false);
-  const pathname = usePathname(); 
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -56,10 +56,18 @@ const Header: React.FC = () => {
             취약점 DB
           </Link>
 
-          <span>MY 저장소</span>
+          <Link
+            href="/mylibrary"
+            className="cursor-pointer hover:text-accent-blue"
+          >
+            MY 저장소
+          </Link>
 
           {status === "authenticated" && (
-            <span className="cursor-pointer hover:text-accent-blue" onClick={() => signOut({ callbackUrl: pathname })}>
+            <span
+              className="cursor-pointer hover:text-accent-blue"
+              onClick={() => signOut({ callbackUrl: pathname })}
+            >
               로그아웃
             </span>
           )}
