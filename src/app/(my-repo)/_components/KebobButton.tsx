@@ -63,7 +63,7 @@ export default function KebobButton({ id }: { id?: number }) {
           setOpen((prev) => !prev);
         }}
       >
-        <Kebob />
+        <Kebob className="dark:fill-text-gray-light" />
       </button>
       {open && (
         <ul className="absolute right-0 top-8 overflow-hidden rounded-lg bg-white shadow-custom-dropdown-shadow dark:border dark:border-custom-dark-bg dark:bg-custom-dark-bg">

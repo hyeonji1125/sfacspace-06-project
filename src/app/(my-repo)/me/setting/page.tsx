@@ -4,6 +4,11 @@ import EmailToggle from "./_components/EmailToggle";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+/**
+ * @todo
+ * - toggle onChange patch -> 유저 데이터 변경 (toggle에서 하도록)
+ */
+
 export default async function SettingPage() {
   const session = await getServerSession(authOptions);
   const { user } = session ?? {};
