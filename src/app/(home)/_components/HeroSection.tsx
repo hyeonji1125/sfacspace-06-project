@@ -31,8 +31,7 @@ export default function HeroSection() {
           </span>
         </p>
         <div className="mt-[5vh]">
-          {/* /vulnerability-db는 임시로 경로 지정 << 추후 분석하기 페이지로 작성 */}
-          <Link href={status === "authenticated" ? "/vulnerability-db" : "/login"}>
+          <Link href={status === "authenticated" ? "/mylibrary" : "/login"}>
             <Button
               theme="filled"
               size="small"

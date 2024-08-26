@@ -22,7 +22,7 @@ const Dropdown: React.FC<DropdownProps> = ({ type }) => {
   };
 
   return (
-    <div className="relative inline-block text-left" style={{ width: '120px' }}>
+    <div className="relative inline-block text-left z-10" style={{ width: '120px' }}>
       <div>
         <button
           type="button"
@@ -30,7 +30,7 @@ const Dropdown: React.FC<DropdownProps> = ({ type }) => {
             "w-full flex items-center gap-1 justify-between rounded-lg border shadow-sm px-[13px] py-[10px] text-sm focus:outline-none",
             "border-custom-dropdown-light-border bg-custom-dropdown-light-bg dark:bg-custom-dropdown-dark-bg",
             "text-custom-light-text dark:text-custom-dark-text",
-            "hover:bg-gray-50"
+            "hover:bg-gray-50",
           )}
           onClick={() => setIsOpen(!isOpen)}
         >

@@ -1,53 +1,37 @@
 "use client";
 
+import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { usePagination } from "../_hook/usePagination";
 import { CaretLeft, CaretRight } from "../../../../public/assets/svg/SvgIcons";
 import RoundButton from "./RoundButton";
-import { Repository } from "@/types/repository";
 import RepositoryItem from "../mylibrary/_components/RepositoryItem";
 import LibraryToolbar from "./LibraryToolbar";
 import DetectedFile from "../me/detected-files/_components/DetectedFile";
-
-const FILES = [
-  { label: "label", title: "sfacweb - 1", subtitle: "sub title", id: 1 },
-  { label: "label", title: "sfacweb - 2", subtitle: "sub title", id: 2 },
-  { label: "label", title: "sfacweb - 3", subtitle: "sub title", id: 3 },
-  { label: "label", title: "sfacweb - 4", subtitle: "sub title", id: 4 },
-  { label: "label", title: "sfacweb - 5", subtitle: "sub title", id: 5 },
-  { label: "label", title: "sfacweb - 6", subtitle: "sub title", id: 6 },
-  { label: "label", title: "sfacweb - 7", subtitle: "sub title", id: 7 },
-  { label: "label", title: "sfacweb - 8", subtitle: "sub title", id: 8 },
-  { label: "label", title: "sfacweb - 9", subtitle: "sub title", id: 9 },
-  { label: "label", title: "sfacweb - 10", subtitle: "sub title", id: 10 },
-  { label: "label", title: "sfacweb - 11", subtitle: "sub title", id: 11 },
-  { label: "label", title: "sfacweb - 12", subtitle: "sub title", id: 12 },
-  { label: "label", title: "sfacweb - 13", subtitle: "sub title", id: 13 },
-  { label: "label", title: "sfacweb - 14", subtitle: "sub title", id: 14 },
-  { label: "label", title: "sfacweb - 15", subtitle: "sub title", id: 15 },
-  { label: "label", title: "sfacweb - 16", subtitle: "sub title", id: 16 },
-  { label: "label", title: "sfacweb - 17", subtitle: "sub title", id: 17 },
-  { label: "label", title: "sfacweb - 18", subtitle: "sub title", id: 18 },
-  { label: "label", title: "sfacweb - 19", subtitle: "sub title", id: 19 },
-  { label: "label", title: "sfacweb - 20", subtitle: "sub title", id: 20 },
-];
+import { useGithubStore } from '@/store/useGithubStore';
+import { usePagination } from "../_hook/usePagination";
 
 export default function LibraryList({
   className,
   type,
-  files = FILES,
 }: {
   className?: string;
-  files?: Repository[];
   type: "REPO" | "DETECTED";
 }) {
+  const { repositories, fetchRepositories, isLoading, error } = useGithubStore();
   const {
-    currentItems: currentFiles,
+    currentItems: currentRepos,
     currentPage,
     totalPages,
     handlePrev,
     handleNext,
-  } = usePagination(files);
+  } = usePagination(repositories);
+
+  useEffect(() => {
+    fetchRepositories();
+  }, [fetchRepositories]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <section className="flex flex-col gap-12">
@@ -73,16 +57,21 @@ export default function LibraryList({
             className && className,
           )}
         >
-          {currentFiles &&
-            currentFiles.map((file) => (
-              <li key={file.id}>
-                {type === "REPO" ? (
-                  <RepositoryItem {...file} />
-                ) : (
-                  <DetectedFile {...file} />
-                )}
-              </li>
-            ))}
+          {currentRepos.map((repo) => (
+            <li key={repo.id}>
+              {type === "REPO" ? (
+                <RepositoryItem
+                  id={repo.id}
+                  name={repo.name}
+                  description={repo.description}
+                  visibility={repo.visibility}
+                  owner={repo.owner}
+                />
+              ) : (
+                <DetectedFile {...repo} />
+              )}
+            </li>
+          ))}
         </ul>
       </div>
     </section>

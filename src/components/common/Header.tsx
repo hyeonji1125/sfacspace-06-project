@@ -1,9 +1,11 @@
-'use client'
+// src/components/common/Header.tsx
+'use client';
 
 import { useTheme } from "next-themes";
 import { Aldrich } from "next/font/google";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation"; 
 import icons from "../../../public/assets/icons";
 import {
   DarkModeIcon,
@@ -20,6 +22,7 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname(); 
 
   useEffect(() => {
     setMounted(true);
@@ -56,7 +59,7 @@ const Header: React.FC = () => {
           <span>MY 저장소</span>
 
           {status === "authenticated" && (
-            <span className="cursor-pointer hover:text-accent-blue" onClick={() => signOut({ callbackUrl: '/' })}>
+            <span className="cursor-pointer hover:text-accent-blue" onClick={() => signOut({ callbackUrl: pathname })}>
               로그아웃
             </span>
           )}

@@ -1,4 +1,4 @@
-import { NextAuthOptions, User } from "next-auth";
+import { NextAuthOptions, User, Session } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { db } from "@/lib/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -17,10 +17,27 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: githubId,
       clientSecret: githubSecret,
+      authorization: {
+        params: {
+          scope: "read:user user:email repo"
+        }
+      }
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60,
+  },
   callbacks: {
-    async signIn({ user, account, profile }: { user: AdapterUser | User, account: Account | null, profile?: Profile }) {
+    async signIn({
+      user,
+      account,
+      profile,
+    }: {
+      user: AdapterUser | User;
+      account: Account | null;
+      profile?: Profile;
+    }) {
       const email = user.email ?? profile?.email;
 
       if (!email) {
@@ -41,6 +58,16 @@ export const authOptions: NextAuthOptions = {
       }
 
       return true;
+    },
+
+    async jwt({ token, account }) {
+      if (account) token.accessToken = account.access_token;
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.accessToken = token.accessToken as string;
+      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
