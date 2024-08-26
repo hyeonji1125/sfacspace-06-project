@@ -3,11 +3,14 @@ import LibraryTitle from "./LibraryTitle";
 
 export default function LibraryLogin() {
   return (
-    <section className="relative flex h-[90vh] w-full flex-col items-center justify-center gap-[60px] overflow-hidden text-primary-purple-500 dark:text-purple-50">
+    <section className="relative flex h-[90vh] w-full flex-col items-center justify-center gap-[60px] overflow-hidden text-primary-purple-500">
       <div className="absolute inset-0 h-full w-full animate-moveCircle bg-[url('/assets/images/circle.svg')] bg-cover bg-center dark:opacity-20" />
-      <LibraryTitle className="relative" />
+      <LibraryTitle
+        className="relative dark:text-custom-dark-text"
+        type="LOGIN"
+      />
       <div className="relative flex flex-col items-center gap-[22px]">
-        <p className="text-xl font-normal">
+        <p className="text-xl font-normal dark:text-text-gray-light">
           깃허브와 연동하여 내 코드 파일을 불러오세요.
         </p>
         <Link

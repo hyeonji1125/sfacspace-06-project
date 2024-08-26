@@ -37,20 +37,6 @@ export default function LibraryList({
     <section className="flex w-full flex-col gap-12">
       <LibraryToolbar />
       <div className="relative h-auto">
-        <div className="absolute left-[50%] top-[50%] flex w-full translate-x-[-50%] translate-y-[-50%] justify-between">
-          <RoundButton
-            icon={<CaretLeft />}
-            onClick={handlePrev}
-            disabled={currentPage === 1}
-            className="-ml-[27px]"
-          />
-          <RoundButton
-            icon={<CaretRight />}
-            onClick={handleNext}
-            disabled={currentPage === totalPages}
-            className="-mr-[27px]"
-          />
-        </div>
         <ul
           className={twMerge(
             "grid w-full grid-cols-4 grid-rows-3 gap-x-6 gap-y-12",
@@ -73,6 +59,18 @@ export default function LibraryList({
             </li>
           ))}
         </ul>
+        <RoundButton
+          icon={<CaretLeft />}
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+          className="absolute left-0 top-[50%] -ml-[27px] translate-y-[-50%]"
+        />
+        <RoundButton
+          icon={<CaretRight />}
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className="absolute right-0 top-[50%] -mr-[27px] translate-y-[-50%]"
+        />
       </div>
     </section>
   );

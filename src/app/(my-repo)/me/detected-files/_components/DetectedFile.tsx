@@ -12,7 +12,7 @@ export default function DetectedFile({
 }: RepositoryProps) {
   return (
     <Link href={`/ai-analyze/${id}`}>
-      <LibraryItem className="border-primary-purple-100">
+      <LibraryItem>
         <LibraryItem.Chip>
           <AssistChips assistType="outlinePrimary">{visibility}</AssistChips>
         </LibraryItem.Chip>
