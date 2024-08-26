@@ -1,11 +1,11 @@
 import PageTitle from "@/components/common/PageTitle";
-import LibraryList from "../../_components/LibraryList";
+import DetectedList from "./_components/DetectedList";
 
 export default function DetectedFilesPage() {
   return (
     <>
       <PageTitle>Clipping Article</PageTitle>
-      <LibraryList type="DETECTED" className="gap-6" />
+      <DetectedList className="gap-6" />
     </>
   );
 }

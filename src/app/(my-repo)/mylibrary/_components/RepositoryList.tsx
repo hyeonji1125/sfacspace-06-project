@@ -2,22 +2,19 @@
 
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { CaretLeft, CaretRight } from "../../../../public/assets/svg/SvgIcons";
-import RoundButton from "./RoundButton";
-import RepositoryItem from "../mylibrary/_components/RepositoryItem";
-import LibraryToolbar from "./LibraryToolbar";
-import DetectedFile from "../me/detected-files/_components/DetectedFile";
-import { useGithubStore } from '@/store/useGithubStore';
-import { usePagination } from "../_hook/usePagination";
+import { useGithubStore } from "@/store/useGithubStore";
+import { usePagination } from "../../_hook/usePagination";
+import LibraryToolbar from "../../_components/LibraryToolbar";
+import RepositoryItem from "./RepositoryItem";
+import RoundButton from "../../_components/RoundButton";
+import {
+  CaretLeft,
+  CaretRight,
+} from "../../../../../public/assets/svg/SvgIcons";
 
-export default function LibraryList({
-  className,
-  type,
-}: {
-  className?: string;
-  type: "REPO" | "DETECTED";
-}) {
-  const { repositories, fetchRepositories, isLoading, error } = useGithubStore();
+export default function RepositoryList({ className }: { className?: string }) {
+  const { repositories, fetchRepositories, isLoading, error } =
+    useGithubStore();
   const {
     currentItems: currentRepos,
     currentPage,
@@ -45,28 +42,18 @@ export default function LibraryList({
         >
           {currentRepos.map((repo) => (
             <li key={repo.id}>
-              {type === "REPO" ? (
-                <RepositoryItem
-                  id={repo.id}
-                  name={repo.name}
-                  description={repo.description}
-                  visibility={repo.visibility}
-                  owner={repo.owner}
-                />
-              ) : (
-                <DetectedFile {...repo} />
-              )}
+              <RepositoryItem {...repo} />
             </li>
           ))}
         </ul>
         <RoundButton
-          icon={<CaretLeft />}
+          icon={<CaretLeft className="dark:fill-text-gray-light" />}
           onClick={handlePrev}
           disabled={currentPage === 1}
           className="absolute left-0 top-[50%] -ml-[27px] translate-y-[-50%]"
         />
         <RoundButton
-          icon={<CaretRight />}
+          icon={<CaretRight className="dark:fill-text-gray-light" />}
           onClick={handleNext}
           disabled={currentPage === totalPages}
           className="absolute right-0 top-[50%] -mr-[27px] translate-y-[-50%]"

@@ -1,9 +1,9 @@
 import { getServerSession } from "next-auth";
-import LibraryList from "../_components/LibraryList";
 import UserItem from "../_components/UserItem";
 import { authOptions } from "@/lib/auth";
 import LibraryLogin from "./_components/LibraryLogin";
 import LibraryTitle from "./_components/LibraryTitle";
+import RepositoryList from "./_components/RepositoryList";
 
 export default async function MyLibraryPage() {
   const session = await getServerSession(authOptions);
@@ -18,7 +18,7 @@ export default async function MyLibraryPage() {
       <div className="flex w-full flex-col">
         <UserItem buttonType="PROFILE" />
         <hr className="my-20 dark:border-text-gray-dark" />
-        <LibraryList type="REPO" className="h-[696px]" />
+        <RepositoryList className="h-[696px]" />
       </div>
     </div>
   );

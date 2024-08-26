@@ -1,15 +1,31 @@
 import AssistChips from "@/components/common/chips/AssistChips";
 import Link from "next/link";
 import LibraryItem from "@/app/(my-repo)/_components/LibraryItem";
-import { RepositoryProps } from "@/types";
+
+/**
+ * @todo
+ * - 임시 타입 변경
+ * - 디자인 변경 수정
+ * */
+
+export type DetectedFilesProps = {
+  id: number;
+  name: string;
+  // html_url: string;
+  owner: {
+    login: string;
+  };
+  visibility: "public" | "private";
+  date: string;
+};
 
 export default function DetectedFile({
   id,
   name,
-  description,
+  date,
   visibility,
   owner,
-}: RepositoryProps) {
+}: DetectedFilesProps) {
   return (
     <Link href={`/ai-analyze/${id}`}>
       <LibraryItem>
@@ -18,7 +34,7 @@ export default function DetectedFile({
         </LibraryItem.Chip>
         <LibraryItem.TextBox>
           <LibraryItem.Title>{name}</LibraryItem.Title>
-          <LibraryItem.Desc>{description}</LibraryItem.Desc>
+          <LibraryItem.Desc>{date}</LibraryItem.Desc>
         </LibraryItem.TextBox>
       </LibraryItem>
     </Link>
