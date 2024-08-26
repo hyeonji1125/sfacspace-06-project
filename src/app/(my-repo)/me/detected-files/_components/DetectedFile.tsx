@@ -1,23 +1,24 @@
-import { Repository } from "@/types/repository";
 import AssistChips from "@/components/common/chips/AssistChips";
 import Link from "next/link";
 import LibraryItem from "@/app/(my-repo)/_components/LibraryItem";
+import { RepositoryProps } from "@/types";
 
 export default function DetectedFile({
   id,
-  label,
-  title,
-  subtitle,
-}: Repository) {
+  name,
+  description,
+  visibility,
+  owner,
+}: RepositoryProps) {
   return (
     <Link href={`/ai-analyze/${id}`}>
       <LibraryItem className="border-primary-purple-100">
         <LibraryItem.Chip>
-          <AssistChips assistType="outlinePrimary">{label}</AssistChips>
+          <AssistChips assistType="outlinePrimary">{visibility}</AssistChips>
         </LibraryItem.Chip>
         <LibraryItem.TextBox>
-          <LibraryItem.Title>{title}</LibraryItem.Title>
-          <LibraryItem.Desc>{subtitle}</LibraryItem.Desc>
+          <LibraryItem.Title>{name}</LibraryItem.Title>
+          <LibraryItem.Desc>{description}</LibraryItem.Desc>
         </LibraryItem.TextBox>
       </LibraryItem>
     </Link>

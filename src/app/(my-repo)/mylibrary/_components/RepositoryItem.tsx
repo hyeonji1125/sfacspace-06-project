@@ -1,23 +1,24 @@
-import { Repository } from "@/types/repository";
 import LibraryItem from "../../_components/LibraryItem";
 import AssistChips from "@/components/common/chips/AssistChips";
 import Link from "next/link";
+import { RepositoryProps } from "@/types";
 
 export default function RepositoryItem({
   id,
-  label,
-  title,
-  subtitle,
-}: Repository) {
+  name,
+  description,
+  visibility,
+  owner,
+}: RepositoryProps) {
   return (
-    <Link href={`/ai-analyze/${id}`}>
+    <Link href={`/analyze/${owner.login}/${name}`}>
       <LibraryItem>
         <LibraryItem.Chip>
-          <AssistChips assistType="outline">{label}</AssistChips>
+          <AssistChips assistType="outline">{visibility}</AssistChips>
         </LibraryItem.Chip>
         <LibraryItem.TextBox>
-          <LibraryItem.Title>{title}</LibraryItem.Title>
-          <LibraryItem.Desc>{subtitle}</LibraryItem.Desc>
+          <LibraryItem.Title>{name}</LibraryItem.Title>
+          <LibraryItem.Desc>{description || 'No description'}</LibraryItem.Desc>
         </LibraryItem.TextBox>
       </LibraryItem>
     </Link>
