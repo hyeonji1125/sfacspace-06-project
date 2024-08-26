@@ -24,7 +24,7 @@ export default function UserItem({
       <Button
         theme="outlined"
         size="small"
-        className="border-2 border-primary-purple-500 font-normal"
+        className="border-2 border-primary-purple-500 py-4 font-normal md:py-4"
         onClick={() => signOut({ redirect: true, callbackUrl: "/mylibrary" })}
       >
         로그아웃

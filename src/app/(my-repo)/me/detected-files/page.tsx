@@ -4,7 +4,7 @@ import DetectedList from "./_components/DetectedList";
 export default function DetectedFilesPage() {
   return (
     <>
-      <PageTitle>Clipping Article</PageTitle>
+      <PageTitle>Detected Files</PageTitle>
       <DetectedList className="gap-6" />
     </>
   );

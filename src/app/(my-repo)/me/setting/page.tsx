@@ -7,6 +7,7 @@ import { authOptions } from "@/lib/auth";
 /**
  * @todo
  * - toggle onChange patch -> 유저 데이터 변경 (toggle에서 하도록)
+ * - firestore에서 유저 데이터 받아와서 유형 적용
  */
 
 export default async function SettingPage() {
