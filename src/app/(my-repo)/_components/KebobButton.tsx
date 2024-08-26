@@ -13,7 +13,7 @@ function MenuItem({
   return (
     <li>
       <button
-        className="whitespace-nowrap px-5 py-3 hover:bg-bg-gray-light"
+        className="whitespace-nowrap px-5 py-3 hover:bg-bg-gray-light dark:hover:bg-grayscale-80"
         type="button"
         onClick={onClick}
       >
@@ -66,7 +66,7 @@ export default function KebobButton({ id }: { id?: number }) {
         <Kebob />
       </button>
       {open && (
-        <ul className="absolute right-0 top-8 overflow-hidden rounded-lg bg-white shadow-custom-dropdown-shadow">
+        <ul className="absolute right-0 top-8 overflow-hidden rounded-lg bg-white shadow-custom-dropdown-shadow dark:border dark:border-custom-dark-bg dark:bg-custom-dark-bg">
           <MenuItem onClick={handleDelete}>삭제</MenuItem>
           <MenuItem onClick={handleShare}>공유</MenuItem>
         </ul>

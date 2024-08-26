@@ -17,7 +17,7 @@ function AssistChips({
   const AssistChipsClasses = {
     outline: disabled
       ? "text-text-gray-default border-text-gray-dark"
-      : "text-black border-text-gray-dark hover:bg-black hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",
+      : "text-black border-text-gray-dark dark:border-text-gray-default hover:bg-black dark:text-custom-dark-text hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",
     elevated: disabled
       ? "text-bg-purple-dark border-none bg-bg-purple-light"
       : "text-black bg-bg-purple-light hover:bg-bg-purple-chip border-none hover:bg-opacity-[0.08] focus:bg-opacity-[0.12] active:bg-opacity-[0.12]",

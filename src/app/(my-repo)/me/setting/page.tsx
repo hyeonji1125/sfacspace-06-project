@@ -13,13 +13,13 @@ export default async function SettingPage() {
       <PageTitle>Setting</PageTitle>
       <div className="flex w-full flex-col">
         <UserItem />
-        <hr className="my-20" />
-        <div className="flex gap-8 text-2xl text-black">
+        <hr className="my-20 dark:border-text-gray-dark" />
+        <div className="flex gap-8 text-2xl text-black dark:text-text-gray-light">
           <h4 className="font-semibold">계정 유형</h4>
           <span className="font-normal">깃허브 연동</span>
         </div>
-        <hr className="my-20" />
-        <div className="mb-[87px] flex flex-col gap-12 text-2xl text-black">
+        <hr className="my-20 dark:border-text-gray-dark" />
+        <div className="mb-[87px] flex flex-col gap-12 text-2xl text-black dark:text-text-gray-light">
           <h4 className="font-semibold">계정 유형</h4>
           <EmailToggle />
         </div>
