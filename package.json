@@ -15,6 +15,7 @@
   "dependencies": {
     "@auth/firebase-adapter": "^2.4.2",
     "@octokit/rest": "^21.0.2",
+    "date-fns": "^3.6.0",
     "firebase": "^10.13.0",
     "firebase-admin": "^11.11.1",
     "framer-motion": "^11.3.28",
