@@ -7,7 +7,12 @@ import LibraryToolbar from "@/app/(my-repo)/_components/LibraryToolbar";
 import Link from "next/link";
 
 const FILES = [
-  { type: "warning", title: "sfacweb - 1", date: "2024-08-22", id: 1 },
+  {
+    type: "warning",
+    title: "sfacweb - 1asdwdasdasdwdsdasdsds",
+    date: "2024-08-22",
+    id: 1,
+  },
   { type: "notification", title: "sfacweb - 2", date: "2024-08-22", id: 2 },
   { type: "gray", title: "sfacweb - 3", date: "2024-08-22", id: 3 },
   { type: "notification", title: "sfacweb - 4", date: "2024-08-22", id: 4 },
@@ -50,7 +55,7 @@ export default function ArticleList({
 
   return (
     <>
-      <section className="flex flex-col items-center justify-center gap-[124px]">
+      <section className="flex w-full flex-col items-center justify-center gap-[124px]">
         <div className="flex w-full flex-col gap-12">
           <LibraryToolbar />
           <div className="h-auto w-full">

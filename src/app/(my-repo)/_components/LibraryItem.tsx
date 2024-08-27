@@ -11,7 +11,7 @@ export default function LibraryItem({
   return (
     <div
       className={twMerge(
-        "flex h-[200px] w-full flex-col justify-between rounded-xl border border-primary-purple-100 p-5",
+        "flex h-[200px] w-full flex-col justify-between rounded-xl border border-primary-purple-100 p-5 hover:border-primary-purple-200 dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-5 hover:dark:border-opacity-40",
         className && className,
       )}
     >
@@ -31,7 +31,7 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
-    <h4 className="text-text-gray-dark max-w-[250px] truncate text-[28px]">
+    <h4 className="max-w-[250px] truncate text-[28px] text-text-gray-dark dark:text-custom-dark-text">
       {children}
     </h4>
   );

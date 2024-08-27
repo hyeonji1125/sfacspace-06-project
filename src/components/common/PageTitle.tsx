@@ -19,10 +19,10 @@ export default function PageTitle({
         className && className,
       )}
     >
-      <Link href={link ? link : "/me/profile"}>
+      <Link href={link ? link : "/me"}>
         <TitleCaret />
       </Link>
-      <h2 className="select-none text-[40px] text-primary-purple-500">
+      <h2 className="select-none text-[40px] leading-[36px] text-primary-purple-500">
         {children}
       </h2>
     </div>
