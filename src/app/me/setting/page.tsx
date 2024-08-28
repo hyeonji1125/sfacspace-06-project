@@ -1,5 +1,5 @@
 import PageTitle from "@/components/common/PageTitle";
-import UserItem from "../../_components/UserItem";
+import UserItem from "../../../components/common/UserItem";
 import EmailToggle from "./_components/EmailToggle";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";

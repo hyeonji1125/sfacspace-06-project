@@ -1,9 +1,9 @@
 "use client";
 
 import ClippingArticle, { TClippingArticle } from "./ClippingArticle";
-import { Plus } from "../../../../../../public/assets/svg/SvgIcons";
-import { usePagination } from "@/app/(my-repo)/_hook/usePagination";
-import LibraryToolbar from "@/app/(my-repo)/_components/LibraryToolbar";
+import { Plus } from "../../../../../public/assets/svg/SvgIcons";
+import { usePagination } from "@/app/repos/_hook/usePagination";
+import LibraryToolbar from "@/app/repos/_components/LibraryToolbar";
 import Link from "next/link";
 
 const FILES = [

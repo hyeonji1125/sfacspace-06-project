@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth";
-import UserItem from "../_components/UserItem";
+
 import { authOptions } from "@/lib/auth";
 import LibraryLogin from "./_components/LibraryLogin";
 import LibraryTitle from "./_components/LibraryTitle";
+import UserItem from "@/components/common/UserItem";
 import RepositoryList from "./_components/RepositoryList";
 
 export default async function MyLibraryPage() {

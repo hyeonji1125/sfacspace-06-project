@@ -1,32 +1,31 @@
 "use client";
 
+import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { usePagination } from "@/app/(my-repo)/_hook/usePagination";
-import LibraryToolbar from "@/app/(my-repo)/_components/LibraryToolbar";
-import DetectedFile from "./DetectedFile";
-import RoundButton from "@/app/(my-repo)/_components/RoundButton";
-import {
-  CaretLeft,
-  CaretRight,
-} from "../../../../../../public/assets/svg/SvgIcons";
-import { DETECTED_FILES } from "../mock/detectedFiles";
+import { useGithubStore } from "@/store/useGithubStore";
+import { usePagination } from "../_hook/usePagination";
+import LibraryToolbar from "./LibraryToolbar";
+import RepositoryItem from "./RepositoryItem";
+import RoundButton from "./RoundButton";
+import { CaretLeft, CaretRight } from "../../../../public/assets/svg/SvgIcons";
 
-/**
- * @todo
- * - Firestore에서 데이터 가져오는 로직 추가
- * - pagination에 해당 데이터 삽입
- * */
-export default function DetectedList({ className }: { className?: string }) {
+export default function RepositoryList({ className }: { className?: string }) {
+  const { repositories, fetchRepositories, isLoading, error } =
+    useGithubStore();
   const {
     currentItems: currentRepos,
     currentPage,
     totalPages,
     handlePrev,
     handleNext,
-  } = usePagination(DETECTED_FILES);
+  } = usePagination(repositories);
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>{error}</div>;
+  useEffect(() => {
+    fetchRepositories();
+  }, [fetchRepositories]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <section className="flex w-full flex-col gap-12">
@@ -40,7 +39,7 @@ export default function DetectedList({ className }: { className?: string }) {
         >
           {currentRepos.map((repo) => (
             <li key={repo.id}>
-              <DetectedFile {...repo} />
+              <RepositoryItem {...repo} />
             </li>
           ))}
         </ul>

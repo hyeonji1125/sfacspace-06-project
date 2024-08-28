@@ -3,9 +3,8 @@
 import { MockPostCardTypes } from "@/types";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import PostCardMock from "../_components/_data/postCardMock";
-
-import SmallPostCardList from "../_components/smallPostCard/SmallPostCardList";
+import SmallPostCardList from "../../_components/smallPostCard/SmallPostCardList";
+import PostCardMock from "../../_components/_data/postCardMock";
 
 export default function PostDetailPage() {
   const { id } = useParams();
