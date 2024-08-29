@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import icons from "../../../public/assets/icons";
 
 export default function Footer() {
@@ -70,8 +71,8 @@ export default function Footer() {
         </div>
         <div className="mt-auto w-full items-end justify-end text-gray-700 dark:text-gray-400 md:w-auto md:flex-row">
           <div className="flex gap-10 text-[16px] text-text-gray-default md:gap-14">
-            <p className="underline">서비스 이용약관</p>
-            <p className="underline">개인정보 처리방침</p>
+            <Link href="/agreements" className="underline">서비스 이용약관</Link>
+            <Link href="/ppa" className="underline">개인정보 처리방침</Link>
           </div>
           <div className="mt-1 text-text-gray-dark dark:text-gray-300 md:mt-3">
             © 2024 Spacspace. All right reserved.
