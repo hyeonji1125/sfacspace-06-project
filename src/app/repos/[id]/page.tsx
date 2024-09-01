@@ -7,7 +7,6 @@ import FileList from "./_components/FileList";
 import FileViewer from "./_components/FileViewer";
 import CompletedFileViewer from "./_components/CompletedFileViewer";
 import ModifiedCode from "./_components/ModifiedCode";
-import PcOnlyMessage from "@/components/common/PcOnlyMessage";
 import AnalyzeModal from "./_components/AnalyzeModal";
 import { useState } from "react";
 import { useFileStore } from "@/store/useFileStore";
@@ -36,8 +35,6 @@ export default function AnalyzePage() {
   };
 
   return (
-    <>
-      <PcOnlyMessage />
       <section className="m-auto mb-20 hidden min-h-screen w-full max-w-[1920px] flex-col gap-11 px-20 xl:flex">
         <PageTitle className="min-w-full justify-start px-5 py-2">
           sfacweb-1
@@ -87,6 +84,5 @@ export default function AnalyzePage() {
           selectedFiles={selectedFiles}
         />
       </section>
-    </>
   );
 }
