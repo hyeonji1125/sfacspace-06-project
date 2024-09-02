@@ -1,29 +1,30 @@
 "use client";
 
-import React from "react";
-import { DropdownProps } from "@/types/utils";
+import React, { SetStateAction, useState } from "react";
 import {
   DropdownArrowIcon,
   DropdownCheckIcon,
 } from "../../../public/assets/svg/SvgIcons";
 import { twMerge } from "tailwind-merge";
-import { useDropdownStore } from "@/store/useDropdownStore";
+import { TDropdownSelect } from "@/app/repos/_components/LibraryToolbar";
 
-const Dropdown: React.FC<DropdownProps> = ({ type }) => {
-  const { selectedType, setSelectedType, selectedSort, setSelectedSort } =
-    useDropdownStore();
+type TDropdownProps = {
+  options?: string[];
+  type: "type" | "sort";
+  selectedOption: string;
+  onSelect: React.Dispatch<SetStateAction<TDropdownSelect>>;
+};
 
-  const isTypeDropdown = type === "Type";
-  const options = isTypeDropdown
-    ? ["폴더순", "파일순"]
-    : ["최신순", "오래된순", "이름순"];
-  const selectedOption = isTypeDropdown ? selectedType : selectedSort;
-  const setSelectedOption = isTypeDropdown ? setSelectedType : setSelectedSort;
-
-  const [isOpen, setIsOpen] = React.useState(false);
+const Dropdown: React.FC<TDropdownProps> = ({
+  options = ["최신순", "오래된순", "이름순"],
+  selectedOption = "Sort",
+  onSelect,
+  type = "sort",
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
+    onSelect((prev) => ({ ...prev, [type]: option }));
     setIsOpen(false);
   };
 
