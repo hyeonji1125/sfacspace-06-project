@@ -2,7 +2,6 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { Aldrich } from "next/font/google";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -16,21 +15,25 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 
-const aldrich = Aldrich({ weight: "400", subsets: ["latin"] });
-
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+  useEffect(() => {
+    if (!session) {
+      localStorage.removeItem("githubStorage");
+    }
+  }, [session]);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white bg-[rgba(255,255,255,0.16)] px-4 py-4 backdrop-blur-md dark:border-custom-dark-bg dark:bg-[rgba(0,0,0,0.16)] md:px-20 md:py-12">
@@ -49,17 +52,11 @@ const Header: React.FC = () => {
           </h1>
         </Link>
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
-          <Link
-            href="/vulnerability-db"
-            className="cursor-pointer hover:text-accent-blue"
-          >
+          <Link href="/vuldb" className="cursor-pointer hover:text-accent-blue">
             취약점 DB
           </Link>
 
-          <Link
-            href="/mylibrary"
-            className="cursor-pointer hover:text-accent-blue"
-          >
+          <Link href="/repos" className="cursor-pointer hover:text-accent-blue">
             MY 저장소
           </Link>
 

@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 /**
  *
  * @todo
- * - 로그아웃 로직 연결 (user 삭제, signOut, redirect "/")
+ * - 로그아웃 로직에 user 삭제 추가
  *
  */
 
@@ -51,7 +51,7 @@ export default function LogoutComfirmModal({
         <Button
           theme="filled"
           onClick={() => onClose(false)}
-          className="w-[300px] bg-bg-gray-light font-normal text-line-default hover:shadow-none"
+          className="w-[300px] bg-bg-gray-light font-normal text-line-default hover:shadow-none dark:bg-opacity-10"
         >
           닫기
         </Button>
