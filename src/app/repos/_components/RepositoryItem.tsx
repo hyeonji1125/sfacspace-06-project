@@ -11,7 +11,7 @@ export default function RepositoryItem({
   owner,
 }: RepositoryProps) {
   return (
-    <Link href={`/analyze/${owner.login}/${name}`}>
+    <Link href={`/repos/${owner.login}/${name}`}>
       <LibraryItem>
         <LibraryItem.Chip>
           <AssistChips assistType="outline">{visibility}</AssistChips>
