@@ -7,30 +7,41 @@ type ImageCardProps = {
   title: string;
   date: string;
   image: "cardImage1" | "cardImage2" | "cardImage3";
+  widthStyle: string;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 };
 
-export default function ImageCard({ id, title, date, image }: ImageCardProps) {
+export default function ImageCardItem({
+  id,
+  title,
+  date,
+  image,
+  widthStyle,
+  onMouseEnter,
+  onMouseLeave,
+}: ImageCardProps) {
   const imageSrc = {
-    cardImage1:
-      "bg-[url('/assets/images/vulnerability-db/CardImg1.png')] w-[625px]",
-    cardImage2:
-      "bg-[url('/assets/images/vulnerability-db/CardImg2.png')] w-[316px]",
-    cardImage3:
-      "bg-[url('/assets/images/vulnerability-db/CardImg3.png')] w-[316px]",
+    cardImage1: "bg-[url('/assets/images/vulnerability-db/CardImg1.png')]",
+    cardImage2: "bg-[url('/assets/images/vulnerability-db/CardImg2.png')]",
+    cardImage3: "bg-[url('/assets/images/vulnerability-db/CardImg3.png')]",
   };
 
-  const titleClass =
-    image === "cardImage1" ? "text-[28px] w-[420px]" : "text-lg w-[136px]";
-  const dateClass =
-    image === "cardImage1" ? "text-xl  w-[420px]" : "text-xs w-[136px]";
+  const isWide = widthStyle === "625px";
+
+  const titleClass = isWide ? "text-[28px] w-[420px]" : "text-lg w-[136px]";
+  const dateClass = isWide ? "text-xl w-[420px]" : "text-xs w-[136px]";
 
   return (
-    <Link href={`/vulnerability-db/${id}`}>
+    <Link href={`/vuldb/items/${id}`}>
       <div
         className={twMerge(
-          "flex h-[390px] rounded-[20px] bg-cover bg-center",
+          "flex h-[390px] rounded-[20px] bg-cover bg-center duration-300",
           imageSrc[image],
         )}
+        style={{ width: widthStyle }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         <div className="flex w-full items-end justify-between px-9 py-9">
           <div className="flex flex-col gap-2">

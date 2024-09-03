@@ -16,8 +16,8 @@ export default function SmallPostCardItem({
   date,
 }: SmallPostCardType) {
   return (
-    <Link href={`/vulnerability-db/${id}`}>
-      <div className="flex h-[275px] w-[414px] flex-col rounded-lg border border-line-default bg-white p-7">
+    <Link href={`/vuldb/items/${id}`}>
+      <div className="flex h-[275px] w-[414px] flex-col rounded-lg border border-line-default bg-white p-7 dark:bg-custom-light-bg dark:bg-opacity-5">
         {(chips === "new" || chips === "hot") && (
           <SuggestionChips width="59" height="35" color={chips}>
             {chips.toUpperCase()}

@@ -7,16 +7,12 @@ export default function TopicList() {
       <p className="text-lg font-medium text-text-gray-default">
         03.08 12:00시 기준
       </p>
-      <div className="w-[346px] rounded-lg border border-line-default bg-white p-5">
+      <div className="w-[346px] rounded-lg border border-line-default bg-white p-5 dark:bg-custom-light-bg dark:bg-opacity-5">
         <ul className="text-lg">
           {TopicListMock.map((item) => (
             <li
               key={item.id}
-              className={`${
-                item.id === 1
-                  ? "text-primary-purple-500"
-                  : "text-custom-light-text"
-              } flex items-center border-b border-line-gray-10 py-4 font-medium`}
+              className="flex items-center border-b border-line-gray-10 py-4 font-medium text-custom-light-text dark:text-white"
             >
               <span className="mr-2">{item.id}.</span>
               <span>{item.title}</span>

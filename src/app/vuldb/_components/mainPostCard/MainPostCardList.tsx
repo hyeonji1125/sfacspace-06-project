@@ -28,7 +28,7 @@ export default function MainPostCardList({
           <MainPostCardItem
             key={item.id}
             id={item.id}
-            chips={item.chips || "default"}
+            chips={item.chips}
             title={item.title}
             company={item.company}
             reportContent={item.reportContent}
