@@ -1,34 +1,25 @@
 "use client";
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
-import { Tfile } from "@/store/useFileStore";
-import { SetStateAction, useState } from "react";
+import { TAnalyzeModalProp } from "@/types";
 import { AiFillFolderOpen } from "react-icons/ai";
 import { FaRegFolderOpen } from "react-icons/fa6";
 import { RxFile } from "react-icons/rx";
-import LoadingModal from "./LoadingModal";
 
 export default function AnalyzeModal({
   isOpen,
   setIsOpen,
   isWhole,
-  selectedFiles,
-}: {
-  isOpen: boolean;
-  setIsOpen: (value: SetStateAction<boolean>) => void;
-  isWhole: boolean;
-  selectedFiles: Tfile[];
-}) {
-  // 임시 code
-  const [isLoadingModalOpen, setIsLoadingModalOpen] = useState(false);
-
+  title,
+  fileList
+}: TAnalyzeModalProp) {
+  
   const handleClose = () => {
     setIsOpen(false);
   };
 
   const handleSubmit = () => {
     setIsOpen(false);
-    setIsLoadingModalOpen(true);
   };
 
   return (
@@ -38,7 +29,7 @@ export default function AnalyzeModal({
           isOpen={isOpen}
           onClose={handleClose}
           shadow
-          className="gap-10 p-12"
+          className="gap-10 p-12 dark:border dark:border-line-dark/50"
         >
           <p className="text-nowrap text-2xl font-medium">
             {isWhole ? "폴더 전체를" : "선택된 파일을"} 검사하시겠습니까?
@@ -47,23 +38,23 @@ export default function AnalyzeModal({
             {isWhole ? (
               <div className="flex flex-col items-center gap-3">
                 <AiFillFolderOpen className="text-5xl text-primary-purple-500" />
-                <span className="text-xl">Repository Name</span>
+                <span className="text-xl">{title}</span>
               </div>
             ) : (
               <div className="custom-scrollbar max-h-[220px] overflow-hidden overflow-y-auto">
-                <ul className="overflow-hidden rounded-lg border border-line-default">
-                  {selectedFiles.map((file) => (
+                <ul className="overflow-hidden rounded-lg border border-line-default dark:border-line-dark/50">
+                  {fileList.map((file) => (
                     <li
-                      key={file.id}
-                      className="flex w-[590px] items-center justify-between border-b border-line-default p-[10px] last:border-b-0"
+                      key={file.sha}
+                      className="flex w-[590px] items-center justify-between border-b border-line-default p-[10px] last:border-b-0 dark:border-line-dark/50"
                     >
                       <div className="flex w-60 items-center gap-[10px]">
-                        {file.category === "folder" ? (
+                        {file.type === "dir" ? (
                           <FaRegFolderOpen className="flex-shrink-0 pl-1 text-2xl text-[#848484]" />
                         ) : (
                           <RxFile className="flex-shrink-0 text-2xl text-[#848484]" />
                         )}
-                        <span className="overflow-hidden text-ellipsis">
+                        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
                           {file.name}
                         </span>
                       </div>
@@ -97,8 +88,6 @@ export default function AnalyzeModal({
           </Modal.Button>
         </Modal>
       )}
-      {/*임시*/}
-      {isLoadingModalOpen && <LoadingModal />}
     </>
   );
 }

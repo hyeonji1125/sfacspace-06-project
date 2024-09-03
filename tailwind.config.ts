@@ -66,7 +66,7 @@ const config: Config = {
         "accent-red": "#FF6D6D",
         "accent-blue": "#6DB0FF",
         "accent-orange": "#FFD542",
-        "accent-green": "#00C308",
+        "accent-green": "#17E0D4",
 
         // background color
         "bg-red-light": "#FFEFEF",

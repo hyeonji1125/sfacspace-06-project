@@ -34,6 +34,7 @@ export type RepositoryState = {
   currentPath: string;
   repoContents: RepositoryContent[];
   selectedFile: FileContent | null;
+  selectedFiles: string[];
   isLoading: boolean;
   error: string | null;
 
@@ -44,5 +45,15 @@ export type RepositoryState = {
     path?: string,
   ) => Promise<void>;
   selectFile: (owner: string, repo: string, path: string) => Promise<void>;
+  toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;
+  clearSelectedFiles: () => void;
+};
+
+export type TAnalyzeModalProp = {
+  isOpen: boolean;
+  setIsOpen: (value: SetStateAction<boolean>) => void;
+  isWhole: boolean;
+  title: string;
+  fileList: RepositoryContent[];
 };
