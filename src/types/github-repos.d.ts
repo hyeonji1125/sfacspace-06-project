@@ -1,3 +1,5 @@
+export type RepositoryStatus = "COMPLETED" | "IN_PROGRESS" | undefined;
+
 export type RepositoryProps = {
   id: number;
   name: string;
@@ -7,7 +9,11 @@ export type RepositoryProps = {
   };
   visibility: "public" | "private";
   description: string | null;
+  created_at: string;
   /* 추후 필요한 필드 추가 */
+  status?: RepositoryStatus;
+  bookmark?: boolean;
+  recent?: boolean;
 };
 
 export type RepositoryContent = {
@@ -48,6 +54,7 @@ export type RepositoryState = {
   toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;
   clearSelectedFiles: () => void;
+  setRepositories: (id: number, bookmark: boolean) => void;
 };
 
 export type TAnalyzeModalProp = {

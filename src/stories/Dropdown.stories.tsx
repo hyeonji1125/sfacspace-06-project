@@ -1,19 +1,19 @@
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import Dropdown from '../components/common/Dropdown';
-import { ThemeProvider } from 'next-themes';
+import React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
+import Dropdown from "../components/common/Dropdown";
+import { ThemeProvider } from "next-themes";
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'common/Dropdown',
+  title: "common/Dropdown",
   component: Dropdown,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     type: {
-      control: { type: 'radio' },
-      options: ['Type', 'Sort'],
+      control: { type: "radio" },
+      options: ["Type", "Sort"],
     },
   },
   decorators: [
@@ -33,14 +33,13 @@ type Story = StoryObj<typeof Dropdown>;
 // 기본 스토리
 export const Default: Story = {
   args: {
-    type: 'Type',
+    type: "type",
   },
 };
 
 // Sort 옵션 스토리
 export const Sort: Story = {
   args: {
-    type: 'Sort',
+    type: "sort",
   },
 };
-

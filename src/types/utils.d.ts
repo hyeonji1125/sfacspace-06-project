@@ -1,6 +1,7 @@
 export type SvgState = {
   className?: string;
   fill?: string;
+  color?: string;
 };
 
 export type DarkModeState = {

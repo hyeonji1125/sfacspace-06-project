@@ -77,9 +77,9 @@ export default function Modal({
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex justify-center p-[10px] text-2xl font-semibold text-custom-light-text dark:text-custom-dark-text">
+    <h3 className="flex justify-center p-[10px] text-2xl font-semibold text-custom-light-text dark:text-custom-dark-text">
       {children}
-    </div>
+    </h3>
   );
 }
 
@@ -99,8 +99,20 @@ function Content({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Button({ children }: { children: React.ReactNode }) {
-  return <div className="flex justify-center gap-3">{children}</div>;
+function Button({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={twMerge("flex justify-center gap-3", className && className)}
+    >
+      {children}
+    </div>
+  );
 }
 
 function Box({ children }: { children: React.ReactNode }) {

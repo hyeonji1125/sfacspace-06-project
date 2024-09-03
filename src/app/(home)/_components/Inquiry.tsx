@@ -23,7 +23,6 @@ export default function Inquiry() {
       setFormData("email", "");
     }
   }, [status, session, setFormData]);
-  
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -38,7 +37,7 @@ export default function Inquiry() {
   };
 
   return (
-    <section className="flex min-h-[800px] flex-col justify-between gap-x-10 gap-y-10 px-6 pb-[80px] pt-[100px] sm:px-8 md:px-[60px] lg:flex-row lg:gap-x-16 lg:gap-y-0 lg:px-[80px] xl:px-[90px] 2xl:px-[190px]">
+    <section className="flex min-h-[800px] w-full flex-col justify-between gap-x-10 gap-y-10 px-6 pb-[80px] pt-[100px] sm:px-8 md:px-[60px] lg:flex-row lg:gap-x-16 lg:gap-y-0 lg:px-[80px] xl:px-[90px] 2xl:px-[190px]">
       <div className="flex flex-shrink-0 flex-col text-center tracking-[-0.01em] md:flex-grow lg:text-left">
         <div className="font-bold">
           <h2 className="mb-7 text-3xl !leading-snug text-primary-purple-500 md:mb-[25px] md:text-5xl lg:mb-[30px] 2xl:text-6xl">

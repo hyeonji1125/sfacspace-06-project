@@ -6,7 +6,7 @@ export default function UserPic({
   name,
   size = "large",
 }: {
-  image: string;
+  image?: string;
   name: string;
   size?: "small" | "large";
 }) {
@@ -18,7 +18,7 @@ export default function UserPic({
       )}
     >
       <Image
-        src={image}
+        src={image ?? "https://picsum.photos/100/100"}
         alt={name}
         sizes="(max-width: 1200px) 200px, 400px"
         fill

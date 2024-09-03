@@ -3,8 +3,8 @@ import { SuggestionChipsColor } from "@/types";
 
 export type TClippingArticle = {
   type: SuggestionChipsColor;
-  title: string;
-  date: string;
+  name: string;
+  created_at: string;
   id: number;
 };
 
@@ -30,19 +30,19 @@ function Label({ type }: { type: SuggestionChipsColor }) {
 
 export default function ClippingArticle({
   type,
-  title,
-  date,
+  name,
+  created_at,
 }: TClippingArticle) {
   return (
-    <div className="flex h-auto w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 hover:border-line-dark dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-5 hover:dark:border-opacity-40">
+    <div className="flex h-auto w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 hover:bg-bg-purple-light dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-0 hover:dark:bg-opacity-5">
       <div className="flex flex-col items-start gap-2">
         <Label type={type} />
         <h4 className="text-overflow h-[72px] text-2xl font-medium leading-normal text-black dark:text-custom-dark-text">
-          {title}
+          {name}
         </h4>
       </div>
       <span className="text-base font-normal text-text-gray-default">
-        {date}
+        {created_at}
       </span>
     </div>
   );
