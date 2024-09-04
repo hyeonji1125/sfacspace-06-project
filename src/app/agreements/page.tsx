@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function page() {
   return (
     <div className="flex w-full flex-col">
@@ -8,13 +6,13 @@ export default function page() {
           <h2 className="mb-[15px] flex items-center text-2xl font-medium tracking-tighter md:text-[32px]">
             플로디텍터 일반 사용 약관
           </h2>
-          <div className="flex w-full flex-col text-sm font-light tracking-tight md:text-xl">
-            <p>모든 사업 관계에서 귀하는 일련의 약관에 동의합니다.</p>
-            <p>
+          <p className="flex w-full flex-col text-sm font-light tracking-tight md:text-xl">
+            <span>모든 사업 관계에서 귀하는 일련의 약관에 동의합니다.</span>
+            <span>
               본 약관은 플로디텍터 사용에 대해 당사가 귀하와 체결한 계약입니다.
-            </p>
-            <p className="mt-3">발행일 : 2024.08.28</p>
-          </div>
+            </span>
+            <span className="mt-3">발행일 : 2024.08.28</span>
+          </p>
         </div>
       </div>
       <div className="flex justify-center px-[30px] pb-[120px] pt-20 text-black dark:text-white md:px-[50px] xl:px-[100px]">
