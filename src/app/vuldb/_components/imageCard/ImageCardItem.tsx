@@ -22,9 +22,9 @@ export default function ImageCardItem({
   onMouseLeave,
 }: ImageCardProps) {
   const imageSrc = {
-    cardImage1: "bg-[url('/assets/images/vulnerability-db/CardImg1.png')]",
-    cardImage2: "bg-[url('/assets/images/vulnerability-db/CardImg2.png')]",
-    cardImage3: "bg-[url('/assets/images/vulnerability-db/CardImg3.png')]",
+    cardImage1: "bg-[url('/assets/images/vuldb/items/CardImg1.png')]",
+    cardImage2: "bg-[url('/assets/images/vuldb/items/CardImg2.png')]",
+    cardImage3: "bg-[url('/assets/images/vuldb/items/CardImg3.png')]",
   };
 
   const isWide = widthStyle === "625px";
