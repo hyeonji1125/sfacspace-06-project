@@ -18,9 +18,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: githubSecret,
       authorization: {
         params: {
-          scope: "read:user user:email repo"
-        }
-      }
+          scope: "read:user user:email repo",
+        },
+      },
     }),
   ],
   session: {
@@ -38,20 +38,21 @@ export const authOptions: NextAuthOptions = {
       profile?: Profile;
     }) {
       if (user.email) {
-        // 사용자 정보를 Firestore에 저장
-        await postData('users', {
-          email: user.email,
-          name: user.name ?? profile?.name,
-          image: user.image ?? profile?.image,
-          createdAt: new Date().toISOString(),
+        Promise.resolve().then(() => {
+          postData("users", {
+            email: user.email,
+            name: user.name ?? profile?.name,
+            image: user.image ?? profile?.image,
+            createdAt: new Date().toISOString(),
+          }).catch((error) =>
+            console.error("유저 정보 FireStore 저장 에러: ", error),
+          );
         });
       }
       return true;
     },
     async jwt({ token, account }) {
-      if (account) {
-        token.accessToken = account.access_token;
-      }
+      if (account) token.accessToken = account.access_token;
       return token;
     },
     async session({ session, token }) {

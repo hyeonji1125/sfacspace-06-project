@@ -4,13 +4,19 @@ import { deleteData } from "@/hooks/fetchData";
 export const customSignOut = async (email: string, callbackUrl?: string) => {
   try {
     if (email) {
-      // Firestore에서 사용자 문서 삭제
-      await deleteData('users', email);
+      Promise.resolve().then(() => {
+        deleteData('users', email)
+          .then(() => {
+            console.log('User data deleted successfully');
+          })
+          .catch(error => {
+            console.error("Failed to delete user data:", error);
+          });
+      });
     }
-    // NextAuth 로그아웃
     await signOut({ callbackUrl });
   } catch (error) {
-    console.error("로그아웃 중 오류 발생:", error);
-    throw error; 
+    console.error("로그아웃 에러:", error);
+    throw error;
   }
 };
