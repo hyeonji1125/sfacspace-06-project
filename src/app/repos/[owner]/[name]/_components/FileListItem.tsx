@@ -58,6 +58,7 @@ export default function FileListItem({ name, type, path }: RepositoryContent) {
         <div className="flex items-center gap-[10px]">
           <button
             type="button"
+            title="bookmark"
             className="z-10 text-2xl"
             onClick={handleBookmarkClick}
           >

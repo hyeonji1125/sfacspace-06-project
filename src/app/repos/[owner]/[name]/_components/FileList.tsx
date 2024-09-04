@@ -89,6 +89,7 @@ export default function FileList({
         <div className="flex gap-3 text-2xl">
           <button
             type="button"
+            title="multipleSelect"
             onClick={handleMultiSelectToggle}
             className={`transition-color rounded-full p-1 duration-200 ease-in-out hover:bg-primary-purple-500/50 hover:text-white dark:hover:text-white ${
               isMultiSelectMode
@@ -136,13 +137,13 @@ export default function FileList({
                 key={item.sha}
                 className="border-b border-line-gray-10 last:border-b-0 dark:border-line-dark/50"
               >
-                <button
-                  type="button"
+                <div
+                  role="button"
                   className="w-full"
                   onClick={() => handleFileClick(item)}
                 >
                   <FileListItem {...item} />
-                </button>
+                </div>
               </li>
             ))}
           </ul>

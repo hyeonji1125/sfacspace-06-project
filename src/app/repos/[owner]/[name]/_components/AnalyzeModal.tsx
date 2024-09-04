@@ -11,9 +11,8 @@ export default function AnalyzeModal({
   setIsOpen,
   isWhole,
   title,
-  fileList
+  fileList,
 }: TAnalyzeModalProp) {
-  
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -29,7 +28,8 @@ export default function AnalyzeModal({
           isOpen={isOpen}
           onClose={handleClose}
           shadow
-          className="gap-10 p-12 dark:border dark:border-line-dark/50"
+          dimmed
+          className="gap-10 p-12"
         >
           <p className="text-nowrap text-2xl font-medium">
             {isWhole ? "폴더 전체를" : "선택된 파일을"} 검사하시겠습니까?
