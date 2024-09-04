@@ -17,8 +17,8 @@ export default function MainPostCardItem({
   date,
 }: MainPostCardType) {
   return (
-    <Link href={`/vulnerability-db/${id}`}>
-      <div className="flex h-[253px] w-[865px] flex-col rounded-lg border border-line-default bg-white p-7">
+    <Link href={`/vuldb/items/${id}`}>
+      <div className="flex h-[253px] w-[865px] flex-col rounded-lg border border-line-default bg-white p-7 dark:bg-custom-light-bg dark:bg-opacity-5">
         <div className="flex items-center gap-2 pb-1">
           {(chips === "new" || chips === "hot") && (
             <SuggestionChips width="59" height="35" color={chips}>
@@ -30,8 +30,8 @@ export default function MainPostCardItem({
         <span className="pb-5 text-base font-normal text-[#ADADAD]">
           {company}
         </span>
-        <div className="flex h-[59px] w-[809px] items-center rounded-2xl bg-bg-purple-light px-5">
-          <p className="max-w-3xl truncate text-base font-normal text-[#797979]">
+        <div className="flex h-[59px] w-[809px] items-center rounded-2xl bg-bg-purple-light px-5 dark:bg-custom-light-bg dark:bg-opacity-20">
+          <p className="max-w-3xl truncate text-base font-normal text-[#797979] dark:text-custom-dark-text">
             {reportContent}
           </p>
         </div>

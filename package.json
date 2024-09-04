@@ -12,10 +12,13 @@
     "build-storybook": "storybook build",
     "test": "jest"
   },
+  "type": "module",
   "dependencies": {
     "@auth/firebase-adapter": "^2.4.2",
+    "@google-cloud/translate": "^8.5.0",
     "@octokit/rest": "^21.0.2",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
     "firebase": "^10.13.0",
     "firebase-admin": "^11.11.1",
     "framer-motion": "^11.3.28",
@@ -23,6 +26,7 @@
     "next-auth": "^4.24.7",
     "next-themes": "^0.3.0",
     "nodemailer": "^6.9.14",
+    "puppeteer": "^23.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
@@ -58,7 +62,6 @@
     "prettier-plugin-tailwindcss": "^0.6.6",
     "storybook": "^8.2.9",
     "tailwindcss": "^3.4.1",
-    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

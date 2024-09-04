@@ -5,13 +5,12 @@ import PostCardMock from "../_data/postCardMock";
 import SmallPostCardItem from "./SmallPostCardItem";
 
 export default function SmallPostCardList() {
-  const smallPostCards = PostCardMock.slice(0, 6);
-
-  const smallDataChips = setPostChips(smallPostCards);
+  const smallDataChips = setPostChips(PostCardMock);
+  const smallPostCards = smallDataChips.slice(0, 6);
 
   return (
-    <div className="flex flex-wrap gap-4">
-      {smallDataChips.map((item) => {
+    <div className="mx-auto flex flex-wrap gap-8">
+      {smallPostCards.map((item) => {
         const relativeDate = formatRelativeTime(item.date);
         return (
           <SmallPostCardItem
