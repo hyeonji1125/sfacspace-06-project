@@ -41,7 +41,7 @@ export default function FileListItem({ name, type, path }: RepositoryContent) {
       )}
     >
       <div className="flex justify-between">
-        <div className="flex w-40 items-center gap-1">
+        <div className="flex w-[150px] items-center gap-1">
           {selectedFiles.includes(path) && (
             <FaCheck className="flex-shrink-0 text-primary-purple-500 dark:text-primary-purple-200" />
           )}

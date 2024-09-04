@@ -58,8 +58,8 @@ export default function AnalyzeModal({
                           {file.name}
                         </span>
                       </div>
-                      <p className="text-[12px] text-[#929292]">
-                        file sub title
+                      <p className="w-44 overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-[#929292]">
+                        commit message
                       </p>
                       <p className="text-[12px] text-[#929292]">4 months ago</p>
                     </li>
