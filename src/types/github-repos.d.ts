@@ -25,14 +25,16 @@ export type RepositoryContent = {
   html_url: string;
   git_url: string;
   download_url: string | null;
-  type: "file" | "dir" | "symlink" | "submodule";
+  type: "file" | "dir";
   content?: string;
   encoding?: string;
+  status: "inprogress" | "pending" | "completed" | "error" | "none";
+  isSelected: boolean;
 };
 
-export type FileContent = RepositoryContent & {
-  content: string;
-};
+// export type FileContent = RepositoryContent & {
+//   content: string;
+// };
 
 export type RepositoryState = {
   repositories: RepositoryProps[];
@@ -50,6 +52,7 @@ export type RepositoryState = {
     repo: string,
     path?: string,
   ) => Promise<void>;
+  
   selectFile: (owner: string, repo: string, path: string) => Promise<void>;
   toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;

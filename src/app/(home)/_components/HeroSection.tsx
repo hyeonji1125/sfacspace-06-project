@@ -31,7 +31,7 @@ export default function HeroSection() {
           </span>
         </p>
         <div className="mt-[5vh]">
-          <Link href={status === "authenticated" ? "/mylibrary" : "/login"}>
+          <Link href={status === "authenticated" ? "/repos" : "/login"}>
             <Button
               theme="filled"
               size="small"

@@ -5,9 +5,13 @@ import { Bug, CaretRight } from "../../../../public/assets/svg/SvgIcons";
 export default function DetectLink({
   status,
   id,
+  owner,
+  name,
 }: {
   status?: "COMPLETED" | "IN_PROGRESS" | undefined;
   id: number;
+  owner: string;
+  name: string;
 }) {
   let style;
   switch (status) {
@@ -22,7 +26,9 @@ export default function DetectLink({
   return (
     <Link
       href={
-        status === "COMPLETED" ? `/repos/${id}` : `/repos/${id}/inspection}`
+        status === "COMPLETED"
+          ? `/repos/${owner}/${name}`
+          : `/repos/${owner}/${name}`
       }
     >
       <div

@@ -31,7 +31,7 @@ export default function RepositoryItem({
         )}
       </div>
       <div className="flex items-end justify-between">
-        <DetectLink id={id} />
+      <DetectLink id={id} status={status} owner={owner.login} name={name} />
         <span className="whitespace-nowrap text-base font-medium tracking-tight text-text-gray-default">
           {format(created_at, "yy.MM.dd")}
         </span>
