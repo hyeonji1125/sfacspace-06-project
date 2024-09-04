@@ -31,6 +31,7 @@ export default function AnalyzePage() {
     selectFile,
     selectedFiles,
     repoContents,
+    clearSelection,
     clearSelectedFiles,
     toggleSelectFile,
   } = useGithubStore();
@@ -63,6 +64,12 @@ export default function AnalyzePage() {
     setIsWhole(selectedFiles.length === repoContents.length);
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    return () => {
+      clearSelection();
+    };
+  }, []);
 
   useEffect(() => {
     if (session) {
