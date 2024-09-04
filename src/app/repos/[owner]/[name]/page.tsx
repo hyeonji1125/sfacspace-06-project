@@ -8,9 +8,13 @@ import ReposTitle from "./_components/ReposTitle";
 import AnalyzeModal from "./_components/AnalyzeModal";
 import { useParams, useSearchParams } from "next/navigation";
 import { useGithubStore } from "@/store/useGithubStore";
+import LibraryLogin from "../../_components/LibraryLogin";
+import { useSession } from "next-auth/react";
 
 export default function AnalyzePage() {
   // 임시 code
+  const { data: session } = useSession();
+
   const params = useParams();
   const fileParams = useSearchParams();
   const owner = Array.isArray(params.owner) ? params.owner[0] : params.owner;
@@ -61,8 +65,14 @@ export default function AnalyzePage() {
   };
 
   useEffect(() => {
-    loadContent();
-  }, [owner, name, repoPath, filePath, selectFile, fetchRepoContents]);
+    if (session) {
+      loadContent();
+    }
+  }, [session, owner, name, repoPath, filePath, selectFile, fetchRepoContents]);
+
+  if (!session) {
+    return <LibraryLogin />;
+  }
 
   return (
     <section className="m-auto mb-20 hidden min-h-screen w-full max-w-[1920px] flex-col gap-11 px-20 xl:flex">

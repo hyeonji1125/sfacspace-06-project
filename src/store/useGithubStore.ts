@@ -51,16 +51,16 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       if (!response.ok) throw new Error("Failed to fetch file content");
       const data = await response.json();
 
-      const decodedContent = decodeURIComponent(escape(atob(data.content)));
+          const decodedContent = decodeURIComponent(escape(atob(data.content)));
 
-      set({
-        selectedFile: { ...data, content: decodedContent },
-        isLoading: false,
-      });
-    } catch (error) {
-      set({ error: (error as Error).message, isLoading: false });
-    }
-  },
+          set({
+            selectedFile: { ...data, content: decodedContent },
+            isLoading: false,
+          });
+        } catch (error) {
+          set({ error: (error as Error).message, isLoading: false });
+        }
+      },
 
   toggleSelectFile: (filePath: string) => {
     set((state) => {
@@ -75,7 +75,23 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
     set({ selectedFiles: [] });
   },
 
-  clearSelection: () => {
-    set({ selectedFile: null });
-  },
-}));
+      clearSelection: () => {
+        set({ selectedFile: null });
+      },
+
+      setRepositories: (id, bookmark) =>
+        set((state) => {
+          const updatedRepositories = state.repositories.map((repo) => {
+            if (repo.id === id) {
+              return { ...repo, bookmark: bookmark };
+            }
+            return repo;
+          });
+          return { repositories: updatedRepositories };
+        }),
+    }),
+    {
+      name: "githubStorage",
+    },
+  ),
+);
