@@ -3,7 +3,7 @@ import Image from "next/image";
 import RepoList from "./_components/RepoList";
 
 
-export default async function MyLibraryPage() {
+export default async function reposPage() {
   const cookieStore = cookies();
   const sessionToken = cookieStore.get("next-auth.session-token");
 

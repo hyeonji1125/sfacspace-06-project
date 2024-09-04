@@ -58,9 +58,12 @@ export const useGithubStore = create(
           );
           if (!response.ok) throw new Error("Failed to fetch file content");
           const data = await response.json();
+
+          const decodedContent = decodeURIComponent(escape(atob(data.content)));
+          
           set({
-            selectedFile: { ...data, content: atob(data.content) },
-            isLoading: false,
+            selectedFile: { ...data, content: decodedContent },
+            isLoading: false
           });
         } catch (error) {
           set({ error: (error as Error).message, isLoading: false });

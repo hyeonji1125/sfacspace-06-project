@@ -8,7 +8,7 @@ import RepositoryList from "./_components/RepositoryList";
 import { CaretRight } from "../../../public/assets/svg/SvgIcons";
 import Link from "next/link";
 
-export default async function MyLibraryPage() {
+export default async function reposPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {

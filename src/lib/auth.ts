@@ -1,9 +1,8 @@
-import { NextAuthOptions, User, Session } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import { db } from "@/lib/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import { AdapterUser } from "next-auth/adapters";
 import { Account, Profile } from "next-auth";
+import { postData } from "@/hooks/fetchData";
 
 const githubId = process.env.AUTH_GITHUB_ID;
 const githubSecret = process.env.AUTH_GITHUB_SECRET;
@@ -38,33 +37,23 @@ export const authOptions: NextAuthOptions = {
       account: Account | null;
       profile?: Profile;
     }) {
-      const email = user.email ?? profile?.email;
-
-      if (!email) {
-        return false;
-      }
-
-      const userDocRef = doc(db, "users", email);
-      const userDoc = await getDoc(userDocRef);
-
-      if (!userDoc.exists()) {
-        // 사용자 정보가 없으면 Firestore에 저장
-        await setDoc(userDocRef, {
+      if (user.email) {
+        // 사용자 정보를 Firestore에 저장
+        await postData('users', {
+          email: user.email,
           name: user.name ?? profile?.name,
-          email: email,
           image: user.image ?? profile?.image,
           createdAt: new Date().toISOString(),
         });
       }
-
       return true;
     },
-
     async jwt({ token, account }) {
-      if (account) token.accessToken = account.access_token;
+      if (account) {
+        token.accessToken = account.access_token;
+      }
       return token;
     },
-
     async session({ session, token }) {
       session.accessToken = token.accessToken as string;
       return session;
