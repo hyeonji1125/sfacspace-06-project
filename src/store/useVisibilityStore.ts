@@ -1,9 +1,5 @@
 import { create } from "zustand";
-
-type VisibilityState = {
-  topButtonVisible: boolean;
-  setTopButtonVisible: (visible: boolean) => void;
-};
+import { VisibilityState } from "@/types";
 
 const useVisibilityStore = create<VisibilityState>((set) => ({
   topButtonVisible: false,
