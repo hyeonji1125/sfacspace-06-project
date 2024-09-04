@@ -71,7 +71,7 @@ export default function Inquiry() {
           <h3 className="mb-4 text-xl font-bold md:text-[22px] lg:mb-[32px] lg:text-[24px]">
             문의하기
           </h3>
-          <p className="mb-6 text-sm font-medium text-[#8f8f8f] dark:text-gray-300 md:text-[15px] lg:mb-[32px] lg:text-[16px]">
+          <p className="mb-6 text-sm font-normal text-[#8f8f8f] dark:text-gray-300 md:text-[15px] lg:mb-[32px] lg:text-[16px]">
             문의하고싶은 내용을 구체적으로 작성해주셔야{" "}
             <span className="inline lg:hidden">
               <br />
@@ -115,6 +115,7 @@ export default function Inquiry() {
                 onChange={handleChange}
                 className="placeholder:text-sm dark:placeholder:text-gray-400 md:placeholder:text-base"
                 placeholder="justin@flawfactory.kr"
+                disabled={status === "authenticated"}
                 readOnly={status === "authenticated"}
               />
             </div>

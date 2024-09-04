@@ -8,6 +8,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: { pretendard: ["var(--font-pretendard)"] },
       colors: {
         // Next.js 다크 모드 색상 조합 추가
         "custom-dark-bg": "#121212",

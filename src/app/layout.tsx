@@ -6,9 +6,14 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Providers } from "./providers";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const pretendard = localFont({
+  src: "../../public/assets/fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
+});
 
 export const metadata: Metadata = {
   title: "FLAWDETECTOR",
@@ -21,9 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${pretendard.variable}`}>
       <body
-        className={`${inter.className} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
+        className={`${pretendard.className} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
       >
         <Providers>
           <ThemeProvider attribute="class">
