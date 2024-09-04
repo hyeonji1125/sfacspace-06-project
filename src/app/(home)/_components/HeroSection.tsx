@@ -9,7 +9,7 @@ export default function HeroSection() {
   const { data: session, status } = useSession();
 
   return (
-    <section className="relative z-20 flex h-[90vh] w-full overflow-hidden text-primary-purple-500 dark:font-bold dark:text-purple-50">
+    <section className="relative z-20 flex h-[90vh] w-full overflow-hidden text-primary-purple-500 dark:text-custom-dark-text">
       <div className="z-1">
         <Image
           src="/assets/images/circle.svg"
