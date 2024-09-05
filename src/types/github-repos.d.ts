@@ -11,9 +11,6 @@ export type RepositoryProps = {
   description: string | null;
   created_at: string;
   /* 추후 필요한 필드 추가 */
-  status?: RepositoryStatus;
-  bookmark?: boolean;
-  recent?: boolean;
 };
 
 export type RepositoryContent = {
@@ -52,7 +49,7 @@ export type RepositoryState = {
     repo: string,
     path?: string,
   ) => Promise<void>;
-  
+
   selectFile: (owner: string, repo: string, path: string) => Promise<void>;
   toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;
