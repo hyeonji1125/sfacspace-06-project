@@ -5,10 +5,13 @@ export const getReposData = async (email: string) => {
   try {
     const reposCollectionRef = collection(db, `users/${email}/repos`);
     const querySnapshot = await getDocs(reposCollectionRef);
-    console.log(querySnapshot);
-    return querySnapshot;
+    const repos = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return repos;
   } catch (error) {
-    throw new Error("DB에서 Repos Data를 받아오는데 실패했습니다.");
+    throw new Error(`${error}, "DB에서 Repos Data를 받아오는데 실패했습니다."`);
   }
 };
 
