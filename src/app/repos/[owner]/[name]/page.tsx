@@ -10,7 +10,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useGithubStore } from "@/store/useGithubStore";
 import LibraryLogin from "../../_components/LibraryLogin";
 import { useSession } from "next-auth/react";
-import { useRepoParams } from "../../_utils/useRepoParams";
+import { useRepoParams } from "./_utils/useRepoParams";
 
 export default function AnalyzePage() {
   // 임시 code

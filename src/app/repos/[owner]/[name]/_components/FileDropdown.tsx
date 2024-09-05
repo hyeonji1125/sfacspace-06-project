@@ -1,8 +1,8 @@
 "use client";
-import { isPathResult } from "@/app/repos/_utils/isPathResult";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
+import { isPathResult } from "../_utils/isPathResult";
 
 export default function FileDropdown() {
   const isResultPage = isPathResult();

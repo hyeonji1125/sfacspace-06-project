@@ -3,12 +3,14 @@ import { useGithubStore } from "@/store/useGithubStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
+import "/src/styles/code.css";
 import InspectionAlert from "./InspectionAlert";
-import { isPathResult } from "@/app/repos/_utils/isPathResult";
+import { useTheme } from "next-themes";
+import { isPathResult } from "../_utils/isPathResult";
 // import "highlight.js/styles/github-dark.css";
 
 export default function FileViewer() {
+  const { theme } = useTheme();
   const isResultPage = isPathResult();
   const { selectedFile, isLoading } = useGithubStore();
   // 임시
@@ -28,6 +30,13 @@ export default function FileViewer() {
       }
     }
   }, [selectedFile]);
+
+  useEffect(() => {
+    document.querySelectorAll("pre code").forEach((block) => {
+      // 여기서 block을 HTMLElement로 명시적 타입 캐스팅
+      hljs.highlightElement(block as HTMLElement);
+    });
+  }, [theme]);
 
   return (
     <div

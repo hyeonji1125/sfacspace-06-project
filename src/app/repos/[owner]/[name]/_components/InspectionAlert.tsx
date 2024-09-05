@@ -1,10 +1,10 @@
 "use client";
-import { useRepoParams } from "@/app/repos/_utils/useRepoParams";
 import Button from "@/components/common/Button";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { GoXCircleFill } from "react-icons/go";
 import { IoCloseOutline } from "react-icons/io5";
 import { PiArrowsCounterClockwise, PiHourglassHighFill } from "react-icons/pi";
+import { useRepoParams } from "../_utils/useRepoParams";
 
 export default function InspectionAlert({ close }: { close: () => void }) {
   const router = useRouter();
