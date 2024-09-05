@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import InspectionAlert from "./InspectionAlert";
+import { isPathResult } from "@/app/repos/_utils/isPathResult";
 // import "highlight.js/styles/github-dark.css";
 
 export default function FileViewer() {
+  const isResultPage = isPathResult();
   const { selectedFile, isLoading } = useGithubStore();
   // 임시
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
@@ -19,7 +21,11 @@ export default function FileViewer() {
   useEffect(() => {
     if (selectedFile) {
       hljs.highlightAll();
-      setIsOpenInspectionAlert(true);
+      if (isResultPage) {
+        setIsOpenInspectionAlert(false);
+      } else {
+        setIsOpenInspectionAlert(true);
+      }
     }
   }, [selectedFile]);
 
