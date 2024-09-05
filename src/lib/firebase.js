@@ -27,5 +27,3 @@ const db = getFirestore(app);
 const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
 
 export { analytics, app, db };
-
-console.log(firebaseConfig);
