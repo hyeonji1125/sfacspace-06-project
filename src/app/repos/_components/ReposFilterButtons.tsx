@@ -54,9 +54,10 @@ export default function ReposFilterButtons({
     <div className="flex gap-[21px]">
       {REPO_FILTER_BUTTONS.map((button) => (
         <Button
+          key={button.label}
           theme="outlined"
           className={twMerge(
-            "text-text-gray-dark w-full gap-[10px] border-line-gray-10 p-4 text-xl hover:bg-transparent hover:shadow-sm focus:border-line-gray-10 focus:bg-transparent active:border-line-default dark:border-opacity-20 dark:text-text-gray-light sm:p-4 sm:text-xl md:p-4 md:text-xl",
+            "w-full gap-[10px] border-line-gray-10 p-4 text-xl text-text-gray-dark hover:bg-transparent hover:shadow-sm focus:border-line-gray-10 focus:bg-transparent active:border-line-default dark:border-opacity-20 dark:text-text-gray-light sm:p-4 sm:text-xl md:p-4 md:text-xl",
             libraryState[button.name] && selectStyle,
           )}
           onClick={(e) => {

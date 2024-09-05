@@ -31,7 +31,7 @@ export default function RepositoryList({ className }: { className?: string }) {
     if (email) {
       fetchReposData(email);
     }
-  }, [email]);
+  }, [email, fetchReposData]);
 
   useEffect(() => {
     fetchRepositories();
