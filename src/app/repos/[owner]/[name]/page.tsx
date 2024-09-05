@@ -10,17 +10,12 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useGithubStore } from "@/store/useGithubStore";
 import LibraryLogin from "../../_components/LibraryLogin";
 import { useSession } from "next-auth/react";
+import { useRepoParams } from "../../_utils/useRepoParams";
 
 export default function AnalyzePage() {
   // 임시 code
   const { data: session } = useSession();
-
-  const params = useParams();
-  const fileParams = useSearchParams();
-  const owner = Array.isArray(params.owner) ? params.owner[0] : params.owner;
-  const name = Array.isArray(params.name) ? params.name[0] : params.name;
-  const repoPath = fileParams.get("repo");
-  const filePath = fileParams.get("file");
+  const { owner, name, repoPath, filePath } = useRepoParams();
   const fullPath = repoPath ? `${repoPath}/${filePath || ""}` : filePath || "";
 
   const [isOpen, setIsOpen] = useState(false); // 모달 state

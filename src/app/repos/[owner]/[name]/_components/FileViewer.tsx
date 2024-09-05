@@ -1,23 +1,31 @@
 "use client";
 import { useGithubStore } from "@/store/useGithubStore";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
+import InspectionAlert from "./InspectionAlert";
 // import "highlight.js/styles/github-dark.css";
 
 export default function FileViewer() {
   const { selectedFile, isLoading } = useGithubStore();
+  // 임시
+  const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
+
+  const closeButtonHandler = () => {
+    setIsOpenInspectionAlert(!isOpenInspectionAlert);
+  };
 
   useEffect(() => {
     if (selectedFile) {
       hljs.highlightAll();
+      setIsOpenInspectionAlert(true);
     }
   }, [selectedFile]);
 
   return (
     <div
-      className={`flex h-[1395px] flex-1 flex-col items-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50 ${
+      className={`relative flex h-[1395px] flex-1 flex-col items-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50 ${
         !selectedFile && "justify-center"
       }`}
     >
@@ -30,6 +38,9 @@ export default function FileViewer() {
           <pre className="whitespace-pre-wrap break-words">
             <code>{selectedFile.content}</code>
           </pre>
+          {isOpenInspectionAlert && (
+            <InspectionAlert close={closeButtonHandler} />
+          )}
         </div>
       ) : (
         // 파일이 선택되지 않았을 때
