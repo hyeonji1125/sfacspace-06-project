@@ -4,24 +4,20 @@ import { useMemo, useState } from "react";
 import { StarFilled, StarLined } from "../../../../public/assets/svg/SvgIcons";
 import { twMerge } from "tailwind-merge";
 import { postRepo } from "../_utils/fetchRepos";
-import { useSession } from "next-auth/react";
 import { debounce } from "@/utils/debounce";
+import { useGetUser } from "@/hooks/useGetUser";
 
 export default function BookmarkButton({
   bookmark,
-  id,
   name,
 }: {
   bookmark: boolean | undefined;
-  id: number;
   name: string;
 }) {
   const [isBookmarked, setIsBookmarked] = useState<boolean | undefined>(
     bookmark,
   );
-  // const { setRepositories } = useGithubStore();
-  const { data } = useSession();
-  const email = data?.user?.email ?? "";
+  const { email } = useGetUser();
 
   const debounceUpdateBookmark = useMemo(
     () =>
@@ -39,8 +35,10 @@ export default function BookmarkButton({
   ) => {
     e.preventDefault();
     try {
-      setIsBookmarked((prev) => !prev);
-      await debounceUpdateBookmark(email, name, { bookmark: !isBookmarked });
+      if (email) {
+        setIsBookmarked((prev) => !prev);
+        await debounceUpdateBookmark(email, name, { bookmark: !isBookmarked });
+      }
     } catch (error) {
       setIsBookmarked((prev) => prev);
       console.log(error);

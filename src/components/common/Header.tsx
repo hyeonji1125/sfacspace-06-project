@@ -11,12 +11,13 @@ import {
   LightModeIcon,
 } from "../../../public/assets/svg/SvgIcons";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { useGetUser } from "@/hooks/useGetUser";
+import { customSignOut } from "@/lib/customAuth";
 
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
-  const { data: session, status } = useSession();
+  const { session, status, email } = useGetUser();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -62,7 +63,11 @@ const Header: React.FC = () => {
           {status === "authenticated" && (
             <span
               className="cursor-pointer hover:text-accent-blue"
-              onClick={() => signOut({ callbackUrl: pathname })}
+              onClick={() => {
+                if (email) {
+                  customSignOut(email, "/");
+                }
+              }}
             >
               로그아웃
             </span>

@@ -9,13 +9,11 @@ import { RepositoryStatus } from "@/types";
 
 export default function DetectLink({
   status,
-  id,
   owner,
   name,
   recent,
 }: {
   status?: RepositoryStatus;
-  id: number;
   owner: string;
   name: string;
   recent?: boolean;

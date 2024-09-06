@@ -15,7 +15,6 @@ type TRepositoryItemProps = {
 } & RepositoryProps;
 
 export default function RepositoryItem({
-  id,
   name,
   owner,
   created_at,
@@ -31,7 +30,7 @@ export default function RepositoryItem({
               {name}
             </h4>
           )}
-          <BookmarkButton bookmark={matchData?.bookmark} id={id} name={name} />
+          <BookmarkButton bookmark={matchData?.bookmark} name={name} />
         </div>
         {matchData?.status && (
           <h4 className="text-text-gray-dark max-w-[270px] truncate text-[28px] font-medium dark:text-text-gray-light">
@@ -41,7 +40,6 @@ export default function RepositoryItem({
       </div>
       <div className="flex items-end justify-between">
         <DetectLink
-          id={id}
           status={matchData?.status}
           recent={matchData?.recent}
           owner={owner.login}
