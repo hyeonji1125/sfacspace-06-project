@@ -54,7 +54,6 @@ export type RepositoryState = {
   toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;
   clearSelectedFiles: () => void;
-  setRepositories: (id: number, bookmark: boolean) => void;
 };
 
 export type TAnalyzeModalProp = {
