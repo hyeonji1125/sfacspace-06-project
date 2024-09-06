@@ -57,9 +57,6 @@ export const useFilterReposType = (
     libraryState.bookmark,
     libraryState.recent,
     setRepos,
-    FILTER_TYPE.repoInteraction,
-    FILTER_TYPE.repoType,
-    libraryState,
   ]);
 };
 
