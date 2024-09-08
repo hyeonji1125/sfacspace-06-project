@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase"; // Firestore 인스턴스
+import { db } from "@/lib/firebase";
 import { updatePostChips } from "@/lib/postFetcher";
 import { PostDataType } from "@/types";
 import {
@@ -7,9 +7,8 @@ import {
   orderBy,
   query,
   Timestamp,
-} from "firebase/firestore"; // Firestore 함수형 API
+} from "firebase/firestore";
 
-// HOT 및 NEW 게시글을 DB에 저장
 export const updatePostChipsInDB = async (): Promise<PostDataType[]> => {
   const postsQuery = query(
     collection(db, "crawling"),
@@ -22,7 +21,6 @@ export const updatePostChipsInDB = async (): Promise<PostDataType[]> => {
     ...doc.data(),
   })) as PostDataType[];
 
-  const topTenHotPosts = posts.slice(0, 10); // 상위 10개의 게시글만 선택
   const currentTime = Timestamp.now().toMillis(); // 현재 시간
 
   await Promise.all(
@@ -34,7 +32,7 @@ export const updatePostChipsInDB = async (): Promise<PostDataType[]> => {
       if (index < 10) {
         newChip = "hot"; // 상위 10개 조회수는 hot
       } else if (isNew && newChip !== "hot") {
-        newChip = "new"; // 48시간 이내면 new, 하지만 hot이 우선
+        newChip = "new"; // 48시간 이내면 new, 하지만 hot이 우선!
       }
 
       // DB에 칩 업데이트
