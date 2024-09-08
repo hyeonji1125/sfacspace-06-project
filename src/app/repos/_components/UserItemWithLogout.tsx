@@ -3,7 +3,7 @@
 import Button from "@/components/common/Button";
 import UserItem from "@/components/common/UserItem";
 import { useState } from "react";
-import LogoutComfirmModal from "./LogoutComfirmModal";
+import LogoutConfirmModal from "./LogoutConfirmModal";
 
 export default function UserItemWithLogout() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -11,7 +11,7 @@ export default function UserItemWithLogout() {
   return (
     <>
       {modalOpen && (
-        <LogoutComfirmModal isOpen={modalOpen} onClose={setModalOpen} />
+        <LogoutConfirmModal isOpen={modalOpen} onClose={setModalOpen} />
       )}
       <div className="flex items-center justify-between">
         <UserItem />

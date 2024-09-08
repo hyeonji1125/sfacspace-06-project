@@ -1,18 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { Bug, CaretRight } from "../../../../public/assets/svg/SvgIcons";
+import { postRepo } from "../_utils/fetchRepos";
+import { useSession } from "next-auth/react";
+import { RepositoryStatus } from "@/types";
 
 export default function DetectLink({
   status,
-  id,
   owner,
   name,
+  recent,
 }: {
-  status?: "COMPLETED" | "IN_PROGRESS" | undefined;
-  id: number;
+  status?: RepositoryStatus;
   owner: string;
   name: string;
+  recent?: boolean;
 }) {
+  const { data } = useSession();
+  const email = data?.user?.email ?? "";
+
   let style;
   switch (status) {
     case "COMPLETED":
@@ -22,6 +30,12 @@ export default function DetectLink({
       style = "bg-primary-purple-500";
       break;
   }
+
+  const handleClickRepo = async () => {
+    if (!recent) {
+      await postRepo(email, name, { recent: true });
+    }
+  };
 
   return (
     <Link
@@ -36,6 +50,7 @@ export default function DetectLink({
           "flex items-center gap-[7px] whitespace-nowrap rounded-[14px] p-[10px] text-white",
           style,
         )}
+        onClick={handleClickRepo}
       >
         <Bug />
         {status === "COMPLETED" ? "결과보기" : "검사하기"}
