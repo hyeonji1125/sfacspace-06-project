@@ -13,8 +13,9 @@ import Pagination from "./Pagination";
 
 export default function MainPostSection() {
   const { data: session } = useSession();
-  const [sortType, setSortType] = useState<"hot" | "new">("hot");
+  const [sortType, setSortType] = useState<"hot" | "new">("hot"); // hot,new 태그 정렬 관리
   const [currentPage, setCurrentPage] = useState<number>(1);
+  // 현재 페이지 번호 관리
   const [allPosts, setAllPosts] = useState<PostDataType[]>([]); // 전체 게시글 저장
   const [currentPosts, setCurrentPosts] = useState<PostDataType[]>([]); // 페이지네이션된 게시글 저장
 
@@ -24,12 +25,12 @@ export default function MainPostSection() {
   const fetchPosts = async () => {
     if (sortType === "hot") {
       const hotPosts = await fetchHotPosts();
-      setAllPosts(hotPosts); // 전체 게시글 저장
+      setAllPosts(hotPosts); // 조회순으로 정렬된 게시글 가져옴
     } else if (sortType === "new") {
       const newPosts = await fetchNewPosts();
-      setAllPosts(newPosts); // 전체 게시글 저장
+      setAllPosts(newPosts); // 최신순으로 정렬된 게시글 가져옴
     }
-  };
+  }; // allPosts에 전체 게시글 저장함
 
   // 페이지 로드 및 새로고침 시 칩 업데이트 및 게시글 가져오기
   useEffect(() => {
@@ -38,16 +39,17 @@ export default function MainPostSection() {
       fetchPosts(); // 게시글 가져오기
     };
     updateChipsAndFetchPosts(); // 페이지 로드 및 새로고침 시 실행
-  }, []); // 빈 배열로 한 번만 실행
+  }, []);
 
   useEffect(() => {
-    fetchPosts(); // 첫 페이지 로드 시 기본 게시글 가져오기
-  }, [sortType]);
+    fetchPosts();
+  }, [sortType]); // sortType(hot, new) 정렬 버튼 클릭하면 변경되니까 정렬방식에 맞게 데이터 가져옴
 
   useEffect(() => {
     // 페이지네이션 적용
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE; //시작 번호
+    // 페이지가 2일 경우 1페이지당 5개씩 보여주는데 2페이지면 5번째부터 보여줘야함
+    const endIndex = startIndex + ITEMS_PER_PAGE; // 끝 번호
     setCurrentPosts(allPosts.slice(startIndex, endIndex)); // 전체 게시글에서 현재 페이지에 맞는 게시글만 저장
   }, [allPosts, currentPage, ITEMS_PER_PAGE]);
 
@@ -97,9 +99,9 @@ export default function MainPostSection() {
       )}
       <Pagination
         totalItems={allPosts.length} // 전체 게시글 수
-        setCurrent={setCurrentPage}
-        current={currentPage}
-        numberPerPage={ITEMS_PER_PAGE}
+        setCurrent={setCurrentPage} // 현재 페이지 번호
+        current={currentPage} // 현재 페이지 값
+        numberPerPage={ITEMS_PER_PAGE} // 페이지당 게시글 수
       />
     </section>
   );
