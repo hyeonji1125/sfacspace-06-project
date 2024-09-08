@@ -1,7 +1,9 @@
 import { format, formatDistanceToNowStrict } from "date-fns";
 import { ko } from "date-fns/locale";
 
-export const formatRelativeTime = (date: Date | string | number): string => {
+type DateType = Date | string | number;
+
+export const formatRelativeTime = (date: DateType): string => {
   const d = new Date(date);
   const diffInSeconds = (Date.now() - d.getTime()) / 1000;
 
@@ -10,6 +12,6 @@ export const formatRelativeTime = (date: Date | string | number): string => {
     : formatDistanceToNowStrict(d, { addSuffix: true, locale: ko });
 };
 
-export const formatExactTime = (date: Date | string | number): string => {
+export const formatExactTime = (date: DateType): string => {
   return format(new Date(date), "yyyy.MM.dd HH:mm:ss");
 };

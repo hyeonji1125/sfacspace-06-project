@@ -1,7 +1,7 @@
 "use client";
 
 import SuggestionChips from "@/components/common/chips/SuggestionChips";
-import { SmallPostCardType } from "@/types";
+import { PostDataType } from "@/types";
 import Link from "next/link";
 import {
   PushPinEnabled,
@@ -12,9 +12,9 @@ export default function SmallPostCardItem({
   id,
   chips,
   title,
-  reportContent,
-  date,
-}: SmallPostCardType) {
+  report_content,
+  upload_at,
+}: PostDataType) {
   return (
     <Link href={`/vuldb/items/${id}`}>
       <div className="flex h-[275px] w-[414px] flex-col rounded-lg border border-line-default bg-white p-7 dark:bg-custom-light-bg dark:bg-opacity-5">
@@ -30,7 +30,7 @@ export default function SmallPostCardItem({
         </div>
         <div>
           <p className="truncate py-6 text-lg font-normal text-[#969696]">
-            {reportContent}
+            {report_content}
           </p>
         </div>
         <div className="flex w-full justify-between">
@@ -42,7 +42,7 @@ export default function SmallPostCardItem({
               <ShareFatEnabled />
             </button>
           </div>
-          <p className="text-base font-normal text-[#A2A2A2]">{date}</p>
+          <p className="text-base font-normal text-[#A2A2A2]">{upload_at}</p>
         </div>
       </div>
     </Link>

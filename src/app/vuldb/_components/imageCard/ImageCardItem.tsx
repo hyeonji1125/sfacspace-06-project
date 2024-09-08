@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { ArrowRight } from "../../../../../public/assets/svg/vulnerabilityDbSvg";
 
 type ImageCardProps = {
-  id: number;
+  id: string;
   title: string;
   date: string;
   image: "cardImage1" | "cardImage2" | "cardImage3";

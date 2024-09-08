@@ -1,18 +1,19 @@
 "use client";
-import { useState } from "react";
+import { PostDataType } from "@/types";
+import { useEffect, useState } from "react";
 import { formatExactTime } from "../../_utils/formatDate";
-import PostCardMock from "../_data/postCardMock";
+import { fetchNewPosts } from "../../_utils/postDataManager";
 import ImageCardItem from "./ImageCardItem";
 
 export const getImageType = (
-  id: number,
+  index: number,
 ): "cardImage1" | "cardImage2" | "cardImage3" => {
-  switch (id) {
-    case 1:
+  switch (index) {
+    case 0:
       return "cardImage1";
-    case 2:
+    case 1:
       return "cardImage2";
-    case 3:
+    case 2:
       return "cardImage3";
     default:
       return "cardImage1";
@@ -21,48 +22,48 @@ export const getImageType = (
 
 export default function ImageCardList() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
-  const handleMouseEnter = (id: number) => setHoveredCard(id);
+  const [posts, setPosts] = useState<PostDataType[]>([]);
+  const handleMouseEnter = (index: number) => setHoveredCard(index);
   const handleMouseLeave = () => setHoveredCard(null);
 
-  const getWidthStyle = (id: number) => {
-    if (hoveredCard === null) {
-      return id === 1 ? "625px" : "316px";
-    }
-
-    if (hoveredCard === 1) {
-      return id === 1 ? "625px" : "316px";
-    } else if (hoveredCard === 2) {
-      return id === 2 ? "625px" : "316px";
-    } else if (hoveredCard === 3) {
-      return id === 3 ? "625px" : "316px";
-    }
-
-    return "316px";
+  const fetchAndSetPosts = async () => {
+    const newPosts = await fetchNewPosts(); // 최신 게시글 가져오기
+    setPosts(newPosts);
   };
+
+  useEffect(() => {
+    fetchAndSetPosts();
+  }, []);
+
+  const getWidthStyle = (index: number) => {
+    if (hoveredCard === null) {
+      return index === 0 ? "625px" : "316px";
+    }
+    return hoveredCard === index ? "625px" : "316px";
+  };
+  const sortedPosts = posts.slice(0, 3);
 
   return (
     <section className="flex w-full justify-between gap-7">
-      {PostCardMock.filter((item) => [1, 2, 3].includes(item.id)).map(
-        (item) => {
-          const exactDate = formatExactTime(item.date);
-          const imageType = getImageType(item.id);
-          const widthStyle = getWidthStyle(item.id);
+      {sortedPosts.map((post, index) => {
+        const uploadAtValue = post.upload_at || new Date().toISOString();
+        const exactDate = formatExactTime(uploadAtValue);
+        const imageType = getImageType(index);
+        const widthStyle = getWidthStyle(index);
 
-          return (
-            <ImageCardItem
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              date={exactDate}
-              image={imageType}
-              widthStyle={widthStyle}
-              onMouseEnter={() => handleMouseEnter(item.id)}
-              onMouseLeave={handleMouseLeave}
-            />
-          );
-        },
-      )}
+        return (
+          <ImageCardItem
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            date={exactDate}
+            image={imageType}
+            widthStyle={widthStyle}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
+          />
+        );
+      })}
     </section>
   );
 }

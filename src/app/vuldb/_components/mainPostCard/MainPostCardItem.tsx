@@ -1,21 +1,20 @@
 "use client";
 
 import SuggestionChips from "@/components/common/chips/SuggestionChips";
-import { MainPostCardType } from "@/types";
+import { PostDataType } from "@/types";
 import Link from "next/link";
 import {
   PushPinEnabled,
   ShareFatEnabled,
 } from "../../../../../public/assets/svg/vulnerabilityDbSvg";
-
 export default function MainPostCardItem({
   id,
   chips,
   title,
-  company,
-  reportContent,
-  date,
-}: MainPostCardType) {
+  site_name,
+  report_content,
+  upload_at,
+}: PostDataType) {
   return (
     <Link href={`/vuldb/items/${id}`}>
       <div className="flex h-[253px] w-[865px] flex-col rounded-lg border border-line-default bg-white p-7 dark:bg-custom-light-bg dark:bg-opacity-5">
@@ -28,11 +27,11 @@ export default function MainPostCardItem({
           <h1 className="text-xl font-normal">{title}</h1>
         </div>
         <span className="pb-5 text-base font-normal text-[#ADADAD]">
-          {company}
+          {site_name}
         </span>
         <div className="flex h-[59px] w-[809px] items-center rounded-2xl bg-bg-purple-light px-5 dark:bg-custom-light-bg dark:bg-opacity-20">
           <p className="max-w-3xl truncate text-base font-normal text-[#797979] dark:text-custom-dark-text">
-            {reportContent}
+            {report_content}
           </p>
         </div>
         <div className="flex w-full justify-between pt-6">
@@ -44,7 +43,7 @@ export default function MainPostCardItem({
               <ShareFatEnabled />
             </button>
           </div>
-          <p className="text-base font-normal text-[#A2A2A2]">{date}</p>
+          <p className="text-base font-normal text-[#A2A2A2]">{upload_at}</p>
         </div>
       </div>
     </Link>
