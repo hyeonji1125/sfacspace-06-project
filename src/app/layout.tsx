@@ -1,11 +1,10 @@
-import AskButton from "@/components/common/AskButton";
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
 import TopButton from "@/components/common/TopButton";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Providers } from "./providers";
 import localFont from "next/font/local";
+import { Providers } from "./providers";
 
 const pretendard = localFont({
   src: "../../public/assets/fonts/PretendardVariable.woff2",
@@ -30,11 +29,10 @@ export default function RootLayout({
         className={`${pretendard.className} max-w-screen-[1920px] mx-auto flex min-h-screen flex-col`}
       >
         <Providers>
-            <Header />
-            <main className="flex flex-grow flex-col">{children}</main>
-            <AskButton />
-            <TopButton />
-            <Footer />
+          <Header />
+          <main className="flex flex-grow flex-col">{children}</main>
+          <TopButton />
+          <Footer />
         </Providers>
         <div id="modal-root" />
       </body>

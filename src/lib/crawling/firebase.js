@@ -1,16 +1,16 @@
 import dotenv from "dotenv";
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
-// 현재 파일의 경로를 가져오는 방법 (ES 모듈에서 __dirname 대체)
+//현재 파일의 경로를 가져오는 방법 (ES 모듈에서 __dirname 대체)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// dotenv 설정 - 명시적인 경로 지정 (필요하다면)
-dotenv.config({ path: `${__dirname}/../../.env` });
+//dotenv 설정 - 명시적인 경로 지정 (필요하다면)
+const config = dotenv.config({ path: `${__dirname}/../../../.env` });
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -27,3 +27,11 @@ const db = getFirestore(app);
 const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
 
 export { analytics, app, db };
+
+export async function saveToFirestore(data) {
+  try {
+    const docRef = await addDoc(collection(db, "crawling"), data);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}

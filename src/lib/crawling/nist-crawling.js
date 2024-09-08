@@ -2,7 +2,7 @@ import { Translate } from "@google-cloud/translate/build/src/v2/index.js";
 import dotenv from "dotenv";
 import { collection, doc, setDoc } from "firebase/firestore";
 import puppeteer from "puppeteer";
-import { db } from "../firebase.js"; // 확장자를 명시하여 불러오기
+import { db } from "./firebase.js"; // 확장자를 명시하여 불러오기
 dotenv.config();
 
 // Google Cloud Translation API 클라이언트 설정
@@ -12,7 +12,7 @@ dotenv.config();
 
 const translate = new Translate({
   keyFilename:
-    "/Users/shinminho/Desktop/translateKey/sfacspaceeng-88efa4c23808.json", // 서비스 계정 키 파일 경로
+    "/Users/apple/Desktop/translateKey/sfacspaceeng-88efa4c23808.json", // 서비스 계정 키 파일 경로
 });
 
 (async () => {
@@ -47,7 +47,6 @@ const translate = new Translate({
       // const create_at = formatDate(origin_create_at);
       const originDescription =
         post.querySelector("td p")?.innerText || "No description available"; // 설명 추출
-
       // CVE 데이터 저장
       cveList.push({ c_id, url, create_at, originDescription });
     });
@@ -105,6 +104,8 @@ const translate = new Translate({
     // 번역 작업 (필요한 경우 번역)
     const report_content = await translateText(tableData);
 
+    const upload_at = new Date().toISOString();
+
     // 결과 저장
     cveDetails.push({
       c_id,
@@ -114,6 +115,7 @@ const translate = new Translate({
       report_content,
       site_name: "nist",
       label: "기타",
+      upload_at,
     });
   }
 

@@ -1,11 +1,12 @@
 "use client";
 
+import AskButton from "@/components/common/AskButton";
 import Modal from "@/components/common/Modal";
-import { MockPostCardTypes } from "@/types";
+import { usePostStore } from "@/store/usePostStore";
+import { PostDataType } from "@/types";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import PostCardMock from "../../_components/_data/postCardMock";
 import SmallPostCardList from "../../_components/smallPostCard/SmallPostCardList";
 import DetailHeader from "./_components/DetailHeader";
 import DetailMainSection from "./_components/DetailMainSection";
@@ -13,17 +14,23 @@ import DetailMainSection from "./_components/DetailMainSection";
 export default function PostDetailPage() {
   const { data: session } = useSession();
   const { id } = useParams();
-  const [post, setPost] = useState<MockPostCardTypes | null>(null);
+  const { posts, fetchPosts } = usePostStore();
+  const [post, setPost] = useState<PostDataType | null>(null);
 
   useEffect(() => {
-    if (id) {
-      const postData = PostCardMock.find((post) => post.id === Number(id));
+    fetchPosts();
+  }, [fetchPosts]);
+
+  // ID에 해당하는 게시글 찾기
+  useEffect(() => {
+    if (id && posts.length > 0) {
+      const postData = posts.find((post) => post.id === id);
       setPost(postData || null);
     }
-  }, [id]);
+  }, [id, posts]);
 
   if (!post) {
-    return <div></div>;
+    return <div>게시글을 찾을 수 없습니다.</div>;
   }
 
   if (!session) {
@@ -52,8 +59,12 @@ export default function PostDetailPage() {
         <div>
           <DetailMainSection post={post} />
         </div>
-        <SmallPostCardList />
+        <SmallPostCardList
+          currentLabel={post.label || ""}
+          excludePostId={post.id}
+        />
       </div>
+      <AskButton />
     </main>
   );
 }

@@ -2,12 +2,11 @@ import { Translate } from "@google-cloud/translate/build/src/v2/index.js";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import puppeteer from "puppeteer";
-import { saveToFirestore } from "../firebase.js";
+import { saveToFirestore } from "./firebase.js";
 
 dotenv.config();
 
-// cd lib/crawling 파일로 와서
-//node cnnvd-crawling.js 실행
+// cd lib/crawling 파일로 와서 /node cnnvd-crawling.js 실행
 
 // Google Cloud Translation API 클라이언트 설정
 // const translate = new Translate({ key: process.env.GOOGLE_TRANSLATE_API_KEY });
@@ -16,18 +15,16 @@ const translate = new Translate({
     "/Users/apple/Desktop/translateKey/sfacspaceeng-88efa4c23808.json", // 서비스 계정 키 파일 경로
 });
 
-// 텍스트 번역 함수
 async function translateText(text, targetLanguage = "ko") {
   try {
     const [translated] = await translate.translate(text, targetLanguage);
     return translated;
   } catch (error) {
     console.error("Translation error:", error);
-    return text; // 번역 실패 시 원문 반환
+    return text;
   }
 }
 
-// 대괄호 안에 있는 텍스트 추출 함수
 function extractLabelFromTitle(title) {
   const match = title.match(/\[(.*?)\]/);
   return match ? match[1] : "";
@@ -48,19 +45,17 @@ function generateUniqueId(content) {
 
   await page.waitForSelector(".content-center");
 
-  const siteName = "CNNVD"; // 사이트 이름
+  const siteName = "CNNVD";
 
-  const postDetails = []; // 상세 정보를 저장할 배열
+  const postDetails = [];
 
   for (let i = 1; i < 11; i++) {
     try {
-      // 다시 게시글 목록으로 이동 후 게시글 클릭
       await page.goto("https://www.cnnvd.org.cn/home/warn", {
         waitUntil: "networkidle2",
       });
       await page.waitForSelector(".content-center");
 
-      // i번째 게시글 클릭
       await page.click(`.content-center:nth-child(${i})`);
       await page.waitForSelector(".detail-info");
 
@@ -70,9 +65,7 @@ function generateUniqueId(content) {
 
         const tables = Array.from(
           postDetailElement.querySelectorAll(".detail-content table"),
-        ).map(
-          (table) => table.innerText, // 테이블의 텍스트 저장
-        );
+        ).map((table) => table.innerText);
 
         const tableContent = tables.length === 0 ? "" : tables;
 
@@ -82,13 +75,15 @@ function generateUniqueId(content) {
 
         const title =
           postDetailElement.querySelector(".detail-title")?.innerText || "";
-        const date =
+        const create_at =
           postDetailElement.querySelector(".detail-subtitle span")?.innerText ||
           "";
         const content =
           postDetailElement.querySelector(".detail-content")?.innerText || "";
 
-        return { title, date, content, tables: tableContent };
+        const upload_at = new Date().toISOString();
+
+        return { title, create_at, content, tables: tableContent, upload_at };
       });
 
       if (postDetail) {
@@ -97,9 +92,10 @@ function generateUniqueId(content) {
         postDetails.push({
           id: uniqueId,
           title: postDetail.title,
-          date: postDetail.date,
+          create_at: postDetail.create_at,
           content: postDetail.content,
           tables: postDetail.tables,
+          upload_at: postDetail.upload_at,
         });
       }
     } catch (error) {
@@ -111,7 +107,7 @@ function generateUniqueId(content) {
     postDetails.map(async (postDetail) => {
       const transTitle = await translateText(postDetail.title);
 
-      const transDate = await translateText(postDetail.date);
+      const transDate = await translateText(postDetail.create_at);
       const cleanDate = transDate.replace("출시 시간: ", "").trim();
 
       const transContent = await translateText(postDetail.content);
@@ -126,6 +122,7 @@ function generateUniqueId(content) {
         report_content: transContent,
         table_content: transTableContents,
         site_name: siteName,
+        upload_at: postDetail.upload_at,
       };
     }),
   );
