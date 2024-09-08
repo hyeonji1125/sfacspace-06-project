@@ -74,6 +74,19 @@ export const deleteData = async (url: string, id: string) => {
   }
 };
 
+export const deleteCollection = async (url: string) => {
+  try {
+    const docsRef = collection(db, url);
+    const docsSnapshot = await getDocs(docsRef);
+    docsSnapshot.forEach(async (docSnap) => {
+      await deleteDoc(doc(db, url, docSnap.id));
+    });
+    return "Entire collection files deleted successfully.";
+  } catch (error) {
+    throw new Error(`Failed to delete collection: ${url}`);
+  }
+};
+
 //검색어 보내기
 export const postSearch = async (url: string, data: string) => {
   try {
