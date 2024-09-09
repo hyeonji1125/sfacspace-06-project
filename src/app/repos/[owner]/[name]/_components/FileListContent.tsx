@@ -67,10 +67,6 @@ export default function FileListContent({
           >
             <FileItem {...item} openDirs={openDirs} />
           </div>
-
-          <ul className="pl-2">
-            <FileListContent isMultiSelectMode={isMultiSelectMode} />
-          </ul>
         </li>
       ))}
     </ul>

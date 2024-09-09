@@ -31,6 +31,7 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       );
       if (!response.ok) throw new Error("Failed to fetch repository contents");
       const data = await response.json();
+      console.log(data);
       set({
         currentRepo: `${owner}/${repo}`,
         currentPath: path,
