@@ -8,16 +8,14 @@ import ReposTitle from "../_components/ReposTitle";
 import AnalyzeModal from "../_components/AnalyzeModal";
 import { useParams, useSearchParams } from "next/navigation";
 import { useGithubStore } from "@/store/useGithubStore";
+import LibraryLogin from "@/app/repos/_components/LibraryLogin";
+import { useSession } from "next-auth/react";
+import { useRepoParams } from "../_utils/useRepoParams";
 
 export default function AnalyzeResultPage() {
   // 임시 code
-  const params = useParams();
-  const fileParams = useSearchParams();
-  const owner = Array.isArray(params.owner) ? params.owner[0] : params.owner;
-  const name = Array.isArray(params.name) ? params.name[0] : params.name;
-  const repoPath = fileParams.get("repo");
-  const filePath = fileParams.get("file");
-  const fullPath = repoPath ? `${repoPath}/${filePath || ""}` : filePath || "";
+  const { data: session } = useSession();
+  const { owner, name, repoPath } = useRepoParams();
 
   const [isOpen, setIsOpen] = useState(false); // 모달 state
   const [isWhole, setIsWhole] = useState(false); // 파일 전체를 포함하는 지
@@ -27,21 +25,18 @@ export default function AnalyzeResultPage() {
     selectFile,
     selectedFiles,
     repoContents,
+    clearSelection,
     clearSelectedFiles,
     toggleSelectFile,
   } = useGithubStore();
 
   const loadContent = () => {
     if (owner && name) {
-      fetchRepoContents(owner, name, repoPath || "");
+      fetchRepoContents(owner, name);
       clearSelectedFiles();
-
-      if (fullPath) {
-        selectFile(owner, name, fullPath);
-
-        if (filePath) {
-          toggleSelectFile(fullPath);
-        }
+      if (repoPath) {
+        selectFile(owner, name, repoPath);
+        toggleSelectFile(repoPath);
       }
     }
   };
@@ -61,9 +56,15 @@ export default function AnalyzeResultPage() {
   };
 
   useEffect(() => {
-    loadContent();
-  }, [owner, name, repoPath, filePath, selectFile, fetchRepoContents]);
+    if (session) {
+      clearSelection();
+      loadContent();
+    }
+  }, [session, owner, name, repoPath, selectFile, fetchRepoContents]);
 
+  if (!session) {
+    return <LibraryLogin />;
+  }
   return (
     <section className="m-auto mb-20 hidden min-h-screen w-full max-w-[1920px] flex-col gap-11 px-20 xl:flex">
       <ReposTitle>{name}</ReposTitle>

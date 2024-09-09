@@ -34,9 +34,9 @@ export default function FileInspectionProgress() {
         <li key={index} className="flex justify-between text-xl">
           <div className="flex items-center gap-[10px]">
             {item.icon}
-            <span>{item.label}</span>
+            <span className="text-lg">{item.label}</span>
           </div>
-          <span>{item.count}</span>
+          <span className="text-lg">{item.count}</span>
         </li>
       ))}
     </ul>

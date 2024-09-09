@@ -6,7 +6,6 @@ import FileViewer from "./_components/FileViewer";
 import { useEffect, useState } from "react";
 import ReposTitle from "./_components/ReposTitle";
 import AnalyzeModal from "./_components/AnalyzeModal";
-import { useParams, useSearchParams } from "next/navigation";
 import { useGithubStore } from "@/store/useGithubStore";
 import LibraryLogin from "../../_components/LibraryLogin";
 import { useSession } from "next-auth/react";
@@ -15,8 +14,7 @@ import { useRepoParams } from "./_utils/useRepoParams";
 export default function AnalyzePage() {
   // 임시 code
   const { data: session } = useSession();
-  const { owner, name, repoPath, filePath } = useRepoParams();
-  const fullPath = repoPath ? `${repoPath}/${filePath || ""}` : filePath || "";
+  const { owner, name, repoPath } = useRepoParams();
 
   const [isOpen, setIsOpen] = useState(false); // 모달 state
   const [isWhole, setIsWhole] = useState(false); // 파일 전체를 포함하는 지
@@ -33,15 +31,11 @@ export default function AnalyzePage() {
 
   const loadContent = () => {
     if (owner && name) {
-      fetchRepoContents(owner, name, repoPath || "");
+      fetchRepoContents(owner, name);
       clearSelectedFiles();
-
-      if (fullPath) {
-        selectFile(owner, name, fullPath);
-
-        if (filePath) {
-          toggleSelectFile(fullPath);
-        }
+      if (repoPath) {
+        selectFile(owner, name, repoPath);
+        toggleSelectFile(repoPath);
       }
     }
   };
@@ -61,16 +55,11 @@ export default function AnalyzePage() {
   };
 
   useEffect(() => {
-    return () => {
-      clearSelection();
-    };
-  }, []);
-
-  useEffect(() => {
     if (session) {
+      clearSelection();
       loadContent();
     }
-  }, [session, owner, name, repoPath, filePath, selectFile, fetchRepoContents]);
+  }, [session, owner, name, repoPath, selectFile, fetchRepoContents]);
 
   if (!session) {
     return <LibraryLogin />;
@@ -84,17 +73,16 @@ export default function AnalyzePage() {
           <Button
             type="button"
             theme={"filled"}
-            className="h-[107px] w-[247px]"
+            className="h-[107px]"
             onClick={handleWholeButton}
           >
             폴더 전체 검사
           </Button>
           <FileInspectionProgress />
-          <FileList owner={owner} name={name} repoPath={repoPath} />
+          <FileList />
           <Button
             type="button"
             theme={"filled"}
-            className="w-[247px]"
             onClick={handleButton}
             disabled={!selectedfileList.length}
           >

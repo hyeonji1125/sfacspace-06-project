@@ -21,6 +21,7 @@ export default function FileViewer() {
   };
 
   useEffect(() => {
+    console.log = () => {};
     if (selectedFile) {
       hljs.highlightAll();
       if (isResultPage) {
@@ -30,13 +31,6 @@ export default function FileViewer() {
       }
     }
   }, [selectedFile]);
-
-  useEffect(() => {
-    document.querySelectorAll("pre code").forEach((block) => {
-      // 여기서 block을 HTMLElement로 명시적 타입 캐스팅
-      hljs.highlightElement(block as HTMLElement);
-    });
-  }, [theme]);
 
   return (
     <div

@@ -63,14 +63,11 @@ export default function InspectionAlert({ close }: { close: () => void }) {
   };
 
   const state = "completed";
-  const { owner, name, repoPath, filePath } = useRepoParams();
+  const { owner, name, repoPath } = useRepoParams();
 
   const fileButtonHandler = (state: string) => {
     if (state === "completed") {
-      const targetURL = repoPath
-        ? `/repos/${owner}/${name}/repo_inspection?repo=${repoPath}&file=${filePath}`
-        : `/repos/${owner}/${name}/repo_inspection?file=${filePath}`;
-
+      const targetURL = `/repos/${owner}/${name}/repo_inspection?repo=${repoPath}`;
       router.push(targetURL);
     }
   };
