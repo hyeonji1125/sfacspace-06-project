@@ -13,25 +13,26 @@ export const useFilterReposType = (
 ) => {
   const { libraryState, reposData, setCurrentPage } = useLibraryStore();
 
-  const FILTER_TYPE = {
-    repoInteraction: {
-      bookmark: (repo: RepositoryProps) =>
-        findMatchData(repo, reposData)?.bookmark,
-      recent: (repo: RepositoryProps) => findMatchData(repo, reposData)?.recent,
-    },
-    repoType: {
-      검사완료: (repo: RepositoryProps) =>
-        findMatchData(repo, reposData)?.status === "COMPLETED",
-      검사중: (repo: RepositoryProps) =>
-        findMatchData(repo, reposData)?.status === "IN_PROGRESS",
-    },
-  };
-
-  type repoInteractionKeys = keyof typeof FILTER_TYPE.repoInteraction;
-  type repoTypeKeys = keyof typeof FILTER_TYPE.repoType;
-  type libraryStateKeys = keyof typeof libraryState;
-
   useEffect(() => {
+    const FILTER_TYPE = {
+      repoInteraction: {
+        bookmark: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.bookmark,
+        recent: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.recent,
+      },
+      repoType: {
+        검사완료: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.status === "COMPLETED",
+        검사중: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.status === "IN_PROGRESS",
+      },
+    };
+
+    type repoInteractionKeys = keyof typeof FILTER_TYPE.repoInteraction;
+    type repoTypeKeys = keyof typeof FILTER_TYPE.repoType;
+    type libraryStateKeys = keyof typeof libraryState;
+
     let filteredRepos = repositories;
 
     Object.keys(FILTER_TYPE.repoInteraction).forEach((key) => {
@@ -58,6 +59,7 @@ export const useFilterReposType = (
     libraryState.bookmark,
     libraryState.recent,
     setRepos,
+    reposData,
     libraryState,
     setCurrentPage,
   ]);
