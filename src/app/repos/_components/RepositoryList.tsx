@@ -10,6 +10,7 @@ import { RepositoryProps } from "@/types";
 import ReposToolbar from "./ReposToolbar";
 import { useLibraryStore } from "@/store/useLibraryStore";
 import { useGetUser } from "@/hooks/useGetUser";
+import { findMatchData } from "../_utils/findMatchData";
 
 export default function RepositoryList({ className }: { className?: string }) {
   const [repos, setRepos] = useState<RepositoryProps[]>([]);
@@ -28,9 +29,6 @@ export default function RepositoryList({ className }: { className?: string }) {
   } = useLibraryStore();
   const { reposItemsPerPage } = usePaginationStore();
   const { email } = useGetUser();
-
-  const findMatchData = (name: string) =>
-    reposData.find((repo) => repo.id === name);
 
   useEffect(() => {
     if (email) {
@@ -70,7 +68,7 @@ export default function RepositoryList({ className }: { className?: string }) {
         )}
       >
         {currentPageRepos.map((repo) => {
-          const matchData = findMatchData(repo.name);
+          const matchData = findMatchData(repo, reposData);
           return (
             <li key={repo.name}>
               <RepositoryItem {...repo} matchData={matchData} />
