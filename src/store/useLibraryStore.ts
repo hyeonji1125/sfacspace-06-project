@@ -5,11 +5,14 @@ import { create } from "zustand";
 export const useLibraryStore = create<LibraryState>((set, get) => ({
   status: { isLoading: false, error: null },
   libraryState: { recent: false, bookmark: false },
+  ITEMS_PER_PAGE: 16,
+  currentPage: 1,
   reposData: [],
   setLibraryState: (newLibraryState) =>
     set((state) => {
       return { libraryState: { ...state, ...newLibraryState } };
     }),
+  setCurrentPage: (page) => set({ currentPage: page }),
   fetchReposData: async (email) => {
     set({
       status: { isLoading: true, error: null },
