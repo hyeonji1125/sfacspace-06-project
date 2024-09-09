@@ -1,4 +1,3 @@
-import { SetStateAction } from "react";
 import {
   PageLeft,
   PageRight,
@@ -6,15 +5,13 @@ import {
 
 export default function Pagination({
   totalItems,
-  type = "VULDB",
   current,
   setCurrent = () => {},
   numberPerPage = 16,
 }: {
   totalItems: number;
-  type?: "VULDB" | "REPOS" | "SCRAPS";
   current?: number;
-  setCurrent?: React.Dispatch<SetStateAction<number>>;
+  setCurrent?: (page: number) => void;
   numberPerPage?: number;
 }) {
   const totalPages = Math.ceil(totalItems / numberPerPage);

@@ -11,7 +11,7 @@ export const useFilterReposType = (
   setRepos: React.Dispatch<React.SetStateAction<RepositoryProps[]>>,
   repositories: RepositoryProps[],
 ) => {
-  const { libraryState, reposData } = useLibraryStore();
+  const { libraryState, reposData, setCurrentPage } = useLibraryStore();
 
   const FILTER_TYPE = {
     repoInteraction: {
@@ -49,6 +49,7 @@ export const useFilterReposType = (
     }
 
     setRepos(filteredRepos);
+    setCurrentPage(1);
     sortItems(selectedItem.sort, setRepos);
   }, [
     repositories,
@@ -57,6 +58,8 @@ export const useFilterReposType = (
     libraryState.bookmark,
     libraryState.recent,
     setRepos,
+    libraryState,
+    setCurrentPage,
   ]);
 };
 

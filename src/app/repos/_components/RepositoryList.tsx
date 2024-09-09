@@ -13,13 +13,19 @@ import { useGetUser } from "@/hooks/useGetUser";
 
 export default function RepositoryList({ className }: { className?: string }) {
   const [repos, setRepos] = useState<RepositoryProps[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentPageRepos, setCurrentPageRepos] = useState<RepositoryProps[]>(
     [],
   );
   const { repositories, fetchRepositories, isLoading, error } =
     useGithubStore();
-  const { status, reposData, fetchReposData } = useLibraryStore();
+  const {
+    status,
+    reposData,
+    fetchReposData,
+    currentPage,
+    setCurrentPage,
+    ITEMS_PER_PAGE,
+  } = useLibraryStore();
   const { reposItemsPerPage } = usePaginationStore();
   const { email } = useGetUser();
 
@@ -37,10 +43,14 @@ export default function RepositoryList({ className }: { className?: string }) {
   }, [fetchRepositories]);
 
   useEffect(() => {
-    const startIndex = (currentPage - 1) * reposItemsPerPage;
-    const endIndex = startIndex + reposItemsPerPage;
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
     setCurrentPageRepos(repos.slice(startIndex, endIndex));
-  }, [repos, currentPage, reposItemsPerPage]);
+  }, [repos, currentPage, ITEMS_PER_PAGE]);
+
+  useEffect(() => {
+    return setCurrentPage(1);
+  }, [setCurrentPage]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -70,7 +80,6 @@ export default function RepositoryList({ className }: { className?: string }) {
       </ul>
       <Pagination
         totalItems={repos.length}
-        type="REPOS"
         setCurrent={setCurrentPage}
         current={currentPage}
         numberPerPage={reposItemsPerPage}

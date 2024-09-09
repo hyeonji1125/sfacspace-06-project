@@ -1,12 +1,13 @@
 "use client";
 
+import { useEffect } from "react";
+import { useGetUser } from "@/hooks/useGetUser";
+import { useLibraryStore } from "@/store/useLibraryStore";
+import { twMerge } from "tailwind-merge";
+import { filterRepos } from "../_utils/filterRepos";
+import { RepositoryProps } from "@/types";
 import Button from "@/components/common/Button";
 import { Bookmark, RecentFile } from "../../../../public/assets/svg/SvgIcons";
-import { RepositoryProps } from "@/types";
-import { filterRepos } from "../_utils/filterRepos";
-import { useEffect } from "react";
-import { twMerge } from "tailwind-merge";
-import { useLibraryStore } from "@/store/useLibraryStore";
 import { FilterType } from "@/types/library";
 
 const REPO_FILTER_BUTTONS: Array<{
@@ -33,15 +34,18 @@ export default function ReposFilterButtons({
   setRepos: React.Dispatch<React.SetStateAction<RepositoryProps[]>>;
   repositories: RepositoryProps[];
 }) {
-  const { libraryState, reposData, setLibraryState } = useLibraryStore();
+  const { email } = useGetUser();
+  const { libraryState, reposData, setLibraryState, fetchReposData } =
+    useLibraryStore();
   const selectStyle =
     "bg-bg-purple-light hover:bg-bg-purple-light focus:bg-bg-purple-light dark:bg-bg-purple-light dark:bg-opacity-10";
 
-  const handleFilterRepos = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFilterRepos = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const type = e.currentTarget.name as keyof FilterType;
     if (libraryState[type]) {
       setRepos(repositories);
-    } else {
+    } else if (email) {
+      fetchReposData(email);
       filterRepos(type, setRepos, repositories, reposData);
     }
   };

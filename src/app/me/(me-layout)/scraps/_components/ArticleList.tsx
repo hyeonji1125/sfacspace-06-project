@@ -169,7 +169,6 @@ export default function ArticleList({
           </div>
           <Pagination
             totalItems={articles.length}
-            type="SCRAPS"
             current={currentPage}
             setCurrent={setCurrentPage}
             numberPerPage={scrapsItemsPerPage}
