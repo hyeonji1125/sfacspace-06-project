@@ -19,7 +19,6 @@ export const useLibraryStore = create<LibraryState>((set, get) => ({
     });
     try {
       const repos = await getReposData(email);
-      console.log("store: ", repos);
       set({ reposData: repos, status: { isLoading: false, error: null } });
     } catch (error) {
       set({
