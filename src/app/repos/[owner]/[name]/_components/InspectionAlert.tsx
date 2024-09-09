@@ -19,7 +19,7 @@ export default function InspectionAlert({ close }: { close: () => void }) {
     },
     pending: {
       icon: (
-        <PiHourglassHighFill className="animate-flipHourglass text-5xl text-gray-800" />
+        <PiHourglassHighFill className="animate-flipHourglass text-5xl text-gray-800 dark:text-gray-400" />
       ),
       title: "검사 대기중",
       description: [
@@ -73,7 +73,7 @@ export default function InspectionAlert({ close }: { close: () => void }) {
   };
 
   return (
-    <div className="absolute right-4 top-4 z-20 flex items-start gap-[18px] rounded-2xl bg-white p-8 shadow-xl">
+    <div className="absolute right-4 top-4 z-20 flex items-start gap-[18px] rounded-2xl bg-white p-8 shadow-xl dark:bg-custom-dropdown-dark-bg">
       {stateArr[state].icon}
       <div className="flex w-[314px] flex-col gap-4 pt-[10px]">
         <p className="text-xl font-medium">{stateArr[state].title}</p>

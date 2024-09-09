@@ -20,33 +20,37 @@ export default function ModifiedCode() {
     },
   ];
   return (
-    <>
+    <div className="mt-11">
       {isCompleted && (
-        <div className="flex flex-col gap-7">
-          <h3 className="text-2xl font-bold">수정할 코드</h3>
+        <ul className="flex flex-col gap-7">
           {arr.map((el) => (
-            <div
+            <li
               key={el.id}
-              className="flex flex-col gap-[10px] rounded-xl bg-accent-red/10 p-5"
+              className="flex flex-col gap-8 rounded-xl bg-accent-red/10 p-5"
             >
-              <div className="flex items-center gap-2">
-                <code className="text-2xl font-medium text-accent-red">
-                  {el.error}
-                </code>
-                <button
-                  type="button"
-                  className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white dark:hover:bg-white/20"
-                >
-                  위치보기
-                </button>
+              <div className="flex flex-col gap-[10px]">
+                <div className="flex items-center gap-2">
+                  <code className="text-2xl font-semibold text-accent-red">
+                    {el.error}
+                  </code>
+                  <button
+                    type="button"
+                    className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white dark:hover:bg-white/20"
+                  >
+                    위치보기
+                  </button>
+                </div>
+                <p className="text-lg font-medium text-text-gray-dark dark:text-custom-dark-text">
+                  {el.description}
+                </p>
               </div>
-              <p className="text-lg text-custom-light-text dark:text-custom-dark-text">
-                {el.description}
-              </p>
-            </div>
+              <div className="flex flex-col gap-[10px]">
+                <h3 className="text-2xl font-bold">수정된 코드</h3>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
-    </>
+    </div>
   );
 }
