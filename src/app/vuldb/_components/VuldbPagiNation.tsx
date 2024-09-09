@@ -1,0 +1,70 @@
+import { SetStateAction } from "react";
+import {
+  PageLeft,
+  PageRight,
+} from "../../../../public/assets/svg/vulnerabilityDbSvg";
+
+export default function VuldbPagination({
+  totalItems,
+  current = 1,
+  setCurrent,
+  numberPerPage = 16,
+}: {
+  totalItems: number;
+  current?: number;
+  setCurrent: React.Dispatch<SetStateAction<number>>; // 기본값을 제거하고 반드시 전달되도록 처리
+  numberPerPage?: number;
+}) {
+  const totalPages = Math.ceil(totalItems / numberPerPage);
+  const maxPageButtons = 10;
+  const currentGroup = Math.floor((current - 1) / maxPageButtons);
+
+  const startPage = currentGroup * maxPageButtons + 1;
+  const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
+
+  const pageNumbers = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <div className="mb-2 flex items-center justify-center text-base font-normal text-[#3f3f3f]">
+      {startPage > 1 && (
+        <button
+          className="hover:bg-bg-purple-light"
+          onClick={() => {
+            console.log("Previous group button clicked", startPage - 1);
+            setCurrent(startPage - 1);
+          }}
+        >
+          <PageLeft />
+        </button>
+      )}
+      {pageNumbers.map((page) => (
+        <button
+          key={page}
+          onClick={() => {
+            console.log("Page button clicked", page);
+            setCurrent(page);
+          }}
+          className={`h-9 w-9 px-2 hover:bg-bg-purple-light ${
+            page === current ? "bg-bg-purple-light font-bold" : ""
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+      {endPage < totalPages && (
+        <button
+          className="hover:bg-bg-purple-light"
+          onClick={() => {
+            console.log("Next group button clicked", endPage + 1);
+            setCurrent(endPage + 1);
+          }}
+        >
+          <PageRight />
+        </button>
+      )}
+    </div>
+  );
+}
