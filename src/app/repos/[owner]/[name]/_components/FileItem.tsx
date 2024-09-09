@@ -11,16 +11,16 @@ import {
   PiCaretRight,
 } from "react-icons/pi";
 import { FaRegStar } from "react-icons/fa";
-import { useState } from "react";
+import React, { useState } from "react";
 import ProgressBar from "@/components/common/ProgressBar";
 
-export default function FileItem({
+export default React.memo(function FileItem({
   name,
   type,
   path,
-  openDirs,
-}: RepositoryContent & { openDirs: string[] }) {
-  const { selectedFiles } = useGithubStore();
+  expanded,
+}: RepositoryContent) {
+  const selectedFiles = useGithubStore((state) => state.selectedFiles);
   const [isBookmark, setIsBookmark] = useState(false);
 
   const statusIcons = {
@@ -50,13 +50,13 @@ export default function FileItem({
       )}
     >
       <div className="flex justify-between">
-        <div className="flex w-[150px] items-center gap-1">
+        <div className="flex w-4/5 items-center gap-1">
           {selectedFiles.includes(path) && (
             <FaCheck className="flex-shrink-0 text-primary-purple-500 dark:text-primary-purple-200" />
           )}
           {type === "dir" ? (
             <div className="flex flex-shrink-0 gap-1 text-lg">
-              {openDirs.includes(path) ? <PiCaretDown /> : <PiCaretRight />}
+              {expanded ? <PiCaretDown /> : <PiCaretRight />}
               <FaRegFolderOpen />
             </div>
           ) : (
@@ -86,4 +86,4 @@ export default function FileItem({
       <ProgressBar percent={50} className="h-1" />
     </div>
   );
-}
+});

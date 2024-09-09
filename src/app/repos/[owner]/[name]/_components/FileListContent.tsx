@@ -2,7 +2,6 @@
 import { useGithubStore } from "@/store/useGithubStore";
 import { RepositoryContent } from "@/types";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useRepoParams } from "../_utils/useRepoParams";
 import FileItem from "./FileItem";
 
@@ -13,62 +12,68 @@ export default function FileListContent({
 }) {
   const router = useRouter();
   const { owner, name } = useRepoParams();
-  const [openDirs, setOpenDirs] = useState<string[]>([]);
   const {
     repoContents,
     selectFile,
-    fetchRepoContents,
+    fetchSubDirectoryContents,
     toggleSelectFile,
     selectedFiles,
-    isLoading,
-    error,
-  } = useGithubStore();
+  } = useGithubStore((state) => ({
+    repoContents: state.repoContents,
+    selectFile: state.selectFile,
+    fetchSubDirectoryContents: state.fetchSubDirectoryContents,
+    toggleSelectFile: state.toggleSelectFile,
+    selectedFiles: state.selectedFiles,
+  }));
 
-  // 이렇게 파일리스트를 만들어놓고
-  const [fileList, setFileList] = useState(repoContents);
+  const handleFolderClick = async (folder: any) => {
+    await fetchSubDirectoryContents(owner, name, folder.path);
+  };
 
   const handleFileClick = (item: RepositoryContent) => {
-    if (item.type === "dir") {
-      if (openDirs.includes(item.path)) {
-        setOpenDirs(openDirs.filter((path) => path !== item.path));
-      } else {
-        setOpenDirs([...openDirs, item.path]);
-        fetchRepoContents(owner, name, item.path);
-        // 위의 요청에서 생긴 repoContents를 fileList에 있는 폴더를 찾아 추가하면 되는 거 아니야? 대신 그 폴더는 또, 재귀로 찾아야하나?
-      }
+    if (isMultiSelectMode) {
+      toggleSelectFile(item.path);
     } else {
-      if (isMultiSelectMode) {
+      if (!selectedFiles.length) {
         toggleSelectFile(item.path);
       } else {
-        if (!selectedFiles.length) {
-          toggleSelectFile(item.path);
-        } else {
-          toggleSelectFile(selectedFiles[0]);
-          toggleSelectFile(item.path);
-        }
-        selectFile(owner, name, item.path);
-
-        const targetURL = `/repos/${owner}/${name}?repo=${item.path}`;
-        router.push(targetURL);
+        toggleSelectFile(selectedFiles[0]);
+        toggleSelectFile(item.path);
       }
+      selectFile(owner, name, item.path);
+
+      const targetURL = `/repos/${owner}/${name}?repo=${item.path}`;
+      router.push(targetURL);
     }
   };
-  return (
-    <ul>
-      {repoContents.map((item) => (
-        <li
-          key={item.sha}
-          className="border-b border-line-gray-10 last:border-b-0 dark:border-line-dark/50"
-        >
-          <div
-            role="button"
-            className="w-full"
-            onClick={() => handleFileClick(item)}
+
+  const renderTree = (nodes: RepositoryContent[]) => {
+    return (
+      <>
+        {nodes.map((node) => (
+          <li
+            key={node.sha}
+            className="cursor-pointer border-b border-line-gray-10 last:border-b-0 dark:border-line-dark/50"
           >
-            <FileItem {...item} openDirs={openDirs} />
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
+            {node.type === "dir" ? (
+              <>
+                <div onClick={() => handleFolderClick(node)}>
+                  <FileItem {...node} expanded={node.expanded} />
+                </div>
+                {node.expanded && node.children && (
+                  <ul className="pl-4">{renderTree(node.children)}</ul>
+                )}
+              </>
+            ) : (
+              <div onClick={() => handleFileClick(node)}>
+                <FileItem {...node} />
+              </div>
+            )}
+          </li>
+        ))}
+      </>
+    );
+  };
+
+  return <ul>{renderTree(repoContents)}</ul>;
 }

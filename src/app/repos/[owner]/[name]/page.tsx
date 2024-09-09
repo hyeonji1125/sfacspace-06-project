@@ -10,6 +10,7 @@ import { useGithubStore } from "@/store/useGithubStore";
 import LibraryLogin from "../../_components/LibraryLogin";
 import { useSession } from "next-auth/react";
 import { useRepoParams } from "./_utils/useRepoParams";
+import { getSelectedItems } from "./_utils/getSelectedItems";
 
 export default function AnalyzePage() {
   // 임시 code
@@ -18,6 +19,7 @@ export default function AnalyzePage() {
 
   const [isOpen, setIsOpen] = useState(false); // 모달 state
   const [isWhole, setIsWhole] = useState(false); // 파일 전체를 포함하는 지
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     fetchRepoContents,
@@ -27,22 +29,30 @@ export default function AnalyzePage() {
     clearSelection,
     clearSelectedFiles,
     toggleSelectFile,
-  } = useGithubStore();
+  } = useGithubStore((state) => ({
+    fetchRepoContents: state.fetchRepoContents,
+    selectFile: state.selectFile,
+    selectedFiles: state.selectedFiles,
+    repoContents: state.repoContents,
+    clearSelection: state.clearSelection,
+    clearSelectedFiles: state.clearSelectedFiles,
+    toggleSelectFile: state.toggleSelectFile,
+  }));
 
-  const loadContent = () => {
+  const loadContent = async () => {
     if (owner && name) {
-      fetchRepoContents(owner, name);
+      setIsLoading(true);
+      await fetchRepoContents(owner, name);
       clearSelectedFiles();
       if (repoPath) {
         selectFile(owner, name, repoPath);
         toggleSelectFile(repoPath);
       }
+      setIsLoading(false);
     }
   };
 
-  const selectedfileList = repoContents.filter((content) =>
-    selectedFiles.includes(content.path),
-  );
+  const selectedfileList = getSelectedItems(repoContents, selectedFiles);
 
   const handleWholeButton = () => {
     setIsOpen(true);
@@ -59,7 +69,7 @@ export default function AnalyzePage() {
       clearSelection();
       loadContent();
     }
-  }, [session, owner, name, repoPath, selectFile, fetchRepoContents]);
+  }, [session, owner, name]);
 
   if (!session) {
     return <LibraryLogin />;
@@ -79,7 +89,7 @@ export default function AnalyzePage() {
             폴더 전체 검사
           </Button>
           <FileInspectionProgress />
-          <FileList />
+          <FileList isLoading={isLoading} />
           <Button
             type="button"
             theme={"filled"}

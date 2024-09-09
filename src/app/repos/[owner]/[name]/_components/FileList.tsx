@@ -5,9 +5,12 @@ import { useGithubStore } from "@/store/useGithubStore";
 import { useState } from "react";
 import FileDropdown from "./FileDropdown";
 import FileListContent from "./FileListContent";
+import FileListLoading from "./FileListLoading";
 
-export default function FileList() {
-  const { isLoading, clearSelectedFiles, error } = useGithubStore();
+export default function FileList({ isLoading }: { isLoading: boolean }) {
+  const clearSelectedFiles = useGithubStore(
+    (state) => state.clearSelectedFiles,
+  );
 
   const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -20,7 +23,7 @@ export default function FileList() {
   };
 
   return (
-    <div className="max-h-[1084px] rounded-lg border border-line-default dark:border-line-dark/50">
+    <div className="flex max-h-[1084px] w-80 flex-col overflow-hidden rounded-lg border border-line-default dark:border-line-dark/50">
       <div className="flex items-center justify-between rounded-t-lg border-b border-line-default bg-primary-purple-light p-5 dark:bg-primary-purple-200">
         <p className="text-lg dark:text-black">Files</p>
         <div className="flex gap-3 text-2xl">
@@ -52,15 +55,14 @@ export default function FileList() {
           </div>
         </div>
       </div>
-      {isLoading ? (
-        <>loading...</>
-      ) : (
-        <>
-          <div className="h-full overflow-y-auto">
-            <FileListContent isMultiSelectMode={isMultiSelectMode} />
-          </div>
-        </>
-      )}
+
+      <div className="flex-grow overflow-y-auto">
+        {isLoading ? (
+          <FileListLoading />
+        ) : (
+          <FileListContent isMultiSelectMode={isMultiSelectMode} />
+        )}
+      </div>
     </div>
   );
 }

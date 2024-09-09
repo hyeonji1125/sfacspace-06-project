@@ -47,7 +47,7 @@ export default function AnalyzeModal({
                     <li key={file.sha}>
                       <div className="flex items-center gap-2 rounded-[10px] border border-line-gray-10 p-4">
                         <RxFile className="flex-shrink-0 text-xl text-[#848484]" />
-                        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                        <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                           {file.name}
                         </span>
                       </div>

@@ -27,6 +27,8 @@ export type RepositoryContent = {
   encoding?: string;
   status: "inprogress" | "pending" | "completed" | "error" | "none";
   isSelected: boolean;
+  children: RepositoryContent[];
+  expanded: boolean;
 };
 
 // export type FileContent = RepositoryContent & {
@@ -49,7 +51,11 @@ export type RepositoryState = {
     repo: string,
     path?: string,
   ) => Promise<void>;
-
+  fetchSubDirectoryContents: (
+    owner: string,
+    repo: string,
+    folderPath: string,
+  ) => Promise<void>;
   selectFile: (owner: string, repo: string, path: string) => Promise<void>;
   toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;

@@ -1,18 +1,22 @@
 "use client";
 import { useGithubStore } from "@/store/useGithubStore";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import "/src/styles/code.css";
 import InspectionAlert from "./InspectionAlert";
-import { useTheme } from "next-themes";
 import { isPathResult } from "../_utils/isPathResult";
-// import "highlight.js/styles/github-dark.css";
+import { twMerge } from "tailwind-merge";
+import FileViewerLoading from "./FileViewerLoading";
+import { GoXCircleFill } from "react-icons/go";
 
-export default function FileViewer() {
-  const { theme } = useTheme();
+export default React.memo(function FileViewer() {
   const isResultPage = isPathResult();
-  const { selectedFile, isLoading } = useGithubStore();
+  const { selectedFile, isLoading, error } = useGithubStore((state) => ({
+    selectedFile: state.selectedFile,
+    isLoading: state.isLoading,
+    error: state.error,
+  }));
   // 임시
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
 
@@ -20,10 +24,17 @@ export default function FileViewer() {
     setIsOpenInspectionAlert(!isOpenInspectionAlert);
   };
 
+  const updateCodeSyntaxHighlighting = () => {
+    hljs.highlightAll();
+  };
+
   useEffect(() => {
-    console.log = () => {};
+    //console.log = () => {};
     if (selectedFile) {
-      hljs.highlightAll();
+      if (!selectedFile.name.endsWith(".json")) {
+        updateCodeSyntaxHighlighting();
+      }
+
       if (isResultPage) {
         setIsOpenInspectionAlert(false);
       } else {
@@ -34,15 +45,15 @@ export default function FileViewer() {
 
   return (
     <div
-      className={`relative flex h-[1395px] flex-1 flex-col items-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50 ${
-        !selectedFile && "justify-center"
-      }`}
+      className={twMerge(
+        "relative flex h-[1395px] flex-1 flex-col items-center justify-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50",
+        isLoading && "justify-start",
+        isResultPage && "h-[555px]",
+      )}
     >
       {isLoading ? (
-        // Loading 상태일 때
-        <p className="text-2xl">Loading...</p>
+        <FileViewerLoading />
       ) : selectedFile ? (
-        // 파일이 선택되었을 때
         <div className="custom-scrollbar h-full w-full overflow-y-auto">
           <pre className="whitespace-pre-wrap break-words">
             <code>{selectedFile.content}</code>
@@ -52,7 +63,6 @@ export default function FileViewer() {
           )}
         </div>
       ) : (
-        // 파일이 선택되지 않았을 때
         <>
           <Image
             width={48}
@@ -66,6 +76,14 @@ export default function FileViewer() {
           </p>
         </>
       )}
+
+      {error && (
+        <div className="flex flex-col items-center justify-center gap-4">
+          <GoXCircleFill className="text-5xl text-accent-red" />
+          <p>파일 내용을 불러올 수 없습니다.</p>
+          <p>{error}</p>
+        </div>
+      )}
     </div>
   );
-}
+});
