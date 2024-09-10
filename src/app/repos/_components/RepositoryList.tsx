@@ -11,6 +11,7 @@ import ReposToolbar from "./ReposToolbar";
 import { useLibraryStore } from "@/store/useLibraryStore";
 import { useGetUser } from "@/hooks/useGetUser";
 import { findMatchData } from "../_utils/findMatchData";
+import LoadingRepository from "./LoadingRepo";
 
 export default function RepositoryList({ className }: { className?: string }) {
   const [repos, setRepos] = useState<RepositoryProps[]>([]);
@@ -50,13 +51,13 @@ export default function RepositoryList({ className }: { className?: string }) {
     return setCurrentPage(1);
   }, [setCurrentPage]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingRepository />;
   if (error) return <div>{error}</div>;
 
   return (
     <section className="flex w-full flex-col gap-6">
       <ReposToolbar setRepos={setRepos} repositories={repositories} />
-      {repos.length === 0 && (
+      {repos && repos.length === 0 && (
         <p className="w-full pt-20 text-center">
           조건에 해당하는 데이터가 존재하지 않습니다.
         </p>
