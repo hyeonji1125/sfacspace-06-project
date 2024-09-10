@@ -59,10 +59,13 @@ export default function PostDetailPage() {
         <div>
           <DetailMainSection post={post} />
         </div>
-        <SmallPostCardList
-          currentLabel={post.label || ""}
-          excludePostId={post.id}
-        />
+        <div>
+          <h2 className="mb-4 text-2xl font-semibold">비슷한 정보글</h2>
+          <SmallPostCardList
+            currentLabel={post.label || ""}
+            excludePostId={post.id}
+          />
+        </div>
       </div>
       <AskButton />
     </main>

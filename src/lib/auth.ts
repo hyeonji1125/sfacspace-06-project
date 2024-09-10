@@ -1,8 +1,7 @@
-import { NextAuthOptions, User } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import { AdapterUser } from "next-auth/adapters";
-import { Account, Profile } from "next-auth";
 import { postData } from "@/hooks/fetchData";
+import { Account, NextAuthOptions, Profile, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
+import GithubProvider from "next-auth/providers/github";
 
 const githubId = process.env.AUTH_GITHUB_ID;
 const githubSecret = process.env.AUTH_GITHUB_SECRET;
