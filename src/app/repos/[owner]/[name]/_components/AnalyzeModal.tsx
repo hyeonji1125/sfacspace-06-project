@@ -1,7 +1,10 @@
 "use client";
+
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
+import { useLlama3Store } from "@/store/useLlama3Store";
 import { TAnalyzeModalProp } from "@/types";
+import { useEffect } from "react";
 import { AiFillFolderOpen } from "react-icons/ai";
 import { FaRegFolderOpen } from "react-icons/fa6";
 import { RxFile } from "react-icons/rx";
@@ -13,13 +16,26 @@ export default function AnalyzeModal({
   title,
   fileList,
 }: TAnalyzeModalProp) {
+  const { startAnalysis, analysisResults } = useLlama3Store();
+
+  useEffect(() => {
+    console.log('Updated analysisResults:', analysisResults);
+  }, [analysisResults]);
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const filesToAnalyze = fileList.map(file => ({
+      name: file.name,
+      content: file.content
+    }));
+    
+    await startAnalysis(filesToAnalyze);
     setIsOpen(false);
   };
+
 
   return (
     <>

@@ -60,7 +60,7 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       if (!response.ok)
         throw new Error("Failed to fetch subdirectory contents");
       const data = await response.json();
-
+      
       const addChildrenToNode = (
         nodes: RepositoryContent[],
         path: string,
@@ -107,9 +107,26 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
 
       const decodedContent = decodeURIComponent(escape(atob(data.content)));
 
-      set({
-        selectedFile: { ...data, content: decodedContent },
-        isLoading: false,
+      set((state) => {
+        const updateContentInTree = (nodes: RepositoryContent[]): RepositoryContent[] => {
+          return nodes.map((node) => {
+            if (node.path === path) {
+              return { ...node, content: decodedContent };
+            }
+            if (node.children) {
+              return { ...node, children: updateContentInTree(node.children) };
+            }
+            return node;
+          });
+        };
+
+        const updatedRepoContents = updateContentInTree(state.repoContents);
+
+        return {
+          selectedFile: { ...data, content: decodedContent },
+          repoContents: updatedRepoContents,
+          isLoading: false,
+        };
       });
     } catch (error) {
       set({ error: (error as Error).message, isLoading: false });
@@ -121,6 +138,8 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       const selectedFiles = state.selectedFiles.includes(filePath)
         ? state.selectedFiles.filter((path) => path !== filePath)
         : [...state.selectedFiles, filePath];
+        console.log(selectedFiles);
+        
       return { selectedFiles };
     });
   },
