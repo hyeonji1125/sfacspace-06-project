@@ -15,11 +15,14 @@ export type AnalysisResult = {
 export type Llama3State = {
   isAnalyzing: boolean;
   analysisResults: AnalysisResult[];
+  analysisStatus: Record<string, NonNullable<RepositoryContent['status']>>;
   error: string | null;
   startAnalysis: (
     fileContents: RepositoryContent[],
-    userEmail: string
+    userEmail: string,
+    repoId: string,
   ) => Promise<void>;
+  fetchAnalysisResults: (userEmail: string, repoId: string) => Promise<Record<string, NonNullable<RepositoryContent['status']>>>;
   setAnalysisResults: (results: AnalysisResult[]) => void;
   clearResults: () => void;
 };
