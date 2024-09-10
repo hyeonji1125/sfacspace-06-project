@@ -16,8 +16,10 @@ export type Llama3State = {
   isAnalyzing: boolean;
   analysisResults: AnalysisResult[];
   error: string | null;
-
-  startAnalysis: (fileContents: { name: string; content: string | undefined }[]) => Promise<void>;
+  startAnalysis: (
+    fileContents: RepositoryContent[],
+    userEmail: string
+  ) => Promise<void>;
   setAnalysisResults: (results: AnalysisResult[]) => void;
   clearResults: () => void;
 };

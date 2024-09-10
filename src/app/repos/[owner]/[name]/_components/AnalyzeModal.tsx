@@ -2,6 +2,7 @@
 
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
+import { useGetUser } from "@/hooks/useGetUser";
 import { useLlama3Store } from "@/store/useLlama3Store";
 import { TAnalyzeModalProp } from "@/types";
 import { useEffect } from "react";
@@ -17,6 +18,7 @@ export default function AnalyzeModal({
   fileList,
 }: TAnalyzeModalProp) {
   const { startAnalysis, analysisResults } = useLlama3Store();
+  const { email } = useGetUser();
 
   useEffect(() => {
     console.log('Updated analysisResults:', analysisResults);
@@ -27,15 +29,13 @@ export default function AnalyzeModal({
   };
 
   const handleSubmit = async () => {
-    const filesToAnalyze = fileList.map(file => ({
-      name: file.name,
-      content: file.content
-    }));
-    
-    await startAnalysis(filesToAnalyze);
-    setIsOpen(false);
+    if (email) {
+      await startAnalysis(fileList, email);
+      setIsOpen(false);
+    } else {
+      console.error("유효하지 않은 사용자입니다.");
+    }
   };
-
 
   return (
     <>
