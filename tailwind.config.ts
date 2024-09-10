@@ -92,6 +92,17 @@ const config: Config = {
           "50%": { transform: "scale(1.2)" },
         },
 
+        spinReverse: {
+          to: { transform: "rotate(-360deg)" },
+        },
+        flip: {
+          to: { transform: "rotate(180deg)" },
+        },
+        drawCheck: {
+          "0%": { "stroke-dashoffset": "60" },
+          "100%": { "stroke-dashoffset": "0" },
+        },
+
         //SecureProcessSection 무한회전 애니메이션
         rotateForward: {
           "0%": { transform: "translateX(0)" },
@@ -101,20 +112,15 @@ const config: Config = {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
         },
-
-        scan: {
-          "0%": { top: "-16px" },
-          "100%": { top: "100%" },
-        },
       },
       animation: {
         float: "float 2.04s ease-in-out infinite",
         moveCircle: "moveCircle 5s ease-in-out infinite",
-
+        spinReverse: "spinReverse 2s linear infinite",
+        flipHourglass: "flip 2s ease-in-out infinite",
         rotateForward: "rotateForward 50s linear infinite",
         rotateBackward: "rotateBackward 50s linear infinite",
-
-        scan: "scan 1.5s linear infinite",
+        drawCheck: "drawCheck 1s linear forwards",
       },
     },
   },
