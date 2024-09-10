@@ -11,9 +11,8 @@ export default function AnalyzeModal({
   setIsOpen,
   isWhole,
   title,
-  fileList
+  fileList,
 }: TAnalyzeModalProp) {
-  
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -29,7 +28,8 @@ export default function AnalyzeModal({
           isOpen={isOpen}
           onClose={handleClose}
           shadow
-          className="gap-10 p-12 dark:border dark:border-line-dark/50"
+          dimmed
+          className="gap-10 p-12"
         >
           <p className="text-nowrap text-2xl font-medium">
             {isWhole ? "폴더 전체를" : "선택된 파일을"} 검사하시겠습니까?
@@ -42,26 +42,15 @@ export default function AnalyzeModal({
               </div>
             ) : (
               <div className="custom-scrollbar max-h-[220px] overflow-hidden overflow-y-auto">
-                <ul className="overflow-hidden rounded-lg border border-line-default dark:border-line-dark/50">
+                <ul className="grid w-[450px] grid-cols-3 gap-3 overflow-hidden">
                   {fileList.map((file) => (
-                    <li
-                      key={file.sha}
-                      className="flex w-[590px] items-center justify-between border-b border-line-default p-[10px] last:border-b-0 dark:border-line-dark/50"
-                    >
-                      <div className="flex w-60 items-center gap-[10px]">
-                        {file.type === "dir" ? (
-                          <FaRegFolderOpen className="flex-shrink-0 pl-1 text-2xl text-[#848484]" />
-                        ) : (
-                          <RxFile className="flex-shrink-0 text-2xl text-[#848484]" />
-                        )}
-                        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    <li key={file.sha}>
+                      <div className="flex items-center gap-2 rounded-[10px] border border-line-gray-10 p-4">
+                        <RxFile className="flex-shrink-0 text-xl text-[#848484]" />
+                        <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                           {file.name}
                         </span>
                       </div>
-                      <p className="text-[12px] text-[#929292]">
-                        file sub title
-                      </p>
-                      <p className="text-[12px] text-[#929292]">4 months ago</p>
                     </li>
                   ))}
                 </ul>

@@ -52,11 +52,17 @@ const Header: React.FC = () => {
           </h1>
         </Link>
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
-          <Link href="/vuldb" className="cursor-pointer hover:text-accent-blue">
+          <Link
+            href="/vuldb"
+            className="cursor-pointer hover:text-primary-purple-500"
+          >
             취약점 DB
           </Link>
 
-          <Link href="/repos" className="cursor-pointer hover:text-accent-blue">
+          <Link
+            href="/repos"
+            className="cursor-pointer hover:text-primary-purple-500"
+          >
             MY 저장소
           </Link>
 

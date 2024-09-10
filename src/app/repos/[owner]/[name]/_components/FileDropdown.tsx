@@ -1,19 +1,16 @@
 "use client";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
+import { useIsPathResult } from "../_utils/useIsPathResult";
 
 export default function FileDropdown() {
-  const pathName = usePathname();
+  const isResultPage = useIsPathResult();
   const defaultSortArr = ["최신순", "오래된순", "폴더순", "파일순", "북마크순"];
   const additionalSortArr = ["검사한파일순", "미검사순"];
-  const pathSegments = pathName.split("/");
-  const sortArr =
-    pathSegments[4] === "repo_inspection"
-      ? [...defaultSortArr, ...additionalSortArr]
-      : defaultSortArr;
-  console.log(pathSegments);
+  const sortArr = isResultPage
+    ? [...defaultSortArr, ...additionalSortArr]
+    : defaultSortArr;
   const [selectedSort, setSelectedSort] = useState(sortArr[0]);
 
   const handleSortClick = (sort: string) => {
@@ -24,7 +21,7 @@ export default function FileDropdown() {
     <div
       className={twMerge(
         "absolute -right-20 top-10 z-20 w-32 overflow-hidden rounded-lg bg-white shadow-xl dark:bg-custom-dropdown-dark-bg",
-        pathSegments[4] === "repo_inspection" && "-right-28 w-40",
+        isResultPage && "-right-28 w-40",
       )}
     >
       <ul>
