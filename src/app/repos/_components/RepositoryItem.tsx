@@ -45,7 +45,7 @@ export default function RepositoryItem({
           owner={owner.login}
           name={name}
         />
-        <span className="whitespace-nowrap text-base font-medium tracking-tight text-text-gray-default">
+        <span className="invisible whitespace-nowrap text-base font-medium tracking-tight text-text-gray-default xl:visible">
           {format(created_at, "yy.MM.dd")}
         </span>
       </div>
