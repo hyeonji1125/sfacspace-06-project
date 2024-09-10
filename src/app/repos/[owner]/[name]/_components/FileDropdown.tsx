@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
-import { isPathResult } from "../_utils/isPathResult";
+import { useIsPathResult } from "../_utils/useIsPathResult";
 
 export default function FileDropdown() {
-  const isResultPage = isPathResult();
+  const isResultPage = useIsPathResult();
   const defaultSortArr = ["최신순", "오래된순", "폴더순", "파일순", "북마크순"];
   const additionalSortArr = ["검사한파일순", "미검사순"];
   const sortArr = isResultPage

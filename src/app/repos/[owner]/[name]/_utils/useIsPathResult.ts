@@ -1,6 +1,6 @@
 import { usePathname } from "next/navigation";
 
-export const isPathResult = () => {
+export const useIsPathResult = () => {
   const pathName = usePathname();
   const pathSegments = pathName.split("/");
 

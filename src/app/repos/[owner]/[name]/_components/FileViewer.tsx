@@ -5,13 +5,13 @@ import React, { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import "/src/styles/code.css";
 import InspectionAlert from "./InspectionAlert";
-import { isPathResult } from "../_utils/isPathResult";
+import { useIsPathResult } from "../_utils/useIsPathResult";
 import { twMerge } from "tailwind-merge";
 import FileViewerLoading from "./FileViewerLoading";
 import { GoXCircleFill } from "react-icons/go";
 
 export default React.memo(function FileViewer() {
-  const isResultPage = isPathResult();
+  const isResultPage = useIsPathResult();
   const { selectedFile, isLoading, error } = useGithubStore((state) => ({
     selectedFile: state.selectedFile,
     isLoading: state.isLoading,
