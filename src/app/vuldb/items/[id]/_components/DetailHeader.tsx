@@ -1,10 +1,8 @@
+import PinButton from "@/app/vuldb/_components/button/PinButton";
+import ShareButton from "@/app/vuldb/_components/button/ShareButton";
 import { formatExactTime } from "@/app/vuldb/_utils/formatDate";
 import SuggestionChips from "@/components/common/chips/SuggestionChips";
 import { PostDataType } from "@/types";
-import {
-  PushPinEnabled,
-  ShareFatEnabled,
-} from "../../../../../../public/assets/svg/vulnerabilityDbSvg";
 
 type DetailHeaderProps = {
   post: PostDataType;
@@ -32,12 +30,8 @@ export default function DetailHeader({ post }: DetailHeaderProps) {
           {/* 이거 조회수 잘 올라가는지 확인하려고 놥둠 */}
         </div>
         <div className="flex space-x-3">
-          <button>
-            <PushPinEnabled />
-          </button>
-          <button>
-            <ShareFatEnabled />
-          </button>
+          <PinButton postId={post.id} />
+          <ShareButton postId={post.id} />
         </div>
       </div>
     </header>

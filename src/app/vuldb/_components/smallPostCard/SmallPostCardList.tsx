@@ -43,7 +43,7 @@ export default function SmallPostCardList({
   };
 
   return (
-    <div className="mx-auto flex flex-wrap gap-8">
+    <div className="mx-auto mb-14 flex flex-wrap gap-8">
       {finalPosts.map((item) => {
         const uploadAtValue = item.upload_at || new Date().toISOString();
         const relativeDate = formatRelativeTime(uploadAtValue);

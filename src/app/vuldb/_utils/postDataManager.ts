@@ -1,7 +1,7 @@
-import { db } from "@/lib/firebase"; // Firestore 인스턴스
+import { db } from "@/lib/firebase";
 import { updatePostViews } from "@/lib/postFetcher";
 import { PostDataType } from "@/types";
-import { collection, getDocs, orderBy, query } from "firebase/firestore"; // Firestore 함수형 API
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 export const incrementPostView = async (post: PostDataType) => {
   const newViews = (post.views || 0) + 1;
