@@ -23,7 +23,7 @@ export default function FileList({ isLoading }: { isLoading: boolean }) {
   };
 
   return (
-    <div className="flex max-h-[1084px] w-80 flex-col overflow-hidden rounded-lg border border-line-default dark:border-line-dark/50">
+    <div className="flex max-h-[800px] w-80 flex-col overflow-hidden rounded-lg border border-line-default dark:border-line-dark/50">
       <div className="flex items-center justify-between rounded-t-lg border-b border-line-default bg-primary-purple-light p-5 dark:bg-primary-purple-200">
         <p className="text-lg dark:text-black">Files</p>
         <div className="flex gap-3 text-2xl">
@@ -56,7 +56,7 @@ export default function FileList({ isLoading }: { isLoading: boolean }) {
         </div>
       </div>
 
-      <div className="flex-grow overflow-y-auto">
+      <div className="custom-scrollbar flex-grow overflow-y-auto">
         {isLoading ? (
           <FileListLoading />
         ) : (

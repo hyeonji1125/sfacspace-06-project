@@ -46,7 +46,7 @@ export default React.memo(function FileViewer() {
   return (
     <div
       className={twMerge(
-        "relative flex h-[1395px] flex-1 flex-col items-center justify-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50",
+        "relative flex max-h-[1159px] min-h-[700px] flex-1 flex-col items-center justify-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50",
         isLoading && "justify-start",
         isResultPage && "h-[555px]",
       )}
