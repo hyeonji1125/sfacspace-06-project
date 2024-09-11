@@ -5,8 +5,19 @@ import { GoXCircleFill } from "react-icons/go";
 import { IoCloseOutline } from "react-icons/io5";
 import { PiArrowsCounterClockwise, PiHourglassHighFill } from "react-icons/pi";
 import { useRepoParams } from "../_utils/useRepoParams";
+import { useEffect, useState } from "react";
+import { useLlama3Store } from "@/store/useLlama3Store";
+import { useGetUser } from "@/hooks/useGetUser";
+import { getSelectedItems } from "../_utils/getSelectedItems";
+import { useGithubStore } from "@/store/useGithubStore";
 
-export default function InspectionAlert({ close }: { close: () => void }) {
+export default function InspectionAlert({
+  close,
+  filePath,
+}: {
+  close: () => void;
+  filePath: string;
+}) {
   const router = useRouter();
   const stateArr = {
     inprogress: {
@@ -62,44 +73,71 @@ export default function InspectionAlert({ close }: { close: () => void }) {
     },
   };
 
-  const state = "completed";
+  const { email } = useGetUser();
   const { owner, name, repoPath } = useRepoParams();
+  const repoId = `${owner}/${name}`;
+  const { analysisStatus, startAnalysis } = useLlama3Store((state) => ({
+    analysisStatus: state.analysisStatus,
+    startAnalysis: state.startAnalysis,
+  }));
+  const selectedFile = useGithubStore((state) => state.selectedFile);
+  const [state, setState] = useState<keyof typeof stateArr | null>(null);
+  const reAnalyzeSubmit = async () => {
+    if (email) {
+      const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");
+      await startAnalysis([selectedFile], email, encodedRepoId);
+    } else {
+      console.error("유효하지 않은 사용자입니다.");
+    }
+  };
 
   const fileButtonHandler = (state: string) => {
     if (state === "completed") {
       const targetURL = `/repos/${owner}/${name}/repo_inspection?repo=${repoPath}`;
       router.push(targetURL);
+    } else if (state === "error") {
+      reAnalyzeSubmit();
     }
   };
 
+  useEffect(() => {
+    setState(analysisStatus[filePath]);
+  }, [analysisStatus, filePath]);
+
+  if (!state) return null;
+
   return (
-    <div className="absolute right-4 top-4 z-20 flex items-start gap-[18px] rounded-2xl bg-white p-8 shadow-xl dark:bg-custom-dropdown-dark-bg">
-      {stateArr[state].icon}
-      <div className="flex w-[314px] flex-col gap-4 pt-[10px]">
-        <p className="text-xl font-medium">{stateArr[state].title}</p>
-        <div>
-          {stateArr[state].description.map((text) => (
-            <p
-              key={text}
-              className="text-xl font-medium text-text-gray-default"
-            >
-              {text}
-            </p>
-          ))}
+    <>
+      {state && (
+        <div className="absolute right-4 top-4 z-20 flex items-start gap-[18px] rounded-2xl bg-white p-8 shadow-xl dark:bg-custom-dropdown-dark-bg">
+          {stateArr[state].icon}
+          <div className="flex w-[314px] flex-col gap-4 pt-[10px]">
+            <p className="text-xl font-medium">{stateArr[state].title}</p>
+            <div>
+              {stateArr[state].description.map((text) => (
+                <p
+                  key={text}
+                  className="text-xl font-medium text-text-gray-default"
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
+            {stateArr[state].buttonText && (
+              <Button
+                theme={"filled"}
+                className="text-2xl font-medium"
+                onClick={() => fileButtonHandler(state)}
+              >
+                {stateArr[state].buttonText}
+              </Button>
+            )}
+          </div>
+          <button onClick={close}>
+            <IoCloseOutline className="text-[32px]" />
+          </button>
         </div>
-        {stateArr[state].buttonText && (
-          <Button
-            theme={"filled"}
-            className="text-2xl font-medium"
-            onClick={() => fileButtonHandler(state)}
-          >
-            {stateArr[state].buttonText}
-          </Button>
-        )}
-      </div>
-      <button onClick={close}>
-        <IoCloseOutline className="text-[32px]" />
-      </button>
-    </div>
+      )}
+    </>
   );
 }

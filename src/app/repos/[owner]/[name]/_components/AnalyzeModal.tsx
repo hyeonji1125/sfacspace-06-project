@@ -23,7 +23,7 @@ export default function AnalyzeModal({
   const repoId = `${owner}/${name}`;
 
   useEffect(() => {
-    console.log('Updated analysisResults:', analysisResults);
+    console.log("Updated analysisResults:", analysisResults);
   }, [analysisResults]);
 
   const handleClose = () => {
@@ -32,9 +32,9 @@ export default function AnalyzeModal({
 
   const handleSubmit = async () => {
     if (email) {
-      const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, '/');
-      await startAnalysis(fileList, email, encodedRepoId);
       setIsOpen(false);
+      const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");
+      await startAnalysis(fileList, email, encodedRepoId);
     } else {
       console.error("유효하지 않은 사용자입니다.");
     }

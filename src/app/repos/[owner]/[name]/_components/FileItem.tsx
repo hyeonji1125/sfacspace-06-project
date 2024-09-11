@@ -15,7 +15,7 @@ import React, { useState } from "react";
 import ProgressBar from "@/components/common/ProgressBar";
 
 type FileItemProps = RepositoryContent & {
-  status: NonNullable<RepositoryContent['status']>;
+  status: NonNullable<RepositoryContent["status"]>;
 };
 
 export default React.memo(function FileItem({
@@ -33,7 +33,9 @@ export default React.memo(function FileItem({
       <PiArrowsCounterClockwise className="text-lg text-primary-purple-500" />
     ),
     pending: (
-      <span className="whitespace-nowrap text-text-gray-default">대기중..</span>
+      <span className="whitespace-nowrap text-sm text-text-gray-default">
+        대기중..
+      </span>
     ),
     completed: <GoCheckCircleFill className="text-lg text-accent-green" />,
     error: <TbAlertTriangleFilled className="text-lg text-accent-red" />,
@@ -85,10 +87,10 @@ export default React.memo(function FileItem({
               <FaRegStar className="hidden text-primary-purple-100 group-hover:block dark:text-primary-purple-50/30" />
             )}
           </button>
-           {statusIcons[status]}
+          {statusIcons[status]}
         </div>
       </div>
-      <ProgressBar percent={50} className="h-1" />
+      {/* <ProgressBar percent={50} className="h-1" /> */}
     </div>
   );
 });
