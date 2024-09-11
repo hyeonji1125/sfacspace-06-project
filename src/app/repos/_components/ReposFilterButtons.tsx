@@ -1,17 +1,31 @@
 "use client";
 
+import { useEffect } from "react";
+import { useGetUser } from "@/hooks/useGetUser";
+import { useLibraryStore } from "@/store/useLibraryStore";
+import { twMerge } from "tailwind-merge";
+import { filterRepos } from "../_utils/filterRepos";
+import { RepositoryProps } from "@/types";
 import Button from "@/components/common/Button";
 import { Bookmark, RecentFile } from "../../../../public/assets/svg/SvgIcons";
-import { RepositoryProps } from "@/types";
-import { filterRepos } from "../_utils/filterRepos";
-import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
-import { useLibraryStore } from "@/store/useLibraryStore";
+import { FilterType } from "@/types/library";
 
-type TFilterType = {
-  recent: boolean;
-  bookmark: boolean;
-};
+const REPO_FILTER_BUTTONS: Array<{
+  name: keyof FilterType;
+  label: string;
+  icon: JSX.Element;
+}> = [
+  {
+    name: "recent",
+    label: "Recents File",
+    icon: <RecentFile color="dark:fill-text-gray-light" />,
+  },
+  {
+    name: "bookmark",
+    label: "Bookmark",
+    icon: <Bookmark color="dark:fill-text-gray-light" />,
+  },
+];
 
 export default function ReposFilterButtons({
   setRepos,
@@ -20,20 +34,19 @@ export default function ReposFilterButtons({
   setRepos: React.Dispatch<React.SetStateAction<RepositoryProps[]>>;
   repositories: RepositoryProps[];
 }) {
-  // const [isSelect, setIsSelect] = useState<TFilterType>({
-  //   recent: false,
-  //   bookmark: false,
-  // });
-  const { libraryState, setLibraryState } = useLibraryStore();
+  const { email } = useGetUser();
+  const { libraryState, reposData, setLibraryState, fetchReposData } =
+    useLibraryStore();
   const selectStyle =
     "bg-bg-purple-light hover:bg-bg-purple-light focus:bg-bg-purple-light dark:bg-bg-purple-light dark:bg-opacity-10";
 
-  const handleFilterRepos = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const type = e.currentTarget.name as keyof TFilterType;
+  const handleFilterRepos = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const type = e.currentTarget.name as keyof FilterType;
     if (libraryState[type]) {
       setRepos(repositories);
-    } else {
-      filterRepos(type, setRepos, repositories);
+    } else if (email) {
+      fetchReposData(email);
+      filterRepos(type, setRepos, repositories, reposData);
     }
   };
 
@@ -43,40 +56,27 @@ export default function ReposFilterButtons({
 
   return (
     <div className="flex gap-[21px]">
-      <Button
-        theme="outlined"
-        className={twMerge(
-          "w-full gap-[10px] border-line-gray-10 p-4 text-xl text-text-gray-dark hover:bg-transparent hover:shadow-sm focus:border-line-gray-10 focus:bg-transparent active:border-line-default dark:border-opacity-20 dark:text-text-gray-light sm:p-4 sm:text-xl md:p-4 md:text-xl",
-          libraryState.recent && selectStyle,
-        )}
-        onClick={(e) => {
-          handleFilterRepos(e);
-          setLibraryState({
-            recent: !libraryState.recent,
-            bookmark: false,
-          });
-        }}
-        name="recent"
-      >
-        <RecentFile color="dark:fill-text-gray-light" /> Recents File
-      </Button>
-      <Button
-        theme="outlined"
-        className={twMerge(
-          "w-full gap-[10px] border-line-gray-10 p-4 text-xl text-text-gray-dark hover:bg-transparent hover:shadow-sm focus:border-line-gray-10 focus:bg-transparent active:border-line-default dark:border-opacity-20 dark:text-text-gray-light sm:p-4 sm:text-xl md:p-4 md:text-xl",
-          libraryState.bookmark && selectStyle,
-        )}
-        onClick={(e) => {
-          handleFilterRepos(e);
-          setLibraryState({
-            recent: false,
-            bookmark: !libraryState.bookmark,
-          });
-        }}
-        name="bookmark"
-      >
-        <Bookmark color="dark:fill-text-gray-light" /> Bookmark
-      </Button>
+      {REPO_FILTER_BUTTONS.map((button) => (
+        <Button
+          key={button.label}
+          theme="outlined"
+          className={twMerge(
+            "w-full gap-[10px] border-line-gray-10 p-4 text-xl text-text-gray-dark hover:bg-transparent hover:shadow-sm focus:border-line-gray-10 focus:bg-transparent active:border-line-default dark:border-opacity-20 dark:text-text-gray-light sm:p-4 sm:text-xl md:p-4 md:text-xl",
+            libraryState[button.name] && selectStyle,
+          )}
+          onClick={(e) => {
+            handleFilterRepos(e);
+            setLibraryState({
+              recent: button.name === "recent" ? !libraryState.recent : false,
+              bookmark:
+                button.name === "bookmark" ? !libraryState.bookmark : false,
+            });
+          }}
+          name={button.name}
+        >
+          {button.icon} {button.label}
+        </Button>
+      ))}
     </div>
   );
 }

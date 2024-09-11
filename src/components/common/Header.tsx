@@ -11,12 +11,12 @@ import {
   LightModeIcon,
 } from "../../../public/assets/svg/SvgIcons";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { useGetUser } from "@/hooks/useGetUser";
+import { customSignOut } from "@/lib/customAuth";
 
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
-  const { data: session, status } = useSession();
+  const { session, status, email } = useGetUser();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
@@ -51,18 +51,26 @@ const Header: React.FC = () => {
           </h1>
         </Link>
         <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
-          <Link href="/vuldb" className="cursor-pointer hover:text-accent-blue">
+          <Link
+            href="/vuldb"
+            className="cursor-pointer hover:text-primary-purple-500"
+          >
             취약점 DB
           </Link>
 
-          <Link href="/repos" className="cursor-pointer hover:text-accent-blue">
+          <Link
+            href="/repos"
+            className="cursor-pointer hover:text-primary-purple-500"
+          >
             MY 저장소
           </Link>
 
           {status === "authenticated" && (
             <span
-              className="cursor-pointer hover:text-accent-blue"
-              onClick={() => signOut({ callbackUrl: pathname })}
+              className="cursor-pointer hover:text-primary-purple-500"
+              onClick={() => {
+                if (email) customSignOut(email, "/");
+              }}
             >
               로그아웃
             </span>

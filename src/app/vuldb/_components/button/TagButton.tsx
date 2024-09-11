@@ -1,7 +1,7 @@
 type SortButtonProps = {
   label: string;
   isActive: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   type: "hot" | "new";
 };
 
@@ -16,7 +16,7 @@ export default function TagButton({
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 text-base font-semibold rounded-full ${bgColor} ${isActive ? "text-white" : "text-[#ADADAD]"}`}
+      className={`rounded-full px-4 py-2 text-base font-semibold ${bgColor} ${isActive ? "text-white" : "text-[#ADADAD]"}`}
     >
       {label}
     </button>

@@ -5,24 +5,40 @@ import { TbAlertTriangleFilled } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
 import { RepositoryContent } from "@/types";
 import { useGithubStore } from "@/store/useGithubStore";
-import { PiArrowsCounterClockwise } from "react-icons/pi";
+import {
+  PiArrowsCounterClockwise,
+  PiCaretDown,
+  PiCaretRight,
+} from "react-icons/pi";
 import { FaRegStar } from "react-icons/fa";
-import { useState } from "react";
+import React, { useState } from "react";
 import ProgressBar from "@/components/common/ProgressBar";
 
-export default function FileListItem({ name, type, path }: RepositoryContent) {
-  const { selectedFiles } = useGithubStore();
+type FileItemProps = RepositoryContent & {
+  status: NonNullable<RepositoryContent["status"]>;
+};
+
+export default React.memo(function FileItem({
+  name,
+  type,
+  path,
+  status,
+  expanded,
+}: FileItemProps) {
+  const selectedFiles = useGithubStore((state) => state.selectedFiles);
   const [isBookmark, setIsBookmark] = useState(false);
 
   const statusIcons = {
     inprogress: (
-      <PiArrowsCounterClockwise className="text-xl text-primary-purple-500" />
+      <PiArrowsCounterClockwise className="text-lg text-primary-purple-500" />
     ),
     pending: (
-      <span className="whitespace-nowrap text-text-gray-default">대기중..</span>
+      <span className="whitespace-nowrap text-sm text-text-gray-default">
+        대기중..
+      </span>
     ),
-    completed: <GoCheckCircleFill className="text-xl text-accent-green" />,
-    error: <TbAlertTriangleFilled className="text-xl text-accent-red" />,
+    completed: <GoCheckCircleFill className="text-lg text-accent-green" />,
+    error: <TbAlertTriangleFilled className="text-lg text-accent-red" />,
     none: null,
   };
 
@@ -41,16 +57,19 @@ export default function FileListItem({ name, type, path }: RepositoryContent) {
       )}
     >
       <div className="flex justify-between">
-        <div className="flex w-40 items-center gap-1">
+        <div className="flex w-4/5 items-center gap-1">
           {selectedFiles.includes(path) && (
             <FaCheck className="flex-shrink-0 text-primary-purple-500 dark:text-primary-purple-200" />
           )}
           {type === "dir" ? (
-            <FaRegFolderOpen className="flex-shrink-0 text-xl" />
+            <div className="flex flex-shrink-0 gap-1 text-lg">
+              {expanded ? <PiCaretDown /> : <PiCaretRight />}
+              <FaRegFolderOpen />
+            </div>
           ) : (
-            <GoFile className="flex-shrink-0 text-xl" />
+            <GoFile className="flex-shrink-0 text-lg" />
           )}
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
             {name}
           </span>
         </div>
@@ -58,7 +77,8 @@ export default function FileListItem({ name, type, path }: RepositoryContent) {
         <div className="flex items-center gap-[10px]">
           <button
             type="button"
-            className="z-10 text-2xl"
+            title="bookmark"
+            className="z-10 text-lg"
             onClick={handleBookmarkClick}
           >
             {isBookmark ? (
@@ -67,10 +87,10 @@ export default function FileListItem({ name, type, path }: RepositoryContent) {
               <FaRegStar className="hidden text-primary-purple-100 group-hover:block dark:text-primary-purple-50/30" />
             )}
           </button>
-          {statusIcons["completed"]}
+          {statusIcons[status]}
         </div>
       </div>
-      <ProgressBar percent={50} className="h-1" />
+      {/* <ProgressBar percent={50} className="h-1" /> */}
     </div>
   );
-}
+});

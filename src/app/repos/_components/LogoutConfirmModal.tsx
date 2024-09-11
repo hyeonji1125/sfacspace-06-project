@@ -1,28 +1,22 @@
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
 import { SignOut } from "../../../../public/assets/svg/SvgIcons";
-import { useGithubStore } from "@/store/useGithubStore";
-import { signOut } from "next-auth/react";
+import { customSignOut } from "@/lib/customAuth";
+import { useGetUser } from "@/hooks/useGetUser";
 
-/**
- *
- * @todo
- * - 로그아웃 로직에 user 삭제 추가
- *
- */
-
-export default function LogoutComfirmModal({
+export default function LogoutConfirmModal({
   isOpen,
   onClose,
 }: {
   isOpen: boolean;
   onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const clearRepoStorage = useGithubStore.persist.clearStorage;
+  const { email } = useGetUser();
 
   const handleLogout = () => {
-    clearRepoStorage();
-    signOut({ redirect: true, callbackUrl: "/" });
+    if (email) {
+      customSignOut(email, "/");
+    }
   };
 
   return (

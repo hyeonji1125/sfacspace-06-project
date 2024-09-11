@@ -42,12 +42,17 @@ export default function Modal({
   };
 
   useEffect(() => {
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
     return () => {
       document.body.style.overflow = "auto";
+      document.body.style.paddingRight = "0";
     };
   }, [isOpen]);
 

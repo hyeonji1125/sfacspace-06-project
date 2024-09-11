@@ -3,17 +3,16 @@ export type RepositoryStatus = "COMPLETED" | "IN_PROGRESS" | undefined;
 export type RepositoryProps = {
   id: number;
   name: string;
-  // html_url: string;
   owner: {
     login: string;
   };
   visibility: "public" | "private";
   description: string | null;
   created_at: string;
-  /* 추후 필요한 필드 추가 */
   status?: RepositoryStatus;
   bookmark?: boolean;
   recent?: boolean;
+  /* 추후 필요한 필드 추가 */
 };
 
 export type RepositoryContent = {
@@ -30,11 +29,9 @@ export type RepositoryContent = {
   encoding?: string;
   status: "inprogress" | "pending" | "completed" | "error" | "none";
   isSelected: boolean;
+  children: RepositoryContent[];
+  expanded: boolean;
 };
-
-// export type FileContent = RepositoryContent & {
-//   content: string;
-// };
 
 export type RepositoryState = {
   repositories: RepositoryProps[];
@@ -52,12 +49,15 @@ export type RepositoryState = {
     repo: string,
     path?: string,
   ) => Promise<void>;
-  
+  fetchSubDirectoryContents: (
+    owner: string,
+    repo: string,
+    folderPath: string,
+  ) => Promise<void>;
   selectFile: (owner: string, repo: string, path: string) => Promise<void>;
   toggleSelectFile: (filePath: string) => void;
   clearSelection: () => void;
   clearSelectedFiles: () => void;
-  setRepositories: (id: number, bookmark: boolean) => void;
 };
 
 export type TAnalyzeModalProp = {
@@ -66,4 +66,5 @@ export type TAnalyzeModalProp = {
   isWhole: boolean;
   title: string;
   fileList: RepositoryContent[];
+  setIsMultiSelectMode: (value: boolean) => void;
 };

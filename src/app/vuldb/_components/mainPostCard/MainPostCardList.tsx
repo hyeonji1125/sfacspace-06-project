@@ -1,39 +1,36 @@
 "use client";
 
-import usePaginationStore from "@/store/usePaginationStore";
-import { MockPostCardTypes } from "@/types";
-import { useEffect, useState } from "react";
+import { PostDataType } from "@/types";
 import { formatRelativeTime } from "../../_utils/formatDate";
+import { incrementPostView } from "../../_utils/postDataManager";
 import MainPostCardItem from "./MainPostCardItem";
 
 export default function MainPostCardList({
   postData,
 }: {
-  postData: MockPostCardTypes[];
+  postData: PostDataType[];
 }) {
-  const { currentPage, itemsPerPage } = usePaginationStore();
-  const [visiblePosts, setVisiblePosts] = useState<MockPostCardTypes[]>([]);
-
-  useEffect(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    setVisiblePosts(postData.slice(startIndex, endIndex));
-  }, [postData, currentPage, itemsPerPage]);
+  const handlePostClick = async (post: PostDataType) => {
+    await incrementPostView(post);
+  };
 
   return (
     <div className="flex flex-col gap-4">
-      {visiblePosts.map((item) => {
-        const relativeDate = formatRelativeTime(item.date);
+      {postData.map((item) => {
+        const uploadAtValue = item.upload_at || new Date().toISOString();
+        const relativeDate = formatRelativeTime(uploadAtValue);
         return (
-          <MainPostCardItem
-            key={item.id}
-            id={item.id}
-            chips={item.chips}
-            title={item.title}
-            company={item.company}
-            reportContent={item.reportContent}
-            date={relativeDate}
-          />
+          <div key={item.id} onClick={() => handlePostClick(item)}>
+            <MainPostCardItem
+              id={item.id}
+              chips={item.chips}
+              title={item.title}
+              site_name={item.site_name}
+              report_content={item.report_content}
+              upload_at={relativeDate}
+              views={item.views}
+            />
+          </div>
         );
       })}
     </div>

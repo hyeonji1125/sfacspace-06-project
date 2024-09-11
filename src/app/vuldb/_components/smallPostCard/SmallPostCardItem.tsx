@@ -1,23 +1,19 @@
-"use client";
-
 import SuggestionChips from "@/components/common/chips/SuggestionChips";
-import { SmallPostCardType } from "@/types";
+import { PostDataType } from "@/types";
 import Link from "next/link";
-import {
-  PushPinEnabled,
-  ShareFatEnabled,
-} from "../../../../../public/assets/svg/vulnerabilityDbSvg";
+import PinButton from "../button/PinButton";
+import ShareButton from "../button/ShareButton";
 
 export default function SmallPostCardItem({
   id,
   chips,
   title,
-  reportContent,
-  date,
-}: SmallPostCardType) {
+  report_content,
+  upload_at,
+}: PostDataType) {
   return (
-    <Link href={`/vuldb/items/${id}`}>
-      <div className="flex h-[275px] w-[414px] flex-col rounded-lg border border-line-default bg-white p-7 dark:bg-custom-light-bg dark:bg-opacity-5">
+    <div className="flex h-[275px] w-[414px] cursor-pointer flex-col justify-center rounded-lg border border-line-default bg-white p-7 dark:bg-custom-light-bg dark:bg-opacity-5">
+      <Link href={`/vuldb/items/${id}`}>
         {(chips === "new" || chips === "hot") && (
           <SuggestionChips width="59" height="35" color={chips}>
             {chips.toUpperCase()}
@@ -30,21 +26,17 @@ export default function SmallPostCardItem({
         </div>
         <div>
           <p className="truncate py-6 text-lg font-normal text-[#969696]">
-            {reportContent}
+            {report_content}
           </p>
         </div>
-        <div className="flex w-full justify-between">
-          <div className="flex space-x-3">
-            <button>
-              <PushPinEnabled />
-            </button>
-            <button>
-              <ShareFatEnabled />
-            </button>
-          </div>
-          <p className="text-base font-normal text-[#A2A2A2]">{date}</p>
+      </Link>
+      <div className="flex w-full justify-between">
+        <div className="flex space-x-3">
+          <PinButton postId={id} />
+          <ShareButton postId={id} />
         </div>
+        <p className="text-base font-normal text-[#A2A2A2]">{upload_at}</p>
       </div>
-    </Link>
+    </div>
   );
 }
