@@ -7,6 +7,7 @@ import FileItem from "./FileItem";
 import { useEffect, useState } from "react";
 import { useLlama3Store } from "@/store/useLlama3Store";
 import { useGetUser } from "@/hooks/useGetUser";
+import { useIsPathResult } from "../_utils/useIsPathResult";
 
 export default function FileListContent({
   isMultiSelectMode,
@@ -15,6 +16,7 @@ export default function FileListContent({
 }) {
   const router = useRouter();
   const { email } = useGetUser();
+  const isResult = useIsPathResult();
   const { owner, name } = useRepoParams();
   const {
     repoContents,
@@ -29,7 +31,8 @@ export default function FileListContent({
     toggleSelectFile: state.toggleSelectFile,
     selectedFiles: state.selectedFiles,
   }));
-  const { fetchAnalysisResults, analysisStatus, isAnalyzing } = useLlama3Store();
+  const { fetchAnalysisResults, analysisStatus, isAnalyzing } =
+    useLlama3Store();
 
   useEffect(() => {
     const fetchAnalysisStatus = async () => {
@@ -49,7 +52,7 @@ export default function FileListContent({
     await fetchSubDirectoryContents(owner, name, folder.path);
   };
 
-  const handleFileClick = (item: RepositoryContent) => {
+  const handleFileClick = (item: RepositoryContent, status: string) => {
     if (isMultiSelectMode) {
       toggleSelectFile(item.path);
     } else {
@@ -60,8 +63,12 @@ export default function FileListContent({
         toggleSelectFile(item.path);
       }
       selectFile(owner, name, item.path);
+      const baseUrl = `/repos/${owner}/${name}`;
+      const targetURL =
+        status === "completed" && isResult
+          ? `${baseUrl}/repo_inspection?repo=${item.path}`
+          : `${baseUrl}?repo=${item.path}`;
 
-      const targetURL = `/repos/${owner}/${name}?repo=${item.path}`;
       router.push(targetURL);
     }
   };
@@ -70,7 +77,7 @@ export default function FileListContent({
     return (
       <>
         {nodes.map((node) => {
-          const status = analysisStatus[node.path] || 'none';
+          const status = analysisStatus[node.path] || "none";
           console.log(`Rendering node: ${node.path}, status: ${status}`);
           return (
             <li
@@ -80,14 +87,18 @@ export default function FileListContent({
               {node.type === "dir" ? (
                 <>
                   <div onClick={() => handleFolderClick(node)}>
-                    <FileItem {...node} expanded={node.expanded} status={status} />
+                    <FileItem
+                      {...node}
+                      expanded={node.expanded}
+                      status={status}
+                    />
                   </div>
                   {node.expanded && node.children && (
                     <ul className="pl-4">{renderTree(node.children)}</ul>
                   )}
                 </>
               ) : (
-                <div onClick={() => handleFileClick(node)}>
+                <div onClick={() => handleFileClick(node, status)}>
                   <FileItem {...node} status={status} />
                 </div>
               )}

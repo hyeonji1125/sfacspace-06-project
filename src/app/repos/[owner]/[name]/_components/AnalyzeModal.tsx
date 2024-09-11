@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { AiFillFolderOpen } from "react-icons/ai";
 import { RxFile } from "react-icons/rx";
 import { useRepoParams } from "../_utils/useRepoParams";
+import { useGithubStore } from "@/store/useGithubStore";
 
 export default function AnalyzeModal({
   isOpen,
@@ -16,14 +17,19 @@ export default function AnalyzeModal({
   isWhole,
   title,
   fileList,
+  setIsMultiSelectMode,
 }: TAnalyzeModalProp) {
   const { startAnalysis, analysisResults } = useLlama3Store();
+  const { clearSelectedFiles, toggleSelectFile } = useGithubStore((state) => ({
+    clearSelectedFiles: state.clearSelectedFiles,
+    toggleSelectFile: state.toggleSelectFile,
+  }));
   const { email } = useGetUser();
-  const { owner, name } = useRepoParams();
+  const { owner, name, repoPath } = useRepoParams();
   const repoId = `${owner}/${name}`;
 
   useEffect(() => {
-    console.log('Updated analysisResults:', analysisResults);
+    console.log("Updated analysisResults:", analysisResults);
   }, [analysisResults]);
 
   const handleClose = () => {
@@ -32,9 +38,12 @@ export default function AnalyzeModal({
 
   const handleSubmit = async () => {
     if (email) {
-      const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, '/');
-      await startAnalysis(fileList, email, encodedRepoId);
+      setIsMultiSelectMode(false);
       setIsOpen(false);
+      clearSelectedFiles();
+      if (repoPath) toggleSelectFile(repoPath);
+      const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");
+      await startAnalysis(fileList, email, encodedRepoId);
     } else {
       console.error("유효하지 않은 사용자입니다.");
     }

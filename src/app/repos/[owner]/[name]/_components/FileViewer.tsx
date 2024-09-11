@@ -9,6 +9,7 @@ import { useIsPathResult } from "../_utils/useIsPathResult";
 import { twMerge } from "tailwind-merge";
 import FileViewerLoading from "./FileViewerLoading";
 import { GoXCircleFill } from "react-icons/go";
+import { useLlama3Store } from "@/store/useLlama3Store";
 
 export default React.memo(function FileViewer() {
   const isResultPage = useIsPathResult();
@@ -17,9 +18,8 @@ export default React.memo(function FileViewer() {
     isLoading: state.isLoading,
     error: state.error,
   }));
-  // 임시
-  const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
 
+  const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
   const closeButtonHandler = () => {
     setIsOpenInspectionAlert(!isOpenInspectionAlert);
   };
@@ -61,7 +61,10 @@ export default React.memo(function FileViewer() {
             <code>{selectedFile.content}</code>
           </pre>
           {isOpenInspectionAlert && (
-            <InspectionAlert close={closeButtonHandler} />
+            <InspectionAlert
+              close={closeButtonHandler}
+              filePath={selectedFile.path}
+            />
           )}
         </div>
       ) : (

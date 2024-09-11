@@ -67,9 +67,9 @@ const Header: React.FC = () => {
 
           {status === "authenticated" && (
             <span
-              className="cursor-pointer hover:text-accent-blue"
+              className="cursor-pointer hover:text-primary-purple-500"
               onClick={() => {
-                if (email) customSignOut(email, "/"); 
+                if (email) customSignOut(email, "/");
               }}
             >
               로그아웃
