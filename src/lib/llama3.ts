@@ -11,7 +11,11 @@ function checkEnvVar(name: string): string {
 
 // JSON 문자열을 정리하는 함수
 function sanitizeJsonString(str: string) {
-  return str.replace(/[\n\r\t]/g, "").replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
+  let result = str.replace(/[\n\r\t]/g, "");
+  
+  result = result.replace(/(?<!\\)(?:\\\\)*\\/g, match => match + '\\');
+
+  return result;
 }
 
 // JSON 파싱 시 실패할 경우 부분적으로 파싱 시도 함수
