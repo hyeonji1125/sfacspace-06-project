@@ -66,4 +66,5 @@ export type TAnalyzeModalProp = {
   isWhole: boolean;
   title: string;
   fileList: RepositoryContent[];
+  setIsMultiSelectMode: (value: boolean) => void;
 };

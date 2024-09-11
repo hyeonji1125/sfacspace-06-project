@@ -82,6 +82,7 @@ export default function InspectionAlert({
   }));
   const selectedFile = useGithubStore((state) => state.selectedFile);
   const [state, setState] = useState<keyof typeof stateArr | null>(null);
+
   const reAnalyzeSubmit = async () => {
     if (email) {
       const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");

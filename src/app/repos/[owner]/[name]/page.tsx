@@ -21,6 +21,7 @@ export default function AnalyzePage() {
   const [isOpen, setIsOpen] = useState(false); // 모달 state
   const [isWhole, setIsWhole] = useState(false); // 파일 전체를 포함하는 지
   const [isLoading, setIsLoading] = useState(false);
+  const [isMultiSelectMode, setIsMultiSelectMode] = useState(false);
 
   const {
     fetchRepoContents,
@@ -57,7 +58,7 @@ export default function AnalyzePage() {
 
   const handleWholeButton = () => {
     setIsWhole(true);
-    handleButton();
+    setIsOpen(true);
   };
 
   const handleButton = async () => {
@@ -66,10 +67,10 @@ export default function AnalyzePage() {
     await Promise.all(
       selectedFiles.map(async (filePath) => {
         await selectFile(owner, name, filePath);
-      })
+      }),
     );
 
-    const updatedSelectedFileList = getSelectedItems(repoContents, selectedFiles);
+    // const updatedSelectedFileList = getSelectedItems(repoContents, selectedFiles);
     setIsOpen(true);
   };
 
@@ -98,7 +99,11 @@ export default function AnalyzePage() {
             폴더 전체 검사
           </Button>
           <FileInspectionProgress />
-          <FileList isLoading={isLoading} />
+          <FileList
+            isLoading={isLoading}
+            isMultiSelectMode={isMultiSelectMode}
+            setIsMultiSelectMode={setIsMultiSelectMode}
+          />
           <Button
             type="button"
             theme={"filled"}
@@ -116,6 +121,7 @@ export default function AnalyzePage() {
         isWhole={isWhole}
         title={name}
         fileList={selectedfileList}
+        setIsMultiSelectMode={setIsMultiSelectMode}
       />
     </section>
   );

@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { AiFillFolderOpen } from "react-icons/ai";
 import { RxFile } from "react-icons/rx";
 import { useRepoParams } from "../_utils/useRepoParams";
+import { useGithubStore } from "@/store/useGithubStore";
 
 export default function AnalyzeModal({
   isOpen,
@@ -16,8 +17,12 @@ export default function AnalyzeModal({
   isWhole,
   title,
   fileList,
+  setIsMultiSelectMode,
 }: TAnalyzeModalProp) {
   const { startAnalysis, analysisResults } = useLlama3Store();
+  const clearSelectedFiles = useGithubStore(
+    (state) => state.clearSelectedFiles,
+  );
   const { email } = useGetUser();
   const { owner, name } = useRepoParams();
   const repoId = `${owner}/${name}`;
@@ -32,7 +37,9 @@ export default function AnalyzeModal({
 
   const handleSubmit = async () => {
     if (email) {
+      setIsMultiSelectMode(false);
       setIsOpen(false);
+      clearSelectedFiles();
       const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");
       await startAnalysis(fileList, email, encodedRepoId);
     } else {
