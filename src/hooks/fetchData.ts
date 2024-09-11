@@ -51,15 +51,26 @@ export const postData = async (url: string, data: any) => {
 };
 
 // 데이터 업데이트 (PUT)
-export const putData = async (url: string, id: string | number, data: any) => {
+export const putData = async (baseCollectionPath: string, filePath: string, data: any) => {
   try {
-    // 문서 참조
-    const docRef = doc(db, url, id.toString());
-    // 문서 업데이트
-    await updateDoc(docRef, data);
-    return "Document updated";
+    // 파일 경로를 문서 ID로 변환
+    const docId = filePath.replace(/\//g, '_');
+
+    const docRef = doc(db, baseCollectionPath, docId);
+    await setDoc(docRef, {
+      ...data,
+      originalPath: filePath 
+    }, { merge: true });
+
+    console.log("Document successfully updated or created");
+    return "Document updated or created";
   } catch (error) {
-    throw new Error("Failed to update document: put 에러임");
+    console.error("Error updating document: ", error);
+    if (error instanceof Error) {
+      throw new Error(`Failed to update document: ${error.message}`);
+    } else {
+      throw new Error("Failed to update document: Unknown error");
+    }
   }
 };
 

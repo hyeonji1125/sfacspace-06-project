@@ -3,13 +3,15 @@ export type RepositoryStatus = "COMPLETED" | "IN_PROGRESS" | undefined;
 export type RepositoryProps = {
   id: number;
   name: string;
-  // html_url: string;
   owner: {
     login: string;
   };
   visibility: "public" | "private";
   description: string | null;
   created_at: string;
+  status?: RepositoryStatus;
+  bookmark?: boolean;
+  recent?: boolean;
   /* 추후 필요한 필드 추가 */
 };
 
@@ -30,10 +32,6 @@ export type RepositoryContent = {
   children: RepositoryContent[];
   expanded: boolean;
 };
-
-// export type FileContent = RepositoryContent & {
-//   content: string;
-// };
 
 export type RepositoryState = {
   repositories: RepositoryProps[];

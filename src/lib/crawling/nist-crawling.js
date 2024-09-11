@@ -12,7 +12,7 @@ dotenv.config();
 
 const translate = new Translate({
   keyFilename:
-    "/Users/apple/Desktop/translateKey/sfacspaceeng-88efa4c23808.json", // 서비스 계정 키 파일 경로
+    "/Users/apple/Desktop/translateKey/translate-crawling-5e7001791004.json", // 서비스 계정 키 파일 경로
 });
 
 (async () => {

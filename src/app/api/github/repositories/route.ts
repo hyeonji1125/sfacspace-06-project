@@ -5,7 +5,6 @@ import { getRepositories } from '@/lib/api/github';
 
 export async function GET() {
   const session = await getServerSession(authOptions);
-  console.log("Session:", JSON.stringify(session, null, 2));
 
   if (!session || !session.accessToken) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });

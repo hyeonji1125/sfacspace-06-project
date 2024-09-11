@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@/components/common/Button";
 import FileInspectionProgress from "./_components/FileInspectionProgress";
 import FileList from "./_components/FileList";
@@ -55,12 +56,20 @@ export default function AnalyzePage() {
   const selectedfileList = getSelectedItems(repoContents, selectedFiles);
 
   const handleWholeButton = () => {
-    setIsOpen(true);
     setIsWhole(true);
+    handleButton();
   };
 
-  const handleButton = () => {
+  const handleButton = async () => {
     setIsWhole(selectedFiles.length === repoContents.length);
+
+    await Promise.all(
+      selectedFiles.map(async (filePath) => {
+        await selectFile(owner, name, filePath);
+      })
+    );
+
+    const updatedSelectedFileList = getSelectedItems(repoContents, selectedFiles);
     setIsOpen(true);
   };
 

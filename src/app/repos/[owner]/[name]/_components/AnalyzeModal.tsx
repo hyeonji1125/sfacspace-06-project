@@ -1,10 +1,14 @@
 "use client";
+
 import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
+import { useGetUser } from "@/hooks/useGetUser";
+import { useLlama3Store } from "@/store/useLlama3Store";
 import { TAnalyzeModalProp } from "@/types";
+import { useEffect } from "react";
 import { AiFillFolderOpen } from "react-icons/ai";
-import { FaRegFolderOpen } from "react-icons/fa6";
 import { RxFile } from "react-icons/rx";
+import { useRepoParams } from "../_utils/useRepoParams";
 
 export default function AnalyzeModal({
   isOpen,
@@ -13,12 +17,27 @@ export default function AnalyzeModal({
   title,
   fileList,
 }: TAnalyzeModalProp) {
+  const { startAnalysis, analysisResults } = useLlama3Store();
+  const { email } = useGetUser();
+  const { owner, name } = useRepoParams();
+  const repoId = `${owner}/${name}`;
+
+  useEffect(() => {
+    console.log('Updated analysisResults:', analysisResults);
+  }, [analysisResults]);
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
-  const handleSubmit = () => {
-    setIsOpen(false);
+  const handleSubmit = async () => {
+    if (email) {
+      const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, '/');
+      await startAnalysis(fileList, email, encodedRepoId);
+      setIsOpen(false);
+    } else {
+      console.error("유효하지 않은 사용자입니다.");
+    }
   };
 
   return (

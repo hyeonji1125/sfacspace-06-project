@@ -2,7 +2,7 @@ import { Translate } from "@google-cloud/translate/build/src/v2/index.js";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import puppeteer from "puppeteer";
-import { saveToFirestore } from "./firebase.js";
+// import { saveToFirestore } from "./firebase.js";
 
 dotenv.config();
 
@@ -12,13 +12,44 @@ dotenv.config();
 // const translate = new Translate({ key: process.env.GOOGLE_TRANSLATE_API_KEY });
 const translate = new Translate({
   keyFilename:
-    "/Users/apple/Desktop/translateKey/sfacspaceeng-88efa4c23808.json", // 서비스 계정 키 파일 경로
+    "/Users/apple/Desktop/translateKey/translate-crawling-5e7001791004.json", // 서비스 계정 키 파일 경로
 });
+
+function splitTextIntoChunks(text, maxChunkSize = 5000) {
+  const chunks = [];
+  let currentChunk = "";
+
+  for (const line of text.split("\n")) {
+    if ((currentChunk + line).length > maxChunkSize) {
+      chunks.push(currentChunk);
+      currentChunk = "";
+    }
+    currentChunk += line + "\n";
+  }
+
+  if (currentChunk.length > 0) {
+    chunks.push(currentChunk);
+  }
+
+  return chunks;
+}
 
 async function translateText(text, targetLanguage = "ko") {
   try {
-    const [translated] = await translate.translate(text, targetLanguage);
-    return translated;
+    const chunks = splitTextIntoChunks(text);
+
+    const translatedChunks = await Promise.all(
+      chunks.map(async (chunk) => {
+        const [translatedChunk] = await translate.translate(
+          chunk,
+          targetLanguage,
+        );
+        return translatedChunk;
+      }),
+    );
+
+    // 3. 번역된 청크를 다시 합침
+    return translatedChunks.join("");
   } catch (error) {
     console.error("Translation error:", error);
     return text;
@@ -49,7 +80,8 @@ function generateUniqueId(content) {
 
   const postDetails = [];
 
-  for (let i = 1; i < 11; i++) {
+  for (let i = 1; i < 2; i++) {
+    // i=1 i<11
     try {
       await page.goto("https://www.cnnvd.org.cn/home/warn", {
         waitUntil: "networkidle2",
@@ -65,9 +97,9 @@ function generateUniqueId(content) {
 
         const tables = Array.from(
           postDetailElement.querySelectorAll(".detail-content table"),
-        ).map((table) => table.innerText);
+        ).map((table) => table.outerHTML);
 
-        const tableContent = tables.length === 0 ? "" : tables;
+        const tableContent = tables.length === 0 ? "" : tables.join("\n");
 
         postDetailElement
           .querySelectorAll(".detail-content table")
@@ -113,6 +145,7 @@ function generateUniqueId(content) {
       const transContent = await translateText(postDetail.content);
       const transTableContents = await translateText(postDetail.tables);
       const label = extractLabelFromTitle(transTitle);
+      const views = 2;
 
       return {
         c_id: postDetail.id,
@@ -123,17 +156,18 @@ function generateUniqueId(content) {
         table_content: transTableContents,
         site_name: siteName,
         upload_at: postDetail.upload_at,
+        views,
       };
     }),
   );
 
-  for (const post of translatedPostDetails) {
-    await saveToFirestore(post);
-  }
+  // for (const post of translatedPostDetails) {
+  //   await saveToFirestore(post);
+  // }
 
   // 번역된 게시글 출력
   // console.log(JSON.stringify(translatedPostDetails, null, 2));
-  // console.log(translatedPostDetails);
+  console.log(translatedPostDetails);
 
   await browser.close();
 })();

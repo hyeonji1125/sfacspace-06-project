@@ -14,12 +14,17 @@ import { FaRegStar } from "react-icons/fa";
 import React, { useState } from "react";
 import ProgressBar from "@/components/common/ProgressBar";
 
+type FileItemProps = RepositoryContent & {
+  status: NonNullable<RepositoryContent['status']>;
+};
+
 export default React.memo(function FileItem({
   name,
   type,
   path,
+  status,
   expanded,
-}: RepositoryContent) {
+}: FileItemProps) {
   const selectedFiles = useGithubStore((state) => state.selectedFiles);
   const [isBookmark, setIsBookmark] = useState(false);
 
@@ -80,7 +85,7 @@ export default React.memo(function FileItem({
               <FaRegStar className="hidden text-primary-purple-100 group-hover:block dark:text-primary-purple-50/30" />
             )}
           </button>
-          {statusIcons["completed"]}
+           {statusIcons[status]}
         </div>
       </div>
       <ProgressBar percent={50} className="h-1" />
