@@ -10,8 +10,6 @@ import { twMerge } from "tailwind-merge";
 import FileViewerLoading from "./FileViewerLoading";
 import { GoXCircleFill } from "react-icons/go";
 import { useLlama3Store } from "@/store/useLlama3Store";
-import { RepositoryContent } from "@/types";
-import { useRepoParams } from "../_utils/useRepoParams";
 
 export default React.memo(function FileViewer() {
   const isResultPage = useIsPathResult();
@@ -20,8 +18,7 @@ export default React.memo(function FileViewer() {
     isLoading: state.isLoading,
     error: state.error,
   }));
-  const [file, setFile] = useState<RepositoryContent | null>(null);
-  const { repoPath } = useRepoParams();
+
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
   const closeButtonHandler = () => {
     setIsOpenInspectionAlert(!isOpenInspectionAlert);
@@ -35,8 +32,7 @@ export default React.memo(function FileViewer() {
 
   useEffect(() => {
     //console.log = () => {};
-    if (selectedFile && repoPath === selectedFile.path) {
-      setFile(selectedFile);
+    if (selectedFile) {
       if (!selectedFile.name.endsWith(".json")) {
         updateCodeSyntaxHighlighting();
       }
@@ -47,7 +43,7 @@ export default React.memo(function FileViewer() {
         setIsOpenInspectionAlert(true);
       }
     }
-  }, [selectedFile, repoPath]);
+  }, [selectedFile]);
 
   return (
     <div
@@ -59,13 +55,16 @@ export default React.memo(function FileViewer() {
     >
       {isLoading ? (
         <FileViewerLoading />
-      ) : file ? (
+      ) : selectedFile ? (
         <div className="custom-scrollbar h-full w-full overflow-y-auto">
           <pre className="file-viewer-code whitespace-pre-wrap break-words">
-            <code>{file.content}</code>
+            <code>{selectedFile.content}</code>
           </pre>
           {isOpenInspectionAlert && (
-            <InspectionAlert close={closeButtonHandler} filePath={file.path} />
+            <InspectionAlert
+              close={closeButtonHandler}
+              filePath={selectedFile.path}
+            />
           )}
         </div>
       ) : (
