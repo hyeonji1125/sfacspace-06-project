@@ -56,7 +56,7 @@ export default function InspectionAlert({ close }: { close: () => void }) {
           </svg>
         </div>
       ),
-      title: "프로젝트 검사 완료",
+      title: "파일 검사 완료",
       description: ["검사 결과를 확인해보세요."],
       buttonText: "결과 보러가기",
     },

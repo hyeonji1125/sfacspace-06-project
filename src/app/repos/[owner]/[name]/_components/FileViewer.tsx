@@ -25,7 +25,9 @@ export default React.memo(function FileViewer() {
   };
 
   const updateCodeSyntaxHighlighting = () => {
-    hljs.highlightAll();
+    document.querySelectorAll(".file-viewer-code code").forEach((el) => {
+      hljs.highlightElement(el as HTMLElement);
+    });
   };
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default React.memo(function FileViewer() {
   return (
     <div
       className={twMerge(
-        "relative flex h-[1395px] flex-1 flex-col items-center justify-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50",
+        "relative flex max-h-[1159px] min-h-[700px] flex-1 flex-col items-center justify-center gap-8 overflow-hidden rounded-2xl border border-line-default p-10 dark:border-line-dark/50",
         isLoading && "justify-start",
         isResultPage && "h-[555px]",
       )}
@@ -55,7 +57,7 @@ export default React.memo(function FileViewer() {
         <FileViewerLoading />
       ) : selectedFile ? (
         <div className="custom-scrollbar h-full w-full overflow-y-auto">
-          <pre className="whitespace-pre-wrap break-words">
+          <pre className="file-viewer-code whitespace-pre-wrap break-words">
             <code>{selectedFile.content}</code>
           </pre>
           {isOpenInspectionAlert && (
