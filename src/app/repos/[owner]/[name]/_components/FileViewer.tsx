@@ -10,6 +10,8 @@ import { twMerge } from "tailwind-merge";
 import FileViewerLoading from "./FileViewerLoading";
 import { GoXCircleFill } from "react-icons/go";
 import { useLlama3Store } from "@/store/useLlama3Store";
+import { RepositoryContent } from "@/types";
+import { useRepoParams } from "../_utils/useRepoParams";
 
 export default React.memo(function FileViewer() {
   const isResultPage = useIsPathResult();
@@ -18,21 +20,23 @@ export default React.memo(function FileViewer() {
     isLoading: state.isLoading,
     error: state.error,
   }));
-
+  const [file, setFile] = useState<RepositoryContent | null>(null);
+  const { repoPath } = useRepoParams();
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
   const closeButtonHandler = () => {
     setIsOpenInspectionAlert(!isOpenInspectionAlert);
   };
 
   const updateCodeSyntaxHighlighting = () => {
-    document.querySelectorAll(".file-viewer-code").forEach((el) => {
+    document.querySelectorAll(".file-viewer-code code").forEach((el) => {
       hljs.highlightElement(el as HTMLElement);
     });
   };
 
   useEffect(() => {
     //console.log = () => {};
-    if (selectedFile) {
+    if (selectedFile && repoPath === selectedFile.path) {
+      setFile(selectedFile);
       if (!selectedFile.name.endsWith(".json")) {
         updateCodeSyntaxHighlighting();
       }
@@ -43,7 +47,7 @@ export default React.memo(function FileViewer() {
         setIsOpenInspectionAlert(true);
       }
     }
-  }, [selectedFile]);
+  }, [selectedFile, repoPath]);
 
   return (
     <div
@@ -55,16 +59,13 @@ export default React.memo(function FileViewer() {
     >
       {isLoading ? (
         <FileViewerLoading />
-      ) : selectedFile ? (
+      ) : file ? (
         <div className="custom-scrollbar h-full w-full overflow-y-auto">
           <pre className="file-viewer-code whitespace-pre-wrap break-words">
-            <code>{selectedFile.content}</code>
+            <code>{file.content}</code>
           </pre>
           {isOpenInspectionAlert && (
-            <InspectionAlert
-              close={closeButtonHandler}
-              filePath={selectedFile.path}
-            />
+            <InspectionAlert close={closeButtonHandler} filePath={file.path} />
           )}
         </div>
       ) : (
