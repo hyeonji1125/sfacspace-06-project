@@ -1,74 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import { useGithubStore } from "@/store/useGithubStore";
 import RepositoryItem from "./RepositoryItem";
-import Pagination from "@/app/vuldb/_components/Pagination";
-import usePaginationStore from "@/store/usePaginationStore";
 import { RepositoryProps } from "@/types";
-import ReposToolbar from "./ReposToolbar";
 import { useLibraryStore } from "@/store/useLibraryStore";
-import { useGetUser } from "@/hooks/useGetUser";
 import { findMatchData } from "../_utils/findMatchData";
 import LoadingRepository from "./LoadingRepo";
 
-export default function RepositoryList({ className }: { className?: string }) {
-  const [repos, setRepos] = useState<RepositoryProps[]>([]);
-  const [currentPageRepos, setCurrentPageRepos] = useState<RepositoryProps[]>(
-    [],
-  );
-  const { repositories, fetchRepositories, isLoading, error } =
-    useGithubStore();
-  const {
-    status,
-    reposData,
-    fetchReposData,
-    currentPage,
-    setCurrentPage,
-    ITEMS_PER_PAGE,
-  } = useLibraryStore();
-  const { reposItemsPerPage } = usePaginationStore();
-  const { email } = useGetUser();
-
-  useEffect(() => {
-    if (email) {
-      fetchReposData(email);
-    }
-  }, [email, fetchReposData]);
-
-  useEffect(() => {
-    fetchRepositories();
-  }, [fetchRepositories]);
-
-  useEffect(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    setCurrentPageRepos(repos.slice(startIndex, endIndex));
-  }, [repos, currentPage, ITEMS_PER_PAGE]);
-
-  useEffect(() => {
-    return setCurrentPage(1);
-  }, [setCurrentPage]);
+export default function RepositoryList({
+  currentRepos,
+}: {
+  currentRepos: RepositoryProps[];
+}) {
+  const { isLoading, error } = useGithubStore();
+  const { reposData } = useLibraryStore();
 
   if (isLoading) return <LoadingRepository />;
   if (error) return <div>{error}</div>;
+  if (currentRepos.length === 0)
+    return (
+      <p className="w-full pt-20 text-center">
+        조건에 해당하는 데이터가 존재하지 않습니다.
+      </p>
+    );
 
   return (
-    <section className="flex w-full flex-col gap-6">
-      <ReposToolbar setRepos={setRepos} repositories={repositories} />
-      {repos && repos.length === 0 && (
-        <p className="w-full pt-20 text-center">
-          조건에 해당하는 데이터가 존재하지 않습니다.
-        </p>
-      )}
-      <ul
-        className={twMerge(
-          "grid w-full grid-cols-4 gap-6",
-          className && className,
-        )}
-      >
-        {currentPageRepos.map((repo) => {
+    <ul className="grid w-full grid-cols-4 gap-6">
+      {currentRepos.length !== 0 &&
+        currentRepos.map((repo) => {
           const matchData = findMatchData(repo, reposData);
           return (
             <li key={repo.name}>
@@ -76,13 +35,6 @@ export default function RepositoryList({ className }: { className?: string }) {
             </li>
           );
         })}
-      </ul>
-      <Pagination
-        totalItems={repos.length}
-        setCurrent={setCurrentPage}
-        current={currentPage}
-        numberPerPage={reposItemsPerPage}
-      />
-    </section>
+    </ul>
   );
 }
