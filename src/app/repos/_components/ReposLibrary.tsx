@@ -15,8 +15,7 @@ export default function ReposLibrary() {
   const [currentPageRepos, setCurrentPageRepos] = useState<RepositoryProps[]>(
     [],
   );
-  const { repositories, fetchRepositories, isLoading, error } =
-    useGithubStore();
+  const { repositories, fetchRepositories } = useGithubStore();
   const {
     status,
     fetchReposData,
