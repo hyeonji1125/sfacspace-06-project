@@ -11,7 +11,7 @@ export default function InspectionResult() {
   const analysisResults = useLlama3Store((state) => state.analysisResults);
   const { repoPath } = useRepoParams();
   const matchingResults =
-    analysisResults.find((r) => r.path === repoPath) || null;
+    analysisResults?.find((r) => r?.path === repoPath) || null;
   const hasVulnerabilities = matchingResults?.analysisResult?.isVulnerable;
   const firstAnalysis = matchingResults?.analysisResult?.analysis?.[0];
   const noVulnerabilities =

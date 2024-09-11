@@ -2,6 +2,7 @@ import { AnalysisResult, Llama3State } from "@/types/llama3";
 import { create } from "zustand";
 import { getData, putData } from "@/hooks/fetchData";
 import { RepositoryContent } from "@/types";
+import { getLineNumber } from "@/utils/getLineNumber";
 
 export const useLlama3Store = create<Llama3State>((set) => ({
   isAnalyzing: false,
@@ -49,12 +50,23 @@ export const useLlama3Store = create<Llama3State>((set) => ({
         const data = await response.json();
         const analysisResult: AnalysisResult = data.response[0]; // 단일 파일 결과
 
+        // 줄 번호 계산 및 추가
+        const updatedAnalysis = analysisResult.analysis.map(item => ({
+          ...item,
+          location: getLineNumber(file.content, item.vulnerabilityCode)
+        }));
+      
+        const updatedAnalysisResult = {
+          ...analysisResult,
+          analysis: updatedAnalysis
+        };
+
         // 분석 결과 업데이트
         set((state) => ({
-          analysisResults: [...state.analysisResults, analysisResult],
+          analysisResults: [...state.analysisResults, updatedAnalysisResult],
           analysisStatus: {
             ...state.analysisStatus,
-            [file.path]: analysisResult ? "completed" : "error",
+            [file.path]: updatedAnalysisResult ? "completed" : "error",
           },
         }));
 
@@ -68,7 +80,7 @@ export const useLlama3Store = create<Llama3State>((set) => ({
                 name: file.name,
                 content: file.content,
                 path: file.path,
-                analysisResult: analysisResult,
+                analysisResult: updatedAnalysisResult,
               },
             );
           } catch (error) {
@@ -96,9 +108,7 @@ export const useLlama3Store = create<Llama3State>((set) => ({
       if (Array.isArray(results)) {
         results.forEach((doc) => {
           const { path, analysisResult } = doc;
-          if (path && analysisResult) {
-            analysisStatus[path] = analysisResult ? "completed" : "error";
-          }
+          if (path && analysisResult) analysisStatus[path] = analysisResult ? "completed" : "error";     
         });
         set({ analysisResults: results, analysisStatus });
       } else {
