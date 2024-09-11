@@ -25,7 +25,7 @@ export default React.memo(function FileViewer() {
   };
 
   const updateCodeSyntaxHighlighting = () => {
-    document.querySelectorAll(".file-viewer-code code").forEach((el) => {
+    document.querySelectorAll(".file-viewer-code").forEach((el) => {
       hljs.highlightElement(el as HTMLElement);
     });
   };
