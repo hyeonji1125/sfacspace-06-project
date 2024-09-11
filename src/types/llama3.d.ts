@@ -4,6 +4,10 @@ export type resultType = {
   description: string;
   suggestion: string;
   vulnerabilityCode: string;
+  location: {
+    startLine: number;
+    endLine: number;
+  };
 };
 
 export type AnalysisResult = {
