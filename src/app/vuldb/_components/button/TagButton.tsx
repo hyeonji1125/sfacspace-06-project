@@ -1,7 +1,7 @@
 type SortButtonProps = {
   label: string;
   isActive: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   type: "hot" | "new";
 };
 
