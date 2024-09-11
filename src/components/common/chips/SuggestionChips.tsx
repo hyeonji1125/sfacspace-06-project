@@ -16,6 +16,7 @@ export default function SuggestionChips({
     hot: "text-white bg-accent-red",
     warning: "text-accent-red bg-bg-red-light",
     notification: "text-primary-purple-500 bg-primary-purple-50",
+    report: "text-accent-blue bg-[#e8f8ff]",
     gray: "text-text-gray-default bg-bg-gray-light",
   };
 

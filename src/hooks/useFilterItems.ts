@@ -1,5 +1,5 @@
 import { RepositoryProps } from "@/types";
-import { sortItems } from "../utils/sortItems";
+import { sortArticles, sortItems } from "../utils/sortItems";
 import { useEffect } from "react";
 import { TDropdownSelect } from "../app/repos/_components/LibraryToolbar";
 import { TClippingArticle } from "@/app/me/(me-layout)/scraps/_components/ClippingArticle";
@@ -71,19 +71,14 @@ export const useFilterArticles = (
   articles: TClippingArticle[],
 ) => {
   useEffect(() => {
-    if (selectedItem.type === "취약성 알림") {
-      setArticles(() => articles.filter((article) => article.type === "gray"));
-    } else if (selectedItem.type === "취약성 경고") {
-      setArticles(() =>
-        articles.filter((article) => article.type === "warning"),
-      );
-    } else if (selectedItem.type === "취약성 보고서") {
-      setArticles(() =>
-        articles.filter((article) => article.type === "notification"),
-      );
-    } else {
+    if (selectedItem.type === "전체" || selectedItem.type === "Type") {
       setArticles(articles);
+    } else {
+      setArticles(() =>
+        articles.filter((article) => article.label === selectedItem.type),
+      );
     }
-    sortItems(selectedItem.sort, setArticles);
-  }, [articles, selectedItem.type, selectedItem.sort, setArticles]);
+
+    sortArticles(selectedItem.sort, setArticles);
+  }, [articles, selectedItem.sort, selectedItem.type, setArticles]);
 };

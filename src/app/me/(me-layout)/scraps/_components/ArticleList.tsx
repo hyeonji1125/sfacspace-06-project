@@ -8,121 +8,14 @@ import LibraryToolbar, {
 import Pagination from "@/app/vuldb/_components/Pagination";
 import usePaginationStore from "@/store/usePaginationStore";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { sortItems } from "@/utils/sortItems";
+import { useCallback, useEffect, useState } from "react";
+import { sortArticles, sortItems } from "@/utils/sortItems";
+import { getScrapPosts } from "@/lib/scrapPost";
+import { useGetUser } from "@/hooks/useGetUser";
 
-const FILES = [
-  {
-    type: "warning",
-    name: "sfacweb - 1asdwdasdasdwdsdasdsds",
-    created_at: "2024-08-22",
-    id: 1,
-  },
-  {
-    type: "notification",
-    name: "sfacweb - 2",
-    created_at: "2024-08-22",
-    id: 2,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 3 },
-  {
-    type: "notification",
-    name: "sfacweb - 4",
-    created_at: "2024-08-22",
-    id: 4,
-  },
-  { type: "warning", name: "sfacweb - 1", created_at: "2024-08-22", id: 5 },
-  {
-    type: "notification",
-    name: "agbvddsa",
-    created_at: "2024-08-22",
-    id: 6,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 7 },
-  {
-    type: "12415234",
-    name: "sfacweb - 4",
-    created_at: "2024-08-21",
-    id: 8,
-  },
-  { type: "warning", name: "sfacweb - 1", created_at: "2024-08-22", id: 9 },
-  {
-    type: "notification",
-    name: "sfacweb - 2",
-    created_at: "2022-08-22",
-    id: 10,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 11 },
-  {
-    type: "notification",
-    name: "sfacweb - 4",
-    created_at: "2018-08-22",
-    id: 12,
-  },
-  { type: "warning", name: "sfacweb - 1", created_at: "2024-08-22", id: 13 },
-  {
-    type: "notification",
-    name: "bbbeb - 2",
-    created_at: "2024-08-22",
-    id: 14,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 15 },
-  {
-    type: "notification",
-    name: "sfacweb - 4",
-    created_at: "2024-08-22",
-    id: 16,
-  },
-  { type: "warning", name: "sfacweb - 1", created_at: "2024-08-22", id: 17 },
-  {
-    type: "notification",
-    name: "sfacweb - 2",
-    created_at: "2024-08-22",
-    id: 18,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 19 },
-  {
-    type: "notification",
-    name: "sfacweb - 4",
-    created_at: "2024-08-22",
-    id: 20,
-  },
-  { type: "warning", name: "sfacweb - 1", created_at: "2024-08-22", id: 21 },
-  {
-    type: "notification",
-    name: "sfacweb - 2",
-    created_at: "2024-08-22",
-    id: 22,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 23 },
-  {
-    type: "notification",
-    name: "sfacweb - 4",
-    created_at: "2024-08-22",
-    id: 24,
-  },
-  { type: "warning", name: "sfacweb - 1", created_at: "2024-08-22", id: 25 },
-  {
-    type: "notification",
-    name: "sfacweb - 2",
-    created_at: "2024-08-22",
-    id: 26,
-  },
-  { type: "gray", name: "sfacweb - 3", created_at: "2024-08-22", id: 27 },
-  {
-    type: "notification",
-    name: "sfacweb - 4",
-    created_at: "2024-08-22",
-    id: 28,
-  },
-];
-
-export default function ArticleList({
-  files = FILES as TClippingArticle[],
-}: {
-  files?: TClippingArticle[];
-}) {
-  const [articles, setArticles] = useState<TClippingArticle[]>(files);
+export default function ArticleList() {
+  const [articles, setArticles] = useState<any[]>([]);
+  const [filteredArticles, setFilteredArticles] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentArticles, setCurrentArticles] = useState<TClippingArticle[]>(
     [],
@@ -132,19 +25,38 @@ export default function ArticleList({
     sort: "Sort",
   });
   const { scrapsItemsPerPage } = usePaginationStore();
-  const typeOptions = ["전체", "취약성 경고", "취약성 알림", "취약성 보고서"];
+  const { email } = useGetUser();
+  const typeOptions = [
+    "전체",
+    "취약성 경고",
+    "취약성 알림",
+    "취약성 보고서",
+    "기타",
+  ];
 
-  useFilterArticles(selectedItem, setArticles, files);
+  useFilterArticles(selectedItem, setFilteredArticles, articles);
+
+  const fetchScraps = useCallback(async () => {
+    if (email) {
+      const scraps = await getScrapPosts(email);
+      setArticles(scraps);
+      setFilteredArticles(scraps);
+    }
+  }, [email]);
 
   useEffect(() => {
-    sortItems(selectedItem.sort, setArticles);
+    fetchScraps();
+  }, [fetchScraps]);
+
+  useEffect(() => {
+    sortArticles(selectedItem.sort, setArticles);
   }, [selectedItem.sort, setArticles]);
 
   useEffect(() => {
     const startIndex = (currentPage - 1) * scrapsItemsPerPage;
     const endIndex = startIndex + scrapsItemsPerPage;
-    setCurrentArticles(articles.slice(startIndex, endIndex));
-  }, [articles, currentPage, scrapsItemsPerPage]);
+    setCurrentArticles(filteredArticles.slice(startIndex, endIndex));
+  }, [filteredArticles, currentPage, scrapsItemsPerPage]);
 
   return (
     <>
@@ -157,10 +69,11 @@ export default function ArticleList({
           />
           <div className="h-auto w-full">
             <ul className="grid w-full grid-cols-3 gap-6">
+              {currentArticles.length === 0 && "데이터 없음"}
               {currentArticles &&
                 currentArticles.map((article) => (
-                  <li key={article.id}>
-                    <Link href={`/vulnerability-db/${article.id}`}>
+                  <li key={article.c_id}>
+                    <Link href={`/vuldb/items/${article.c_id}`}>
                       <ClippingArticle {...article} />
                     </Link>
                   </li>
