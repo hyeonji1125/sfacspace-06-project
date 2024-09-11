@@ -11,7 +11,6 @@ import {
   LightModeIcon,
 } from "../../../public/assets/svg/SvgIcons";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 import { useGetUser } from "@/hooks/useGetUser";
 import { customSignOut } from "@/lib/customAuth";
 
@@ -70,9 +69,7 @@ const Header: React.FC = () => {
             <span
               className="cursor-pointer hover:text-accent-blue"
               onClick={() => {
-                if (email) {
-                  customSignOut(email, "/");
-                }
+                if (email) customSignOut(email, "/"); 
               }}
             >
               로그아웃

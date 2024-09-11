@@ -31,11 +31,10 @@ export default function FileList({ isLoading }: { isLoading: boolean }) {
             type="button"
             title="multipleSelect"
             onClick={handleMultiSelectToggle}
-            className={`transition-color rounded-full p-1 duration-200 ease-in-out hover:bg-primary-purple-500/50 hover:text-white dark:hover:text-white ${
-              isMultiSelectMode
+            className={`transition-color rounded-full p-1 duration-200 ease-in-out hover:bg-primary-purple-500/50 hover:text-white dark:hover:text-white ${isMultiSelectMode
                 ? "bg-primary-purple-500 text-white dark:text-white"
                 : "bg-transparent dark:text-black"
-            }`}
+              }`}
           >
             <PiChecks />
           </button>
