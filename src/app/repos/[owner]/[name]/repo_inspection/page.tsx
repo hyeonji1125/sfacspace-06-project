@@ -10,7 +10,7 @@ import { useGithubStore } from "@/store/useGithubStore";
 import LibraryLogin from "@/app/repos/_components/LibraryLogin";
 import { useSession } from "next-auth/react";
 import { useRepoParams } from "../_utils/useRepoParams";
-import ModifiedCode from "./_components/ModifiedCode";
+import InspectionResult from "./_components/InspectionResult";
 import { getSelectedItems } from "../_utils/getSelectedItems";
 
 export default function AnalyzeResultPage() {
@@ -102,7 +102,7 @@ export default function AnalyzeResultPage() {
         </div>
         <div className="w-full">
           <FileViewer />
-          <ModifiedCode />
+          <InspectionResult />
         </div>
       </div>
       <AnalyzeModal
