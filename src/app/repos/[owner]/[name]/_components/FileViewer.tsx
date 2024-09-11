@@ -18,7 +18,7 @@ export default React.memo(function FileViewer() {
     isLoading: state.isLoading,
     error: state.error,
   }));
-  // 임시
+
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
   const closeButtonHandler = () => {
     setIsOpenInspectionAlert(!isOpenInspectionAlert);

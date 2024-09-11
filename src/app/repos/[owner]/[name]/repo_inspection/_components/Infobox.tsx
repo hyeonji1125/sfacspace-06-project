@@ -1,20 +1,15 @@
+import { resultType } from "@/types";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { PiCopy } from "react-icons/pi";
 
 export default function Infobox({
   title,
-  error,
   description,
+  suggestion,
+  vulnerabilityCode,
   language,
-  modifiedCode,
-}: {
-  title: string;
-  error: string;
-  description: string;
-  language: string;
-  modifiedCode: string;
-}) {
+}: resultType & { language: string }) {
   const [isCopy, setIsCopy] = useState(false);
 
   const handleCopyClick = (code: string) => {
@@ -40,13 +35,13 @@ export default function Infobox({
           </button>
         </div>
         <div className="space-y-6 text-lg font-medium text-text-gray-dark dark:text-text-gray-default">
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <div className="flex items-center">
               <div className="mx-2 h-1 w-1 rounded-full bg-text-gray-dark dark:bg-text-gray-default" />
               <span className="pr-1">취약점 : </span>
             </div>
             <p>{error}</p>
-          </div>
+          </div> */}
           <p>{description}</p>
         </div>
       </div>
@@ -65,7 +60,7 @@ export default function Infobox({
             ) : (
               <button
                 className="flex items-center gap-[10px]"
-                onClick={() => handleCopyClick(modifiedCode)}
+                onClick={() => handleCopyClick(suggestion)}
               >
                 <PiCopy />
                 <span>코드복사</span>
@@ -75,7 +70,7 @@ export default function Infobox({
           <div className="custom-scrollbar max-h-[400px] overflow-auto px-5 py-4 text-lg font-medium text-white">
             <pre>
               <code className="inline-block whitespace-pre-wrap break-words">
-                {modifiedCode}
+                {suggestion}
               </code>
             </pre>
           </div>

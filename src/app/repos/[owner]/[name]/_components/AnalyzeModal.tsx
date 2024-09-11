@@ -20,11 +20,12 @@ export default function AnalyzeModal({
   setIsMultiSelectMode,
 }: TAnalyzeModalProp) {
   const { startAnalysis, analysisResults } = useLlama3Store();
-  const clearSelectedFiles = useGithubStore(
-    (state) => state.clearSelectedFiles,
-  );
+  const { clearSelectedFiles, toggleSelectFile } = useGithubStore((state) => ({
+    clearSelectedFiles: state.clearSelectedFiles,
+    toggleSelectFile: state.toggleSelectFile,
+  }));
   const { email } = useGetUser();
-  const { owner, name } = useRepoParams();
+  const { owner, name, repoPath } = useRepoParams();
   const repoId = `${owner}/${name}`;
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function AnalyzeModal({
       setIsMultiSelectMode(false);
       setIsOpen(false);
       clearSelectedFiles();
+      if (repoPath) toggleSelectFile(repoPath);
       const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");
       await startAnalysis(fileList, email, encodedRepoId);
     } else {
