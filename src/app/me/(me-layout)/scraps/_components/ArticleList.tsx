@@ -9,7 +9,7 @@ import Pagination from "@/app/vuldb/_components/Pagination";
 import usePaginationStore from "@/store/usePaginationStore";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { sortArticles, sortItems } from "@/utils/sortItems";
+import { sortArticles } from "@/utils/sortItems";
 import { getScrapPosts } from "@/lib/scrapPost";
 import { useGetUser } from "@/hooks/useGetUser";
 
