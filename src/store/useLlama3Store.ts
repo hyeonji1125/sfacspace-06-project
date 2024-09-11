@@ -12,21 +12,15 @@ export const useLlama3Store = create<Llama3State>((set) => ({
   startAnalysis: async (fileContents, userEmail, repoId) => {
     set({ isAnalyzing: true, error: null });
 
-    // 첫 번째 파일은 'inprogress', 나머지는 'pending'으로 설정
-    const initialStatus = fileContents.reduce(
-      (acc, file, index) => {
-        acc[file.path] = index === 0 ? "inprogress" : "pending";
-        return acc;
-      },
-      {} as Record<string, NonNullable<RepositoryContent["status"]>>,
+    const initialStatus = Object.fromEntries(
+      fileContents.map((file) => [file.path, "pending" as const])
     );
     set((state) => ({
       analysisStatus: { ...state.analysisStatus, ...initialStatus },
     }));
-    try {
-      for (let i = 0; i < fileContents.length; i++) {
-        const file = fileContents[i];
 
+    try {
+      const analysisPromises = fileContents.map(async (file) => {
         set((state) => ({
           analysisStatus: {
             ...state.analysisStatus,
@@ -34,45 +28,37 @@ export const useLlama3Store = create<Llama3State>((set) => ({
           },
         }));
 
-        // 1개의 파일씩 분석 요청
-        const response = await fetch("/api/llama3", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            fileContents: [file], 
-            temperature: 0.7,
-            top_p: 0.9,
-          }),
-        });
+        try {
+          const response = await fetch("/api/llama3", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fileContents: [file],
+              temperature: 0.7,
+              top_p: 0.9,
+            }),
+          });
 
-        if (!response.ok) throw new Error("Failed to get analysis");
+          if (!response.ok) throw new Error("Failed to get analysis");
 
-        const data = await response.json();
-        const analysisResult: AnalysisResult = data.response[0]; // 단일 파일 결과
+          const data = await response.json();
+          if (!data.response || !Array.isArray(data.response) || data.response.length === 0) {
+            throw new Error("Invalid response format");
+          }
 
-        // 줄 번호 계산 및 추가
-        const updatedAnalysis = analysisResult.analysis.map(item => ({
-          ...item,
-          location: getLineNumber(file.content, item.vulnerabilityCode)
-        }));
-      
-        const updatedAnalysisResult = {
-          ...analysisResult,
-          analysis: updatedAnalysis
-        };
+          const analysisResult: AnalysisResult = data.response[0];
 
-        // 분석 결과 업데이트
-        set((state) => ({
-          analysisResults: [...state.analysisResults, updatedAnalysisResult],
-          analysisStatus: {
-            ...state.analysisStatus,
-            [file.path]: updatedAnalysisResult ? "completed" : "error",
-          },
-        }));
+          const updatedAnalysis = analysisResult.analysis.map((item) => ({
+            ...item,
+            location: getLineNumber(file.content, item.vulnerabilityCode),
+          }));
 
-        // Firestore에 결과 저장
-        if (userEmail) {
-          try {
+          const updatedAnalysisResult = {
+            ...analysisResult,
+            analysis: updatedAnalysis,
+          };
+
+          if (userEmail) {
             await putData(
               `users/${userEmail}/analysis-results/${repoId}`,
               file.path,
@@ -81,16 +67,35 @@ export const useLlama3Store = create<Llama3State>((set) => ({
                 content: file.content,
                 path: file.path,
                 analysisResult: updatedAnalysisResult,
-              },
-            );
-          } catch (error) {
-            console.error(
-              `Failed to save analysis result for file: ${file.name}`,
-              error,
+              }
             );
           }
+
+          return updatedAnalysisResult;
+        } catch (error) {
+          console.error(`Analysis failed for file: ${file.name}`, error);
+          set((state) => ({
+            analysisStatus: {
+              ...state.analysisStatus,
+              [file.path]: "error",
+            },
+          }));
+          return null;
         }
-      }
+      });
+
+      const results = await Promise.all(analysisPromises);
+
+      set((state) => ({
+        analysisResults: results.filter((result): result is AnalysisResult => result !== null),
+        analysisStatus: Object.fromEntries(
+          fileContents.map((file) => [
+            file.path,
+            results[fileContents.indexOf(file)] ? "completed" : "error",
+          ])
+        ),
+        isAnalyzing: false,
+      }));
     } catch (error) {
       set({ error: (error as Error).message, isAnalyzing: false });
     }
