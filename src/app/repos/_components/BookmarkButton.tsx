@@ -25,7 +25,7 @@ export default function BookmarkButton({
         async (email: string, name: string, data: { bookmark: boolean }) => {
           await postRepo(email, name, data);
         },
-        2000,
+        300,
       ),
     [],
   );

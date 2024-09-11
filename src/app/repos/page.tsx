@@ -4,9 +4,9 @@ import { authOptions } from "@/lib/auth";
 import LibraryLogin from "./_components/LibraryLogin";
 import LibraryTitle from "./_components/LibraryTitle";
 import UserItem from "@/components/common/UserItem";
-import RepositoryList from "./_components/RepositoryList";
 import { CaretRight } from "../../../public/assets/svg/SvgIcons";
 import Link from "next/link";
+import ReposLibrary from "./_components/ReposLibrary";
 
 export default async function reposPage() {
   const session = await getServerSession(authOptions);
@@ -29,7 +29,7 @@ export default async function reposPage() {
             color="dark:fill-custom-dark-text"
           />
         </Link>
-        <RepositoryList />
+        <ReposLibrary />
       </div>
     </div>
   );

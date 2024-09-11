@@ -1,48 +1,51 @@
 import SuggestionChips from "@/components/common/chips/SuggestionChips";
 import { SuggestionChipsColor } from "@/types";
+import { format } from "date-fns";
+
+type TArticleType = "취약성 경고" | "취약성 알림" | "취약성 보고서" | "기타";
 
 export type TClippingArticle = {
-  type: SuggestionChipsColor;
-  name: string;
-  created_at: string;
-  id: number;
+  label: TArticleType;
+  title: string;
+  c_id: number;
+  upload_at: string;
 };
 
-function Label({ type }: { type: SuggestionChipsColor }) {
-  let labelText = "";
+function Label({ label }: { label: string }) {
+  let type = "" as SuggestionChipsColor;
 
-  switch (type) {
-    case "warning":
-      labelText = "취약성 경고";
+  switch (label) {
+    case "취약성 경고":
+      type = "warning";
       break;
-    case "notification":
-      labelText = "취약성 알림";
+    case "취약성 알림":
+      type = "notification";
       break;
-    case "gray":
-      labelText = "취약성 보고서";
+    case "취약성 보고서":
+      type = "report";
       break;
-    default:
-      labelText = "error";
+    case "기타":
+      type = "gray";
       break;
   }
-  return <SuggestionChips color={type}>{labelText}</SuggestionChips>;
+  return <SuggestionChips color={type}>{label}</SuggestionChips>;
 }
 
 export default function ClippingArticle({
-  type,
-  name,
-  created_at,
+  label,
+  title,
+  upload_at,
 }: TClippingArticle) {
   return (
-    <div className="flex h-auto w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 hover:bg-bg-purple-light dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-0 hover:dark:bg-opacity-5">
+    <div className="flex h-[226px] w-full flex-col justify-between gap-6 rounded-xl border border-line-default p-7 hover:bg-bg-purple-light dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-0 hover:dark:bg-opacity-5">
       <div className="flex flex-col items-start gap-2">
-        <Label type={type} />
+        <Label label={label} />
         <h4 className="text-overflow h-[72px] text-2xl font-medium leading-normal text-black dark:text-custom-dark-text">
-          {name}
+          {title}
         </h4>
       </div>
       <span className="text-base font-normal text-text-gray-default">
-        {created_at}
+        {format(upload_at, "yyyy.MM.dd hh:mm:ss")}
       </span>
     </div>
   );

@@ -1,5 +1,5 @@
 import { RepositoryProps } from "@/types";
-import { sortItems } from "../utils/sortItems";
+import { sortArticles, sortItems } from "../utils/sortItems";
 import { useEffect } from "react";
 import { TDropdownSelect } from "../app/repos/_components/LibraryToolbar";
 import { TClippingArticle } from "@/app/me/(me-layout)/scraps/_components/ClippingArticle";
@@ -11,27 +11,28 @@ export const useFilterReposType = (
   setRepos: React.Dispatch<React.SetStateAction<RepositoryProps[]>>,
   repositories: RepositoryProps[],
 ) => {
-  const { libraryState, reposData } = useLibraryStore();
-
-  const FILTER_TYPE = {
-    repoInteraction: {
-      bookmark: (repo: RepositoryProps) =>
-        findMatchData(repo, reposData)?.bookmark,
-      recent: (repo: RepositoryProps) => findMatchData(repo, reposData)?.recent,
-    },
-    repoType: {
-      검사완료: (repo: RepositoryProps) =>
-        findMatchData(repo, reposData)?.status === "COMPLETED",
-      검사중: (repo: RepositoryProps) =>
-        findMatchData(repo, reposData)?.status === "IN_PROGRESS",
-    },
-  };
-
-  type repoInteractionKeys = keyof typeof FILTER_TYPE.repoInteraction;
-  type repoTypeKeys = keyof typeof FILTER_TYPE.repoType;
-  type libraryStateKeys = keyof typeof libraryState;
+  const { libraryState, reposData, setCurrentPage } = useLibraryStore();
 
   useEffect(() => {
+    const FILTER_TYPE = {
+      repoInteraction: {
+        bookmark: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.bookmark,
+        recent: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.recent,
+      },
+      repoType: {
+        검사완료: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.status === "COMPLETED",
+        검사중: (repo: RepositoryProps) =>
+          findMatchData(repo, reposData)?.status === "IN_PROGRESS",
+      },
+    };
+
+    type repoInteractionKeys = keyof typeof FILTER_TYPE.repoInteraction;
+    type repoTypeKeys = keyof typeof FILTER_TYPE.repoType;
+    type libraryStateKeys = keyof typeof libraryState;
+
     let filteredRepos = repositories;
 
     Object.keys(FILTER_TYPE.repoInteraction).forEach((key) => {
@@ -49,6 +50,7 @@ export const useFilterReposType = (
     }
 
     setRepos(filteredRepos);
+    setCurrentPage(1);
     sortItems(selectedItem.sort, setRepos);
   }, [
     repositories,
@@ -57,6 +59,9 @@ export const useFilterReposType = (
     libraryState.bookmark,
     libraryState.recent,
     setRepos,
+    reposData,
+    libraryState,
+    setCurrentPage,
   ]);
 };
 
@@ -66,19 +71,14 @@ export const useFilterArticles = (
   articles: TClippingArticle[],
 ) => {
   useEffect(() => {
-    if (selectedItem.type === "취약성 알림") {
-      setArticles(() => articles.filter((article) => article.type === "gray"));
-    } else if (selectedItem.type === "취약성 경고") {
-      setArticles(() =>
-        articles.filter((article) => article.type === "warning"),
-      );
-    } else if (selectedItem.type === "취약성 보고서") {
-      setArticles(() =>
-        articles.filter((article) => article.type === "notification"),
-      );
-    } else {
+    if (selectedItem.type === "전체" || selectedItem.type === "Type") {
       setArticles(articles);
+    } else {
+      setArticles(() =>
+        articles.filter((article) => article.label === selectedItem.type),
+      );
     }
-    sortItems(selectedItem.sort, setArticles);
-  }, [articles, selectedItem.type, selectedItem.sort, setArticles]);
+
+    sortArticles(selectedItem.sort, setArticles);
+  }, [articles, selectedItem.sort, selectedItem.type, setArticles]);
 };
