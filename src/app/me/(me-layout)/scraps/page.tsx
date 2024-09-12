@@ -1,11 +1,11 @@
 import PageTitle from "@/components/common/PageTitle";
-import ArticleList from "./_components/ArticleList";
+import ArticleLibrary from "./_components/ArticleLibrary";
 
 export default function ClippingArticlesPage() {
   return (
     <>
       <PageTitle>Clipping Article</PageTitle>
-      <ArticleList />
+      <ArticleLibrary />
     </>
   );
 }

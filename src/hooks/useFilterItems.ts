@@ -1,10 +1,11 @@
 import { RepositoryProps } from "@/types";
-import { sortArticles, sortItems } from "../utils/sortItems";
+import { sortItems } from "../utils/sortItems";
 import { useEffect } from "react";
 import { TDropdownSelect } from "../app/repos/_components/LibraryToolbar";
-import { TClippingArticle } from "@/app/me/(me-layout)/scraps/_components/ClippingArticle";
 import { useLibraryStore } from "@/store/useLibraryStore";
 import { findMatchData } from "@/app/repos/_utils/findMatchData";
+import { useScrapStore } from "@/store/useScrapStore";
+import { Article } from "@/types/scrap";
 
 export const useFilterReposType = (
   selectedItem: TDropdownSelect,
@@ -67,9 +68,11 @@ export const useFilterReposType = (
 
 export const useFilterArticles = (
   selectedItem: TDropdownSelect,
-  setArticles: React.Dispatch<React.SetStateAction<TClippingArticle[]>>,
-  articles: TClippingArticle[],
+  setArticles: React.Dispatch<React.SetStateAction<Article[]>>,
+  articles: Article[],
 ) => {
+  const { setCurrentPage } = useScrapStore();
+
   useEffect(() => {
     if (selectedItem.type === "전체" || selectedItem.type === "Type") {
       setArticles(articles);
@@ -79,6 +82,13 @@ export const useFilterArticles = (
       );
     }
 
-    sortArticles(selectedItem.sort, setArticles);
-  }, [articles, selectedItem.sort, selectedItem.type, setArticles]);
+    setCurrentPage(1);
+    sortItems(selectedItem.sort, setArticles);
+  }, [
+    articles,
+    selectedItem.sort,
+    selectedItem.type,
+    setArticles,
+    setCurrentPage,
+  ]);
 };
