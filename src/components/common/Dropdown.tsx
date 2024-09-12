@@ -1,6 +1,6 @@
 "use client";
 
-import React, { SetStateAction, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   DropdownArrowIcon,
   DropdownCheckIcon,
@@ -9,24 +9,47 @@ import { twMerge } from "tailwind-merge";
 import { TDropdownSelect } from "@/app/repos/_components/LibraryToolbar";
 
 type TDropdownProps = {
+  id: string;
   options?: string[];
-  type: "type" | "sort";
+  type: keyof TDropdownSelect;
   selectedOption: string;
-  onSelect: React.Dispatch<SetStateAction<TDropdownSelect>>;
+  onSelect: (option: string) => void;
+  openDropdownId: string | null;
+  setOpenDropdownId: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const Dropdown: React.FC<TDropdownProps> = ({
+  id,
   options = ["최신순", "오래된순", "이름순"],
   selectedOption = "Sort",
   onSelect,
   type = "sort",
+  openDropdownId,
+  setOpenDropdownId,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const isOpen = openDropdownId === id;
 
   const handleOptionClick = (option: string) => {
-    onSelect((prev) => ({ ...prev, [type]: option }));
-    setIsOpen(false);
+    onSelect(option);
+    setOpenDropdownId(null);
   };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setOpenDropdownId(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="relative z-10 inline-block w-auto min-w-[100px] text-left">
@@ -39,7 +62,7 @@ const Dropdown: React.FC<TDropdownProps> = ({
             "text-custom-light-text dark:text-custom-dark-text",
             "hover:bg-gray-50",
           )}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setOpenDropdownId(isOpen ? null : id)}
         >
           <span className="flex-1 whitespace-nowrap text-lg tracking-[-0.01em]">
             {selectedOption}
