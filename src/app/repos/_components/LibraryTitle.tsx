@@ -10,7 +10,7 @@ export default function LibraryTitle({
   return (
     <h2
       className={twMerge(
-        "flex flex-col items-center gap-5 text-6xl text-primary-purple-500",
+        "flex flex-col items-center justify-center gap-5 text-center text-6xl text-primary-purple-500",
         className && className,
       )}
     >
