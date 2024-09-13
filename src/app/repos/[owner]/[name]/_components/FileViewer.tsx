@@ -9,45 +9,62 @@ import { useIsPathResult } from "../_utils/useIsPathResult";
 import { twMerge } from "tailwind-merge";
 import FileViewerLoading from "./FileViewerLoading";
 import { GoXCircleFill } from "react-icons/go";
-import { useLlama3Store } from "@/store/useLlama3Store";
 import { RepositoryContent } from "@/types";
 import { useRepoParams } from "../_utils/useRepoParams";
 
 export default React.memo(function FileViewer() {
   const isResultPage = useIsPathResult();
-  const { selectedFile, isLoading, error } = useGithubStore((state) => ({
-    selectedFile: state.selectedFile,
-    isLoading: state.isLoading,
-    error: state.error,
-  }));
+  const { selectFile, selectedFile, isLoading, error } = useGithubStore(
+    (state) => ({
+      selectFile: state.selectFile,
+      selectedFile: state.selectedFile,
+      isLoading: state.isLoading,
+      error: state.error,
+    }),
+  );
   const [file, setFile] = useState<RepositoryContent | null>(null);
-  const { repoPath } = useRepoParams();
+  const { owner, name, repoPath } = useRepoParams();
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
   const closeButtonHandler = () => {
     setIsOpenInspectionAlert(!isOpenInspectionAlert);
   };
 
-  const updateCodeSyntaxHighlighting = () => {
-    document.querySelectorAll(".file-viewer-code code").forEach((el) => {
-      hljs.highlightElement(el as HTMLElement);
-    });
+  const loadContent = async () => {
+    if (repoPath) {
+      await selectFile(owner, name, repoPath);
+      if (selectedFile && repoPath === selectedFile.path) {
+        setFile(selectedFile);
+      }
+    }
   };
 
   useEffect(() => {
-    //console.log = () => {};
+    loadContent();
+  }, [repoPath]);
+
+  useEffect(() => {
     if (selectedFile && repoPath === selectedFile.path) {
       setFile(selectedFile);
-      if (!selectedFile.name.endsWith(".json")) {
-        updateCodeSyntaxHighlighting();
-      }
-
-      if (isResultPage) {
-        setIsOpenInspectionAlert(false);
-      } else {
-        setIsOpenInspectionAlert(true);
-      }
     }
   }, [selectedFile, repoPath]);
+
+  useEffect(() => {
+    //console.log = () => {};
+    // if (file && !file.name.endsWith(".json")) {
+    //   const elements = document.querySelectorAll(".file-viewer-code code");
+    //   if (elements.length > 0) {
+    //     elements.forEach((el) => {
+    //       hljs.highlightElement(el as HTMLElement);
+    //     });
+    //   }
+    // }
+
+    if (isResultPage) {
+      setIsOpenInspectionAlert(false);
+    } else {
+      setIsOpenInspectionAlert(true);
+    }
+  }, [file]);
 
   return (
     <div

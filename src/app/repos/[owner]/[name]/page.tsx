@@ -62,13 +62,15 @@ export default function AnalyzePage() {
   };
 
   const handleButton = async () => {
-    setIsWhole(selectedFiles.length === repoContents.length);
+    if (Array.isArray(selectedFiles) && selectedFiles.length > 0) {
+      setIsWhole(selectedFiles.length === repoContents.length);
 
-    await Promise.all(
-      selectedFiles.map(async (filePath) => {
-        await selectFile(owner, name, filePath);
-      }),
-    );
+      await Promise.all(
+        selectedFiles.map(async (filePath) => {
+          await selectFile(owner, name, filePath);
+        }),
+      );
+    }
 
     // const updatedSelectedFileList = getSelectedItems(repoContents, selectedFiles);
     setIsOpen(true);
