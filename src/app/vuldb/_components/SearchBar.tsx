@@ -148,7 +148,7 @@ export default function SearchBar({ initialQuery }: { initialQuery?: string }) {
             onChange={handleInputChange}
             onKeyDown={handleKeyPress}
             onFocus={() => setIsFocused(true)}
-            className="mr-2 flex-grow border-none text-2xl font-medium outline-none"
+            className="mr-2 flex-grow border-none text-[22px] font-medium outline-none"
           />
           <button onClick={handleSearch}>
             <MagnifyingGlass />
@@ -156,12 +156,12 @@ export default function SearchBar({ initialQuery }: { initialQuery?: string }) {
         </div>
       </div>
       {suggestions.length > 0 && isFocused && (
-        <ul className="absolute top-[72px] z-10 w-full rounded-b-[14px] border border-primary-purple-500 border-t-purple-200 bg-white">
+        <ul className="absolute top-[72px] z-40 w-full rounded-b-[14px] border border-primary-purple-500 border-t-primary-purple-100 bg-white">
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
               onClick={() => handleSuggestionClick(suggestion)}
-              className={`flex h-[70px] cursor-pointer items-center border border-t-primary-purple-200 pl-6 text-2xl font-medium text-gray-400 hover:bg-gray-200 ${
+              className={`flex h-[70px] cursor-pointer items-center border border-t-primary-purple-100 pl-6 text-[22px] font-medium text-text-gray-default hover:bg-gray-200 ${
                 index === suggestions.length - 1 ? "rounded-b-[14px]" : ""
               }`}
             >

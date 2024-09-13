@@ -12,11 +12,11 @@ export default function TopicList() {
     const now = new Date();
     const options: Intl.DateTimeFormatOptions = {
       timeZone: "Asia/Seoul",
-      year: "2-digit",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
+      hourCycle: "h23", // 24시간 형식
     };
 
     const formattedTime = new Intl.DateTimeFormat("ko-KR", options).format(now);
@@ -77,10 +77,17 @@ export default function TopicList() {
 
   return (
     <aside className="flex flex-col gap-4">
-      <h1 className="text-2xl font-semibold">실시간 Topic</h1>
-      <p className="text-lg font-medium text-text-gray-default">
-        {currentTime} 기준
-      </p>
+      <div className="mb-[36px] flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">실시간 Topic</h1>
+
+        {currentTime ? (
+          <p className="text-base font-medium text-[#B7B7B7]">
+            {currentTime} 기준
+          </p>
+        ) : (
+          <div className="h-6 w-[130px] animate-pulse rounded-lg bg-grayscale-10 dark:bg-grayscale-80"></div>
+        )}
+      </div>
       <div className="w-[346px] rounded-lg border border-line-default bg-white px-5 py-1 dark:bg-custom-light-bg dark:bg-opacity-5">
         <ul className="text-lg">
           {topicList.length > 0
