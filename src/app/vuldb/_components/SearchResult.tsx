@@ -52,20 +52,20 @@ export default function SearchResult() {
       <div
         className={`flex flex-col gap-4 ${!session ? "pointer-events-none blur-[10px]" : ""}`}
       >
+        <div className="mb-[28px] flex cursor-pointer flex-row items-center gap-3">
+          <Link href={"/vuldb"}>
+            <IoIosArrowBack className="h-[31px] w-[31px] text-gray-300 hover:text-gray-700" />
+          </Link>
+          <h1 className="text-[28px] font-semibold">
+            &lsquo;{query}&lsquo;의 검색결과
+          </h1>
+        </div>
         {searchResults.length > 0 ? (
-          <>
-            <div className="mb-[45px] flex cursor-pointer flex-row items-center gap-3">
-              <Link href={"/vuldb"}>
-                <IoIosArrowBack className="h-[31px] w-[31px] text-gray-300" />
-              </Link>
-              <h1 className="text-2xl font-semibold">검색결과: {query}</h1>
-            </div>
-            <MainPostCardList postData={searchResults} />
-          </>
+          <MainPostCardList postData={searchResults} />
         ) : (
           <div className="mt-[200px] flex w-full flex-col items-center gap-4">
             <h1 className="text-3xl font-semibold">
-              검색 결과가 존재하지 않습니다.
+              취약점DB에 검색한 결과가 없어요.
             </h1>
             <p className="text-xl text-gray-400">
               다른 주제로 다시 검색해 보세요.

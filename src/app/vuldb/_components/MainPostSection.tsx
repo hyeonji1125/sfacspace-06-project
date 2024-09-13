@@ -63,20 +63,22 @@ export default function MainPostSection() {
       <div
         className={`flex flex-col gap-4 ${!session ? "pointer-events-none blur-[10px]" : ""}`}
       >
-        <h1 className="text-2xl font-semibold">취약점 DB</h1>
-        <div className="flex gap-3">
-          <TagButton
-            label="HOT"
-            isActive={sortType === "hot"}
-            onClick={() => handleSortChange("hot")}
-            type="hot"
-          />
-          <TagButton
-            label="NEW"
-            isActive={sortType === "new"}
-            onClick={() => handleSortChange("new")}
-            type="new"
-          />
+        <div className="flex justify-between">
+          <h1 className="text-[28px] font-semibold">취약점 DB</h1>
+          <div className="mb-[29px] flex gap-3">
+            <TagButton
+              label="HOT"
+              isActive={sortType === "hot"}
+              onClick={() => handleSortChange("hot")}
+              type="hot"
+            />
+            <TagButton
+              label="NEW"
+              isActive={sortType === "new"}
+              onClick={() => handleSortChange("new")}
+              type="new"
+            />
+          </div>
         </div>
         <MainPostCardList
           postData={currentPosts} // 페이지네이션된 게시글 전달
