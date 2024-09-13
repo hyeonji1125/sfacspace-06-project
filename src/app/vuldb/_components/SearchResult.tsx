@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import TagButton from "../_components/button/TagButton";
+import { IoIosArrowBack } from "react-icons/io";
 import MainPostCardList from "../_components/mainPostCard/MainPostCardList";
 import VuldbPagination from "../_components/VuldbPagiNation";
 
@@ -16,11 +16,8 @@ export default function SearchResult() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1); // 페이지 상태 관리
   const searchParams = useSearchParams();
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-
   const query = searchParams.get("query") || "";
   const ITEMS_PER_PAGE = 5;
-  const [sortType, setSortType] = useState<"hot" | "new">("hot"); // hot,new 태그 정렬 관리
   const [totalItems, setTotalItems] = useState(0); // 총 게시글 수
 
   useEffect(() => {
@@ -57,16 +54,18 @@ export default function SearchResult() {
       >
         {searchResults.length > 0 ? (
           <>
-            <h1 className="text-2xl font-semibold">취약점 DB</h1>
-            <div className="flex gap-3">
-              <TagButton label="Search" isActive={false} type="hot" />
+            <div className="mb-[45px] flex cursor-pointer flex-row items-center gap-3">
+              <Link href={"/vuldb"}>
+                <IoIosArrowBack className="h-[31px] w-[31px] text-gray-300" />
+              </Link>
+              <h1 className="text-2xl font-semibold">검색결과: {query}</h1>
             </div>
             <MainPostCardList postData={searchResults} />
           </>
         ) : (
           <div className="mt-[200px] flex w-full flex-col items-center gap-4">
             <h1 className="text-3xl font-semibold">
-              취약점DB에 검색 결과가 없어요
+              검색 결과가 존재하지 않습니다.
             </h1>
             <p className="text-xl text-gray-400">
               다른 주제로 다시 검색해 보세요.
