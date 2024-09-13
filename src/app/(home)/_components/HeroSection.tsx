@@ -1,12 +1,26 @@
 "use client";
 import Button from "@/components/common/Button";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRef } from "react";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 
 export default function HeroSection() {
   const { data: session, status } = useSession();
+  const flawSectionRef = useRef<HTMLDivElement | null>(null); // Ref를 생성하여 FindingFlawSection에 연결
+  const scrollToNextSection = () => {
+    if (flawSectionRef.current) {
+      const componentHeight = flawSectionRef.current.scrollHeight; // 컴포넌트의 전체 높이 가져오기
+      const componentTop = flawSectionRef.current.offsetTop; // 컴포넌트의 최상단 위치 가져오기
+      const scrollPosition = componentTop + componentHeight; // 최상단 위치에 컴포넌트 전체 높이를 더해서 최하단 위치 계산
+
+      window.scrollTo({
+        top: scrollPosition, // 컴포넌트의 전체 높이만큼 스크롤
+        behavior: "smooth", // 부드러운 스크롤
+      });
+    }
+  };
 
   return (
     <section className="relative z-20 flex h-[90vh] w-full overflow-hidden text-primary-purple-500 dark:text-custom-dark-text">
@@ -46,9 +60,11 @@ export default function HeroSection() {
         </div>
         <HiOutlineChevronDoubleDown
           size={50}
-          className="mt-[10vh] animate-float text-primary-purple-500 dark:text-purple-200"
+          className="z-20 mt-[10vh] animate-float cursor-pointer text-primary-purple-500 dark:text-purple-200"
+          onClick={scrollToNextSection}
         />
       </div>
+      <div ref={flawSectionRef}></div>
     </section>
   );
 }

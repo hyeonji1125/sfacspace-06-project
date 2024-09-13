@@ -1,4 +1,3 @@
-import ImageCardList from "../_components/imageCard/ImageCardList";
 import SearchBar from "../_components/SearchBar";
 
 import SearchResult from "../_components/SearchResult";
@@ -8,8 +7,10 @@ export default function VulnerabilityDb() {
   return (
     <main className="h-auto max-w-[1920px] px-6 pt-9">
       <div className="mx-auto flex w-full max-w-[1313px] flex-col gap-[76px]">
-        <ImageCardList />
-        <SearchBar />
+        {/* <ImageCardList /> */}
+        <div className="z-20">
+          <SearchBar />
+        </div>
         <div className="flex justify-between gap-4">
           <SearchResult />
           <TopicList />
