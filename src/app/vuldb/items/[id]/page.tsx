@@ -10,11 +10,13 @@ import { useEffect, useState } from "react";
 import SmallPostCardList from "../../_components/smallPostCard/SmallPostCardList";
 import DetailHeader from "./_components/DetailHeader";
 import DetailMainSection from "./_components/DetailMainSection";
+import { useChatbotStore } from "@/store/useChatbotStore";
 
 export default function PostDetailPage() {
   const { data: session } = useSession();
   const { id } = useParams();
   const { posts, fetchPosts } = usePostStore();
+  const { setPostDetail, clearChatLog } = useChatbotStore();
   const [post, setPost] = useState<PostDataType | null>(null);
 
   useEffect(() => {
@@ -28,6 +30,13 @@ export default function PostDetailPage() {
       setPost(postData || null);
     }
   }, [id, posts]);
+
+  useEffect(() => {
+    if (post) {
+      setPostDetail(post);
+      clearChatLog();
+    }
+  }, [post, setPostDetail, clearChatLog]);
 
   if (!post) {
     return <div>게시글을 찾을 수 없습니다.</div>;
