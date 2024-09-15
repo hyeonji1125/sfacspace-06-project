@@ -1,3 +1,4 @@
+import { ChatMessage } from "@/types/chatbot";
 import filename2prism from "filename2prism";
 
 // 환경 변수 검증 함수
@@ -12,8 +13,8 @@ function checkEnvVar(name: string): string {
 // JSON 문자열을 정리하는 함수
 function sanitizeJsonString(str: string) {
   let result = str.replace(/[\n\r\t]/g, "");
-  
-  result = result.replace(/(?<!\\)(?:\\\\)*\\/g, match => match + '\\');
+
+  result = result.replace(/(?<!\\)(?:\\\\)*\\/g, (match) => match + "\\");
 
   return result;
 }
@@ -38,15 +39,15 @@ function attemptPartialParsing(responseText: string): any[] {
 
 // 파일명에서 프로그래밍 언어를 추출하는 함수 (filename2prism 라이브러리 사용)
 function getLanguageFromFileName(fileName: string): string {
-  const extension = fileName.split('.').pop()?.toLowerCase();
+  const extension = fileName.split(".").pop()?.toLowerCase();
 
   const customMapping: { [key: string]: string } = {
-    tsx: 'typescript',
-    jsx: 'javascript',
+    tsx: "typescript",
+    jsx: "javascript",
   };
 
   if (extension && customMapping[extension]) return customMapping[extension];
-  
+
   const languages = filename2prism(fileName);
   return Array.isArray(languages) && languages.length > 0
     ? languages[0]
@@ -173,7 +174,12 @@ ${file.content}
   } catch (error) {
     const partialAnalysis = attemptPartialParsing(responseText);
     return partialAnalysis.length > 0
-      ? { fileName: file.name, language: detectedLanguage,isVulnerable: true, analysis: partialAnalysis }
+      ? {
+          fileName: file.name,
+          language: detectedLanguage,
+          isVulnerable: true,
+          analysis: partialAnalysis,
+        }
       : null;
   }
 }
@@ -193,3 +199,83 @@ export async function analysisLlama3Response(
   // 취약점이 없는 파일을 필터링
   return results.filter((result) => result !== null);
 }
+
+// chatbot
+export const AIChatbotResponse = async (
+  question: string,
+  post: string,
+  temperature: number,
+  top_p: number,
+) => {
+  const token = await getAuthToken();
+
+  const prompt = `
+post: ${post}
+question: ${question}
+우리는 한국어 문화권의 사용자에게 보안 취약점에 대한 아티클을 제공하고, 해당 아티클과 관련된 사용자의 궁금증을 해결하는 서비스를 제공하고 있습니다. 위의 post는 우리가 제공한 보안 취약점 아티클의 내용입니다. question은 post를 읽고 사용자가 전달한 질문입니다. 사용자의 질문에 대해 아래 조건을 충족하여 답변해주세요.
+조건: 
+1. 답변은 무조건 한국어로 번역하여 전달한다. 
+1-1. 다른 언어를 허용하지 않으며 예외는 없다.
+1-2. 답변은 무조건 존대어를 사용하여 전달한다. 친절하고 상냥한 어투를 사용한다.
+2. 전체 답변은 아래 조건에서 제공한 형식을 따라 JSON 포맷에 맞추어 보낸다.  
+3. 답변의 형식은 아래와 같다. 각 항목에 대한 상세 조건은 후술한다.
+{
+	isRelevant: post와 연관성 있는 질문인지에 대한 여부(boolean),
+	message: 질문에 대한 답변(string, 한국어)
+}
+4. isRelevant는 question의 내용이 post와 연관성 있는 질문인지를 판단하여 true 또는 false의 boolean 값을 반환한다.
+4-1. question의 내용이 post와 연관성 있는 질문 또는 단어일 경우 true를 반환한다.
+4-2. question의 내용이 post와 연관성 없는 질문 또는 단어일 경우 false를 반환한다.
+5. message는 question에 대한 답변이다.
+5-1. 만약 isRelevant가 false일 경우, 즉 question의 내용이 post와 연관성이 없을 경우 빈 문자열을 반환한다.
+5-2. isRelevant가 true일 경우, question에 대한 답변을 한국어로 전달한다. 
+5-3. isRelevant가 true이며 질문을 보냈을 경우에는 질문에 대한 답변을 전달한다.
+5-4. isRelevant가 true이며 단어를 보냈을 경우에는 단어에 대한 정의와 설명을 답변으로 전달한다.
+5-5. 사용자가 전달한 question에 대해 post의 내용과 맥락을 연결지어 답변한다. 
+5-6. 답변의 내용을 길고 상세하게 전달한다.
+5-7. 문장마다 줄바꿈처리한다. 
+5-8. 답변 내부에 다운로드 링크를 제공해야 하는 경우 답변의 마지막 단락에 위치시킨다. 다운로드가 있는 마지막 단락은 항상 줄바꿈하여 출력한다.
+5-9. 답변의 줄바꿈을 유지한 상태로 json string 형식에 맞추어 이스케이프 처리하여 출력한다. 줄바꿈이 있는 경우 \\n 문자를 삽입한다.
+  `;
+
+  const response = await fetch(`${checkEnvVar("LLAMA3_API_URL")}/generate`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ user_message: prompt, temperature, top_p }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`LLaMA3 API 응답 오류: ${response.status} ${errorBody}`);
+  }
+
+  const responseText = await response.text();
+  console.log(responseText);
+
+  if (!responseText.trim() || responseText.trim() === "[]") return null;
+
+  try {
+    const sanitizedResponse = sanitizeJsonString(responseText);
+    const parsedResponse = JSON.parse(sanitizedResponse);
+    const AIResponse: ChatMessage = {
+      sender: "AI",
+      id: Date.now().toString(),
+      message: "",
+      created_at: Date.now().toString(),
+    };
+
+    if (parsedResponse.isRelevant) {
+      return { ...AIResponse, message: parsedResponse.message };
+    } else {
+      return {
+        ...AIResponse,
+        message: "보안 취약점과 연관성 없는 질문에는 답변이 어려워요.",
+      };
+    }
+  } catch (error) {
+    throw new Error("AI chatbot error");
+  }
+};
