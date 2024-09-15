@@ -19,8 +19,6 @@ export async function POST(req: NextRequest) {
       top_p,
     );
 
-    console.log(llama3Response);
-
     return NextResponse.json({ response: llama3Response });
   } catch (error) {
     console.error("LLaMA3 처리 중 오류:", error);

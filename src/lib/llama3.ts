@@ -253,7 +253,6 @@ question: ${question}
   }
 
   const responseText = await response.text();
-  console.log(responseText);
 
   if (!responseText.trim() || responseText.trim() === "[]") return null;
 
