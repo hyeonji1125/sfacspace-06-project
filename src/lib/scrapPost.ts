@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { ArticleType } from "@/types/scrap";
 
 // 스크랩 추가 함수
 export const addScrapPost = async (userEmail: string, postId: string) => {
@@ -43,10 +44,16 @@ export const getScrapPosts = async (userEmail: string) => {
         const q = query(crawlingRef, where("__name__", "in", scrapPosts));
         const querySnapshot = await getDocs(q);
 
-        const posts = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const posts = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            label: data.label as ArticleType,
+            name: data.title || "",
+            c_id: data.c_id,
+            created_at: data.upload_at,
+          };
+        });
         return posts;
       } else {
         console.log("No scrap posts");

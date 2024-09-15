@@ -42,10 +42,6 @@ export default function ReposLibrary() {
     setCurrentPageRepos(repos.slice(startIndex, endIndex));
   }, [repos, currentPage, ITEMS_PER_PAGE]);
 
-  useEffect(() => {
-    return setCurrentPage(1);
-  }, [setCurrentPage]);
-
   return (
     <section className="flex w-full flex-col gap-6">
       <ReposToolbar setRepos={setRepos} repositories={repositories} />
