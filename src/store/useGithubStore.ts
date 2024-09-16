@@ -70,7 +70,11 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
           if (node.path === path) {
             return {
               ...node,
-              children,
+              children: children.map(child => ({
+                ...child,
+                children: [],
+                expanded: false
+              })),
               expanded: !node.expanded,
             };
           } else if (node.children && node.children.length > 0) {
