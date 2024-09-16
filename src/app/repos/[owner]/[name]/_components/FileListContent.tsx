@@ -62,7 +62,6 @@ export default function FileListContent({
         toggleSelectFile(selectedFiles[0]);
         toggleSelectFile(item.path);
       }
-      selectFile(owner, name, item.path);
       const baseUrl = `/repos/${owner}/${name}`;
       const targetURL =
         status === "completed" && isResult
