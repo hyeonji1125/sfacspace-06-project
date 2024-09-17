@@ -5,11 +5,13 @@ import Button from "../Button";
 import Input from "../Input";
 import Textarea from "../Textarea";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { InquiryForm } from "@/types";
 import { validateForm } from "@/utils/validateForm";
+import SubmitContactFormModal from "./SubmitContactFormModal";
 
 export default function ContactForm() {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const { formData, isSubmitting, setFormData, submitForm } = useInquiryStore();
   const { data: session, status } = useSession();
 
@@ -40,6 +42,7 @@ export default function ContactForm() {
     if (!isFormValid) return;
 
     await submitForm();
+    setModalOpen(true);
 
     if (status === "unauthenticated") {
       setFormData("name", "");
@@ -60,6 +63,9 @@ export default function ContactForm() {
           </span>
           피드백이 정상적으로 반영됩니다.
         </p>
+        {modalOpen && (
+          <SubmitContactFormModal isOpen={modalOpen} onClose={setModalOpen} />
+        )}
         <form
           onSubmit={handleSubmit}
           className="space-y-3 text-left md:space-y-4 lg:space-y-[32px]"

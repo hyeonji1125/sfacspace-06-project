@@ -34,7 +34,6 @@ export const useInquiryStore = create<InquiryState>((set, get) => ({
       }
 
       const data = await response.json();
-      alert(data.message);
       set((state) => ({ formData: { ...state.formData, message: "" } }));
     } catch (error) {
       alert(error instanceof Error ? error.message : "Error");
