@@ -12,6 +12,7 @@ export type InquiryForm = {
 
 export type InquiryState = {
   formData: InquiryForm;
+  error: null | string;
   isSubmitting: boolean;
   setFormData: (field: keyof InquiryForm, value: string) => void;
   setIsSubmitting: (isSubmitting: boolean) => void;

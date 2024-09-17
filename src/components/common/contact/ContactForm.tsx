@@ -12,7 +12,8 @@ import SubmitContactFormModal from "./SubmitContactFormModal";
 
 export default function ContactForm() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const { formData, isSubmitting, setFormData, submitForm } = useInquiryStore();
+  const { formData, isSubmitting, error, setFormData, submitForm } =
+    useInquiryStore();
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -42,6 +43,12 @@ export default function ContactForm() {
     if (!isFormValid) return;
 
     await submitForm();
+
+    if (error) {
+      alert(error);
+      return;
+    }
+
     setModalOpen(true);
 
     if (status === "unauthenticated") {
