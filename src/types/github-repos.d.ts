@@ -16,7 +16,7 @@ export type RepositoryProps = {
 };
 
 export type RepositoryContent = {
-  isBookmarked: any;
+  isBookmarked?: boolean;
   name: string;
   path: string;
   sha: string;
