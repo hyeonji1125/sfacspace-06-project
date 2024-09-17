@@ -1,9 +1,9 @@
 "use client";
 
 import { useInquiryStore } from "@/store/useInquiryStore";
-import Button from "./Button";
-import Input from "./Input";
-import Textarea from "./Textarea";
+import Button from "../Button";
+import Input from "../Input";
+import Textarea from "../Textarea";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { InquiryForm } from "@/types";
