@@ -1,23 +1,22 @@
 "use client";
 
 import Button from "@/components/common/Button";
+import { useGithubStore } from "@/store/useGithubStore";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import LibraryLogin from "../../_components/LibraryLogin";
+import AnalyzeModal from "./_components/AnalyzeModal";
 import FileInspectionProgress from "./_components/FileInspectionProgress";
 import FileList from "./_components/FileList";
 import FileViewer from "./_components/FileViewer";
-import { useEffect, useState } from "react";
 import ReposTitle from "./_components/ReposTitle";
-import AnalyzeModal from "./_components/AnalyzeModal";
-import { useGithubStore } from "@/store/useGithubStore";
-import LibraryLogin from "../../_components/LibraryLogin";
-import { useSession } from "next-auth/react";
-import { useRepoParams } from "./_utils/useRepoParams";
 import { getSelectedItems } from "./_utils/getSelectedItems";
+import { useRepoParams } from "./_utils/useRepoParams";
 
 export default function AnalyzePage() {
   // 임시 code
   const { data: session } = useSession();
   const { owner, name, repoPath } = useRepoParams();
-
   const [isOpen, setIsOpen] = useState(false); // 모달 state
   const [isWhole, setIsWhole] = useState(false); // 파일 전체를 포함하는 지
   const [isLoading, setIsLoading] = useState(false);

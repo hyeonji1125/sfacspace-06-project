@@ -16,6 +16,7 @@ export type RepositoryProps = {
 };
 
 export type RepositoryContent = {
+  isBookmarked: any;
   name: string;
   path: string;
   sha: string;

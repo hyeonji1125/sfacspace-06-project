@@ -1,5 +1,5 @@
-import { create } from "zustand";
 import { RepositoryContent, RepositoryState } from "@/types";
+import { create } from "zustand";
 
 export const useGithubStore = create<RepositoryState>((set, get) => ({
   repositories: [],
@@ -60,7 +60,7 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       if (!response.ok)
         throw new Error("Failed to fetch subdirectory contents");
       const data = await response.json();
-      
+
       const addChildrenToNode = (
         nodes: RepositoryContent[],
         path: string,
@@ -108,7 +108,9 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       const decodedContent = decodeURIComponent(escape(atob(data.content)));
 
       set((state) => {
-        const updateContentInTree = (nodes: RepositoryContent[]): RepositoryContent[] => {
+        const updateContentInTree = (
+          nodes: RepositoryContent[],
+        ): RepositoryContent[] => {
           return nodes.map((node) => {
             if (node.path === path) {
               return { ...node, content: decodedContent };
@@ -138,8 +140,8 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       const selectedFiles = state.selectedFiles.includes(filePath)
         ? state.selectedFiles.filter((path) => path !== filePath)
         : [...state.selectedFiles, filePath];
-        console.log(selectedFiles);
-        
+      console.log(selectedFiles);
+
       return { selectedFiles };
     });
   },

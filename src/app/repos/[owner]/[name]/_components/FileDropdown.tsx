@@ -1,41 +1,39 @@
 "use client";
-import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
-import { useIsPathResult } from "../_utils/useIsPathResult";
+import { SortList } from "./FileList";
 
-export default function FileDropdown() {
-  const isResultPage = useIsPathResult();
-  const defaultSortArr = ["최신순", "오래된순", "폴더순", "파일순", "북마크순"];
-  const additionalSortArr = ["검사한파일순", "미검사순"];
-  const sortArr = isResultPage
-    ? [...defaultSortArr, ...additionalSortArr]
-    : defaultSortArr;
-  const [selectedSort, setSelectedSort] = useState(sortArr[0]);
+export default function FileDropdown({
+  sortList,
+  setSortList,
+}: {
+  sortList: SortList;
+  setSortList: (sort: SortList) => void;
+}) {
+  const defaultSortArr: SortList[] = ["폴더순", "파일순", "북마크순"];
 
-  const handleSortClick = (sort: string) => {
-    setSelectedSort(sort);
+  const handleSortClick = (sort: SortList) => {
+    setSortList(sort); // 부모 컴포넌트의 상태를 업데이트
   };
 
   return (
     <div
       className={twMerge(
-        "absolute -right-20 top-10 z-20 w-32 overflow-hidden rounded-lg bg-white shadow-xl dark:bg-custom-dropdown-dark-bg",
-        isResultPage && "-right-28 w-40",
+        "absolute -right-20 top-10 z-20 w-32 overflow-hidden rounded-lg bg-white shadow-xl",
       )}
     >
       <ul>
-        {sortArr.map((sort) => (
+        {defaultSortArr.map((sort) => (
           <li
             key={sort}
             className={twMerge(
-              "flex cursor-pointer items-center gap-[10px] p-[10px] text-lg text-text-gray-default transition-all duration-150 hover:bg-primary-purple-50 hover:text-text-gray-dark dark:hover:bg-primary-purple-50/20 dark:hover:text-text-gray-light",
-              selectedSort === sort &&
-                "bg-primary-purple-50 font-medium text-text-gray-dark dark:bg-primary-purple-50/20 dark:text-text-gray-light",
+              "flex cursor-pointer items-center gap-[10px] p-[10px] text-lg text-text-gray-default transition-all duration-150 hover:bg-primary-purple-50 hover:text-text-gray-dark",
+              sortList === sort &&
+                "bg-primary-purple-50 font-medium text-text-gray-dark",
             )}
             onClick={() => handleSortClick(sort)}
           >
-            {selectedSort === sort && <FaCheck />}
+            {sortList === sort && <FaCheck />}
             <span className="whitespace-nowrap">{sort}</span>
           </li>
         ))}
