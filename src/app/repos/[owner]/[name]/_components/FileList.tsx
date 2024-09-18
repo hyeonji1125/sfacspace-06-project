@@ -1,11 +1,13 @@
 "use client";
-import Image from "next/image";
-import { PiChecks } from "react-icons/pi";
 import { useGithubStore } from "@/store/useGithubStore";
+import Image from "next/image";
 import { useState } from "react";
+import { PiChecks } from "react-icons/pi";
 import FileDropdown from "./FileDropdown";
 import FileListContent from "./FileListContent";
 import FileListLoading from "./FileListLoading";
+
+export type SortList = "파일순" | "폴더순" | "북마크순";
 
 export default function FileList({
   isLoading,
@@ -21,6 +23,7 @@ export default function FileList({
   );
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [sortList, setSortList] = useState<SortList>("파일순"); // 정렬 상태 관리
 
   const handleMultiSelectToggle = () => {
     setIsMultiSelectMode(!isMultiSelectMode);
@@ -30,7 +33,7 @@ export default function FileList({
   };
 
   return (
-    <div className="flex max-h-[800px] w-80 flex-col overflow-hidden rounded-lg border border-line-default dark:border-line-dark/50">
+    <div className="flex max-h-[800px] w-80 flex-col rounded-lg border border-line-default dark:border-line-dark/50">
       <div className="flex items-center justify-between rounded-t-lg border-b border-line-default bg-primary-purple-light p-5 dark:bg-primary-purple-200">
         <p className="text-lg dark:text-black">Files</p>
         <div className="flex gap-3 text-2xl">
@@ -58,7 +61,9 @@ export default function FileList({
                 height={24}
               />
             </button>
-            {isDropdownVisible && <FileDropdown />}
+            {isDropdownVisible && (
+              <FileDropdown sortList={sortList} setSortList={setSortList} />
+            )}
           </div>
         </div>
       </div>
@@ -67,7 +72,10 @@ export default function FileList({
         {isLoading ? (
           <FileListLoading />
         ) : (
-          <FileListContent isMultiSelectMode={isMultiSelectMode} />
+          <FileListContent
+            isMultiSelectMode={isMultiSelectMode}
+            sortList={sortList} // 정렬 상태 전달
+          />
         )}
       </div>
     </div>

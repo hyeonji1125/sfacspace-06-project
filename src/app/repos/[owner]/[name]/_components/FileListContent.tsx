@@ -1,55 +1,72 @@
 "use client";
+import { fetchAllBookmarks } from "@/app/repos/_utils/bookmark"; // 북마크 정보 가져오는 함수
+import { sortFiles } from "@/app/repos/_utils/sortItem"; // 정렬 함수
+import { useGetUser } from "@/hooks/useGetUser";
 import { useGithubStore } from "@/store/useGithubStore";
+import { useLlama3Store } from "@/store/useLlama3Store";
 import { RepositoryContent } from "@/types";
 import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { useRepoParams } from "../_utils/useRepoParams";
 import FileItem from "./FileItem";
-import { useEffect, useState } from "react";
-import { useLlama3Store } from "@/store/useLlama3Store";
-import { useGetUser } from "@/hooks/useGetUser";
-import { useIsPathResult } from "../_utils/useIsPathResult";
 
 export default function FileListContent({
   isMultiSelectMode,
+  sortList,
 }: {
   isMultiSelectMode: boolean;
+  sortList: "폴더순" | "파일순" | "북마크순";
 }) {
   const router = useRouter();
   const { email } = useGetUser();
-  const isResult = useIsPathResult();
-  const { owner, name } = useRepoParams();
+  const { owner, name: repoName } = useRepoParams(); // 리포지토리 정보 가져오기
   const {
     repoContents,
-    selectFile,
     fetchSubDirectoryContents,
     toggleSelectFile,
     selectedFiles,
   } = useGithubStore((state) => ({
     repoContents: state.repoContents,
-    selectFile: state.selectFile,
     fetchSubDirectoryContents: state.fetchSubDirectoryContents,
     toggleSelectFile: state.toggleSelectFile,
     selectedFiles: state.selectedFiles,
   }));
-  const { fetchAnalysisResults, analysisStatus, isAnalyzing } =
-    useLlama3Store();
+  const { fetchAnalysisResults, analysisStatus } = useLlama3Store();
 
-  useEffect(() => {
-    const fetchAnalysisStatus = async () => {
-      if (email && owner && name) {
-        await fetchAnalysisResults(email, `${owner}/${name}`);
-      }
-    };
-    fetchAnalysisStatus();
-  }, [owner, name, email, fetchAnalysisResults]);
+  const [bookmarkedStatus, setBookmarkedStatus] = useState<{
+    [path: string]: boolean;
+  }>({}); // 파일별 북마크 상태 저장
 
+  // 북마크 정보 가져오기
   useEffect(() => {
-    console.log("Updated analysis status:", analysisStatus);
-    console.log("Is analyzing:", isAnalyzing);
-  }, [analysisStatus, isAnalyzing]);
+    if (email) {
+      fetchAllBookmarks(email, repoName, repoContents, setBookmarkedStatus);
+    }
+  }, [email, repoName, repoContents]);
+
+  // 분석 상태 가져오기
+  useEffect(() => {
+    if (email && owner && repoName) {
+      fetchAnalysisResults(email, `${owner}/${repoName}`);
+    }
+  }, [owner, repoName, email, fetchAnalysisResults]);
+
+  // 북마크 정보를 반영한 파일 리스트 생성
+  const updatedRepoContents = useMemo(() => {
+    return repoContents.map((file) => ({
+      ...file,
+      isBookmarked: bookmarkedStatus[file.path] || false,
+    }));
+  }, [repoContents, bookmarkedStatus]); // repoContents나 bookmarkedStatus가 변경될 때마다 실행
+
+  // 파일 리스트 정렬
+  const sortedContents = useMemo(
+    () => sortFiles(updatedRepoContents, sortList),
+    [updatedRepoContents, sortList],
+  );
 
   const handleFolderClick = async (folder: any) => {
-    await fetchSubDirectoryContents(owner, name, folder.path);
+    await fetchSubDirectoryContents(owner, repoName, folder.path);
   };
 
   const handleFileClick = (item: RepositoryContent, status: string) => {
@@ -62,9 +79,9 @@ export default function FileListContent({
         toggleSelectFile(selectedFiles[0]);
         toggleSelectFile(item.path);
       }
-      const baseUrl = `/repos/${owner}/${name}`;
+      const baseUrl = `/repos/${owner}/${repoName}`;
       const targetURL =
-        status === "completed" && isResult
+        status === "completed"
           ? `${baseUrl}/repo_inspection?repo=${item.path}`
           : `${baseUrl}?repo=${item.path}`;
 
@@ -77,7 +94,6 @@ export default function FileListContent({
       <>
         {nodes.map((node) => {
           const status = analysisStatus[node.path] || "none";
-          console.log(`Rendering node: ${node.path}, status: ${status}`);
           return (
             <li
               key={node.sha}
@@ -108,5 +124,5 @@ export default function FileListContent({
     );
   };
 
-  return <ul>{renderTree(repoContents)}</ul>;
+  return <ul>{renderTree(sortedContents)}</ul>;
 }
