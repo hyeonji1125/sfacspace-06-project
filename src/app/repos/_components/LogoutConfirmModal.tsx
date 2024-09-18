@@ -25,7 +25,7 @@ export default function LogoutConfirmModal({
       onClose={() => onClose(false)}
       shadow
       dimmed
-      className="gap-9 p-12"
+      className="mx-6 gap-6 p-12"
     >
       <Modal.Content>
         <SignOut color="dark:fill-custom-dark-text" />
@@ -41,17 +41,17 @@ export default function LogoutConfirmModal({
           </p>
         </Modal.Desc>
       </Modal.Box>
-      <Modal.Button className="mt-[18px]">
+      <Modal.Button className="mt-[18px] w-full">
         <Button
           theme="filled"
           onClick={() => onClose(false)}
-          className="w-[300px] bg-bg-gray-light font-normal text-line-default hover:shadow-none dark:bg-opacity-10"
+          className="w-full max-w-[300px] bg-bg-gray-light font-normal text-line-default hover:shadow-none dark:bg-opacity-10 md:text-xl lg:w-[300px]"
         >
           닫기
         </Button>
         <Button
           theme="filled"
-          className="w-[300px] font-normal"
+          className="w-full max-w-[300px] font-normal md:text-xl lg:w-[300px]"
           onClick={handleLogout}
         >
           확인
