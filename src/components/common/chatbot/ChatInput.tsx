@@ -8,7 +8,8 @@ import { ChatMessage } from "@/types/chatbot";
 
 export default function ChatInput() {
   const [question, setQuestion] = useState("");
-  const { addMessage, postDetail, fetchAIChatbot } = useChatbotStore();
+  const { addMessage, postDetail, fetchAIChatbot, isLoading } =
+    useChatbotStore();
 
   const handleChangeInputValue = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
@@ -19,6 +20,9 @@ export default function ChatInput() {
 
   const handleSubmitQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isLoading) return;
+
     const userMessage: ChatMessage = {
       sender: "USER",
       message: question,
@@ -60,7 +64,8 @@ export default function ChatInput() {
       />
       <button
         type="submit"
-        className="flex h-[36px] w-[46px] items-center justify-center rounded-[34px] bg-primary-purple-500 px-[14px] py-[10px]"
+        className="flex h-[36px] w-[46px] items-center justify-center rounded-[34px] bg-primary-purple-500 px-[14px] py-[10px] disabled:bg-grayscale-50"
+        disabled={isLoading}
       >
         <ArrowBottom />
       </button>
