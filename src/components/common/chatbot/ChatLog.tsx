@@ -19,7 +19,7 @@ export default function ChatLog() {
   return (
     <div
       ref={chatLogRef}
-      className="custom-scrollbar flex h-full flex-col justify-start gap-8 overflow-x-hidden overflow-y-scroll px-5 py-6"
+      className="custom-scrollbar flex h-full flex-col justify-start gap-8 overflow-y-auto overflow-x-hidden px-5 py-6"
     >
       <FlawDetectorChat created_at={Date.now().toString()}>
         <span className="font-semibold">{postDetail.title}</span>
