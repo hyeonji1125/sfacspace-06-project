@@ -49,7 +49,7 @@ export default function ChatInput() {
 
   return (
     <form
-      className="flex max-h-[140px] w-full max-w-[518px] items-center gap-[10px] rounded-[24px] bg-[#f8f8f9] px-4 py-[10px]"
+      className="flex max-h-[140px] w-full max-w-[518px] items-center gap-[10px] rounded-[24px] bg-[#f8f8f9] px-4 py-[10px] dark:bg-opacity-10"
       onSubmit={handleSubmitQuestion}
     >
       <TextareaAutosize
@@ -60,14 +60,14 @@ export default function ChatInput() {
         value={question}
         minRows={1}
         cacheMeasurements
-        className="custom-scrollbar h-auto max-h-[112px] w-full flex-grow resize-none bg-transparent px-1 py-2 text-base text-text-gray-dark placeholder-grayscale-30 outline-none"
+        className="custom-scrollbar h-auto max-h-[112px] w-full flex-grow resize-none bg-transparent px-1 py-2 text-base text-text-gray-dark placeholder-grayscale-30 outline-none dark:text-text-gray-light dark:placeholder-grayscale-50"
       />
       <button
         type="submit"
-        className="flex h-[36px] w-[46px] items-center justify-center rounded-[34px] bg-primary-purple-500 px-[14px] py-[10px] disabled:bg-grayscale-50"
+        className="flex h-[36px] w-[46px] items-center justify-center rounded-[34px] bg-primary-purple-500 px-[14px] py-[10px] disabled:bg-grayscale-50 dark:bg-primary-purple-300 dark:disabled:bg-grayscale-50"
         disabled={isLoading}
       >
-        <ArrowBottom />
+        <ArrowBottom color="dark:fill-custom-dark-bg" />
       </button>
     </form>
   );

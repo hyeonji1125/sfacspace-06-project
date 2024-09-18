@@ -12,11 +12,11 @@ export default function FlawDetectorChat({
 }) {
   return (
     <div className="flex w-full gap-3">
-      <div className="flex h-[52px] w-[52px] items-center justify-center rounded-[18px] bg-primary-purple-500 p-3">
-        <Bug className="h-full w-full" />
+      <div className="flex h-[52px] w-[52px] items-center justify-center rounded-[18px] bg-primary-purple-500 p-3 dark:bg-primary-purple-300">
+        <Bug className="h-full w-full" color="dark:fill-custom-dark-bg" />
       </div>
       <div className="flex flex-col gap-[6px]">
-        <span className="select-none text-lg font-medium leading-6 text-[#212122]">
+        <span className="select-none text-lg font-medium leading-6 text-[#212122] dark:text-custom-dark-text">
           플로디텍터 운영자
         </span>
         <ChatBubble sender="AI" created_at={created_at}>
