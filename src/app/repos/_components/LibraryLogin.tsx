@@ -1,13 +1,14 @@
 import Link from "next/link";
 import LibraryTitle from "./LibraryTitle";
 import PcOnlyMessage from "@/components/common/PcOnlyMessage";
+import WaveCircle from "@/components/common/WaveCircle";
 
 export default function LibraryLogin() {
   return (
     <>
       <PcOnlyMessage />
       <section className="relative hidden h-[90vh] w-full flex-col items-center justify-center overflow-hidden xl:flex">
-        <div className="absolute inset-0 h-full w-full animate-moveCircle bg-[url('/assets/images/circle.svg')] bg-cover bg-center dark:opacity-20" />
+        <WaveCircle />
         <div className="-mt-20 flex w-full flex-col items-center justify-center gap-[60px] text-primary-purple-500">
           <LibraryTitle
             className="relative dark:text-custom-dark-text"

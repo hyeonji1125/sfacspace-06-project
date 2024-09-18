@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/common/Button";
+import WaveCircle from "@/components/common/WaveCircle";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,18 +25,10 @@ export default function HeroSection() {
 
   return (
     <section className="relative z-20 flex h-[90vh] w-full overflow-hidden text-primary-purple-500 dark:text-custom-dark-text">
-      <div className="z-1">
-        <Image
-          src="/assets/images/circle.svg"
-          alt="Background Image"
-          fill
-          style={{ objectFit: "cover" }}
-          className="absolute inset-0 h-full w-full animate-moveCircle dark:opacity-20"
-        />
-      </div>
+      <WaveCircle />
       <div className="z-20 flex w-full flex-col items-center justify-center gap-[20px]">
         <div className="text-4xl md:text-6xl">Find your Flaw,</div>
-        <div className="flex items-center justify-center rounded-full border-4 border-primary-purple-500 px-[15px] py-[10px] text-4xl tracking-wide dark:border-purple-50 dark:bg-custom-dark-bg md:px-[40px] md:py-[15px] md:text-6xl">
+        <div className="flex items-center justify-center rounded-full border-4 border-primary-purple-500 bg-white px-[15px] py-[10px] text-4xl tracking-wide dark:border-purple-50 dark:bg-custom-dark-bg md:px-[40px] md:py-[15px] md:text-6xl">
           FlawDetector
         </div>
         <p className="flex flex-col items-center pt-[10px] text-base md:text-xl lg:flex-row">
@@ -50,7 +43,7 @@ export default function HeroSection() {
               theme="filled"
               size="small"
               isRound
-              className="px-4 py-[6px] md:px-6 md:py-4"
+              className="px-4 py-[6px] dark:bg-primary-purple-300 md:px-6 md:py-4"
             >
               <div className="text-lg font-light md:text-2xl">
                 {status === "authenticated" ? "파일 분석하러 가기" : "Login"}

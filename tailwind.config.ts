@@ -92,6 +92,18 @@ const config: Config = {
           "50%": { transform: "scale(1.2)" },
         },
 
+        circleWave: {
+          "0%": {
+            width: "0",
+            height: "0",
+          },
+
+          "100%": {
+            width: "3856px",
+            height: "1136px",
+          },
+        },
+
         spinReverse: {
           to: { transform: "rotate(-360deg)" },
         },
@@ -116,6 +128,7 @@ const config: Config = {
       animation: {
         float: "float 2.04s ease-in-out infinite",
         moveCircle: "moveCircle 5s ease-in-out infinite",
+        circleWave: "circleWave 16s ease-in-out infinite",
         spinReverse: "spinReverse 2s linear infinite",
         flipHourglass: "flip 2s ease-in-out infinite",
         rotateForward: "rotateForward 50s linear infinite",
