@@ -58,12 +58,12 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full rounded-[40px] border-[1.5px] border-primary-purple-500 px-5 py-8 dark:border-transparent dark:bg-zinc-700 md:p-8 lg:max-w-[800px] lg:p-10 xl:max-w-[800px] xl:p-[40px] 2xl:max-w-[900px] 2xl:p-[60px]">
+    <div className="w-full rounded-[40px] border-[1.5px] border-primary-purple-500 px-5 py-8 dark:border-primary-purple-300 dark:bg-grayscale-90 md:p-8 lg:max-w-[800px] lg:p-10 xl:max-w-[800px] xl:p-[40px] 2xl:max-w-[900px] 2xl:p-[60px]">
       <div className="rounded-3xl text-center leading-[1.5] tracking-[-0.01em] lg:text-left">
         <h3 className="mb-4 text-xl font-bold md:text-[22px] lg:mb-[32px] lg:text-[24px]">
           문의하기
         </h3>
-        <p className="mb-6 text-sm font-normal text-[#8f8f8f] dark:text-gray-300 md:text-[15px] lg:mb-[32px] lg:text-[16px]">
+        <p className="mb-6 text-sm font-normal text-[#8f8f8f] dark:text-text-gray-default md:text-[15px] lg:mb-[32px] lg:text-[16px]">
           문의하고싶은 내용을 구체적으로 작성해주셔야{" "}
           <span className="inline lg:hidden">
             <br />
@@ -80,7 +80,7 @@ export default function ContactForm() {
           <div>
             <label
               htmlFor="name"
-              className="mb-2 block text-sm font-medium md:text-[18px]"
+              className="mb-2 block text-sm font-medium dark:text-text-gray-light md:text-[18px]"
             >
               Name
             </label>
@@ -90,7 +90,7 @@ export default function ContactForm() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="placeholder:text-sm dark:placeholder:text-gray-400 md:placeholder:text-base"
+              className="placeholder:text-sm dark:placeholder:text-grayscale-50 md:placeholder:text-base"
               placeholder="이름을 적어주세요."
             />
           </div>
@@ -98,7 +98,7 @@ export default function ContactForm() {
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block text-sm font-medium md:text-[18px]"
+              className="mb-2 block text-sm font-medium dark:text-text-gray-light md:text-[18px]"
             >
               Email
             </label>
@@ -108,7 +108,7 @@ export default function ContactForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="placeholder:text-sm dark:placeholder:text-gray-400 md:placeholder:text-base"
+              className="placeholder:text-sm dark:placeholder:text-grayscale-50 md:placeholder:text-base"
               placeholder="justin@flawfactory.kr"
               disabled={status === "authenticated"}
               readOnly={status === "authenticated"}
@@ -118,7 +118,7 @@ export default function ContactForm() {
           <div>
             <label
               htmlFor="message"
-              className="mb-2 block text-sm font-medium md:text-[18px]"
+              className="mb-2 block text-sm font-medium dark:text-text-gray-light md:text-[18px]"
             >
               Message
             </label>
@@ -128,7 +128,7 @@ export default function ContactForm() {
               value={formData.message}
               onChange={handleChange}
               placeholder="내용을 적어주세요."
-              className="h-40 placeholder:text-sm dark:placeholder:text-gray-400 md:h-48 md:placeholder:text-base lg:h-52"
+              className="h-40 placeholder:text-sm dark:placeholder:text-grayscale-50 md:h-48 md:placeholder:text-base lg:h-52"
             />
           </div>
 
@@ -137,6 +137,7 @@ export default function ContactForm() {
             theme="filled"
             size="large"
             disabled={isSubmitting}
+            className="dark:bg-primary-purple-300 dark:font-bold dark:text-grayscale-90 hover:dark:bg-primary-purple-200"
           >
             {isSubmitting ? "전송 중..." : "문의 보내기"}
           </Button>

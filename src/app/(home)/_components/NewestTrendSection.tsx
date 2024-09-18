@@ -61,7 +61,7 @@ export default function NewestTrendSection() {
             transition={{ duration: 0.5, ease: "easeIn" }}
             viewport={{ once: true }}
           >
-            <h2 className="inter flex flex-col text-3xl font-bold !leading-snug tracking-[-1px] text-primary-purple-500 dark:text-primary-purple-500 md:text-5xl 2xl:text-6xl">
+            <h2 className="inter flex flex-col text-3xl font-bold !leading-snug tracking-[-1px] text-primary-purple-500 dark:text-primary-purple-300 md:text-5xl 2xl:text-6xl">
               <span className="whitespace-nowrap">최신 보안 동향을</span>
               <span className="whitespace-nowrap">실시간으로 확인하세요.</span>
             </h2>

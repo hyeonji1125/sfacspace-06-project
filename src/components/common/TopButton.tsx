@@ -23,7 +23,7 @@ export default function TopButton() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [setTopButtonVisible]); 
+  }, [setTopButtonVisible]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -37,11 +37,11 @@ export default function TopButton() {
           "fixed bottom-5 right-5 z-20 flex h-12 w-12 flex-col items-center justify-center gap-0 rounded-full border-[1.46px] px-5 sm:h-16 sm:w-16 sm:gap-1 md:bottom-8 md:right-8 md:h-[76px] md:w-[76px] md:gap-2",
           "border-primary-purple-500 bg-white text-primary-purple-500 shadow-md transition-all duration-200 ease-in-out",
           "hover:border-none hover:bg-primary-purple-500 hover:text-white",
-          "dark:border-none dark:bg-primary-purple-500 dark:text-white",
-          "dark:hover:bg-primary-purple-400 dark:hover:text-white",
+          "dark:border-none dark:bg-primary-purple-300 dark:text-custom-dark-bg",
+          "dark:hover:bg-primary-purple-200",
           topButtonVisible
             ? "scale-100 opacity-100"
-            : "pointer-events-none scale-0 opacity-0"
+            : "pointer-events-none scale-0 opacity-0",
         )}
       >
         <FaArrowUp className="h-8 w-8 p-[6px] sm:p-[2px]" />

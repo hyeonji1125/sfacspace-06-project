@@ -43,9 +43,9 @@ export default function HeroSection() {
               theme="filled"
               size="small"
               isRound
-              className="px-4 py-[6px] dark:bg-primary-purple-300 md:px-6 md:py-4"
+              className="px-4 py-[6px] dark:bg-primary-purple-300 dark:text-custom-dark-bg hover:dark:bg-primary-purple-200 md:h-[56px] md:px-6 md:py-4"
             >
-              <div className="text-lg font-light md:text-2xl">
+              <div className="text-lg font-light dark:font-normal md:text-2xl">
                 {status === "authenticated" ? "파일 분석하러 가기" : "Login"}
               </div>
             </Button>
@@ -53,7 +53,7 @@ export default function HeroSection() {
         </div>
         <HiOutlineChevronDoubleDown
           size={50}
-          className="z-20 mt-[10vh] animate-float cursor-pointer text-primary-purple-500 dark:text-purple-200"
+          className="z-20 mt-[10vh] animate-float cursor-pointer text-primary-purple-500 dark:text-primary-purple-100"
           onClick={scrollToNextSection}
         />
       </div>

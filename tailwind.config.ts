@@ -14,6 +14,7 @@ const config: Config = {
         "custom-dark-bg": "#121212",
         "custom-dark-text": "#e5e7eb",
         "custom-dark-accent": "#3b82f6",
+        "custom-purple-bg": "#5A2FBF",
 
         // 밝은 모드 색상 조합
         "custom-light-bg": "#f1f1f1",
