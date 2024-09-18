@@ -109,7 +109,7 @@ function Description({
   return (
     <div
       className={twMerge(
-        "flex flex-col items-center justify-center gap-[20px] p-[10px] text-text-gray-default",
+        "flex flex-col items-center justify-center gap-[20px] p-[10px] text-center text-text-gray-default",
         className && className,
       )}
     >

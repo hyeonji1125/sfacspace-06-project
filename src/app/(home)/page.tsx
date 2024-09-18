@@ -13,9 +13,7 @@ export default function Home() {
       <FindingFlawSection />
       <NewestTrendSection />
       <SecureProcessSection />
-      <div className="">
-        <ContactForm />
-      </div>
+      <ContactForm />
     </>
   );
 }

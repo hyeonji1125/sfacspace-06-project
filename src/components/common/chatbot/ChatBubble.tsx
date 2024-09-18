@@ -23,8 +23,8 @@ export default function ChatBubble({
         className={twMerge(
           "max-w-[300px] break-words rounded-[20px] px-4 py-3 text-base font-normal",
           sender === "AI"
-            ? "order-1 rounded-tl-none bg-[#f7f7f7] text-[#535557]"
-            : "order-2 rounded-tr-none bg-primary-purple-500 text-white",
+            ? "order-1 rounded-tl-none bg-[#f7f7f7] text-[#535557] dark:bg-opacity-10 dark:text-grayscale-30"
+            : "order-2 rounded-tr-none bg-primary-purple-500 text-white dark:bg-primary-purple-300 dark:text-custom-dark-bg",
         )}
       >
         {children}

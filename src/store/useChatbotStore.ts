@@ -1,5 +1,12 @@
-import { ChatbotState } from "@/types/chatbot";
+import { ChatbotState, ChatMessage } from "@/types/chatbot";
 import { create } from "zustand";
+
+const AI_ERROR_MESSAGE: ChatMessage = {
+  sender: "AI",
+  message: "답변 도중 에러가 발생했어요!\\n 다시 한 번 시도해주세요.",
+  created_at: Date.now().toString(),
+  id: Date.now().toString(),
+};
 
 export const useChatbotStore = create<ChatbotState>((set) => ({
   postDetail: { title: "", content: "" },
@@ -27,6 +34,7 @@ export const useChatbotStore = create<ChatbotState>((set) => ({
 
       return response;
     } catch (error) {
+      set((state) => ({ chatLog: [...state.chatLog, AI_ERROR_MESSAGE] }));
       throw new Error("Failed to fetch AI response.");
     } finally {
       set({ isLoading: false });

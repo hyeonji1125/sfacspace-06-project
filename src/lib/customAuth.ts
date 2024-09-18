@@ -1,11 +1,14 @@
 import { signOut } from "next-auth/react";
-import { deleteCollection, deleteData } from "@/hooks/fetchData";
 
 export const customSignOut = async (email: string, callbackUrl?: string) => {
   try {
     if (email) {
-      await deleteCollection(`users/${email}/repos`);
-      await deleteData("users", email);
+      await fetch("/api/user", {
+        method: "DELETE",
+        body: JSON.stringify({
+          email,
+        }),
+      });
 
       console.log("User data deleted successfully");
     }

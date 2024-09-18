@@ -19,7 +19,7 @@ export default function LibraryLogin() {
             </p>
             <Link
               href="/login"
-              className="rounded-full bg-primary-purple-500 px-6 py-2 text-[28px] font-extralight text-white hover:shadow-lg"
+              className="rounded-full bg-primary-purple-500 px-6 py-2 text-[28px] font-extralight text-white hover:shadow-lg dark:bg-primary-purple-300"
             >
               Login
             </Link>
