@@ -28,7 +28,7 @@ export default function HeroSection() {
       <WaveCircle />
       <div className="z-20 flex w-full flex-col items-center justify-center gap-[20px]">
         <div className="text-4xl md:text-6xl">Find your Flaw,</div>
-        <div className="flex items-center justify-center rounded-full border-4 border-primary-purple-500 bg-white px-[15px] py-[10px] text-4xl tracking-wide dark:border-purple-50 dark:bg-custom-dark-bg md:px-[40px] md:py-[15px] md:text-6xl">
+        <div className="flex items-center justify-center rounded-full border-[3px] border-primary-purple-500 bg-white px-[15px] py-[10px] text-4xl tracking-wide dark:border-purple-50 dark:bg-custom-dark-bg md:border-4 md:px-[40px] md:py-[15px] md:text-6xl">
           FlawDetector
         </div>
         <p className="flex flex-col items-center pt-[10px] text-base md:text-xl lg:flex-row">
