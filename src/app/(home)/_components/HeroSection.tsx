@@ -2,7 +2,6 @@
 import Button from "@/components/common/Button";
 import WaveCircle from "@/components/common/WaveCircle";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
@@ -12,9 +11,10 @@ export default function HeroSection() {
   const flawSectionRef = useRef<HTMLDivElement | null>(null); // Ref를 생성하여 FindingFlawSection에 연결
   const scrollToNextSection = () => {
     if (flawSectionRef.current) {
+      const headerEl = document.getElementById("header");
+      const headerHeight = headerEl?.scrollHeight ?? 0;
       const componentHeight = flawSectionRef.current.scrollHeight; // 컴포넌트의 전체 높이 가져오기
-      const componentTop = flawSectionRef.current.offsetTop; // 컴포넌트의 최상단 위치 가져오기
-      const scrollPosition = componentTop + componentHeight; // 최상단 위치에 컴포넌트 전체 높이를 더해서 최하단 위치 계산
+      const scrollPosition = componentHeight + headerHeight; // 최상단 위치에 컴포넌트 전체 높이를 더해서 최하단 위치 계산
 
       window.scrollTo({
         top: scrollPosition, // 컴포넌트의 전체 높이만큼 스크롤
