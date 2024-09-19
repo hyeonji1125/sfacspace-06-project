@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import icons from "../../../public/assets/icons";
 import {
   DarkModeIcon,
+  FlawDetectorIconLogo,
   FlawDetectorLogo,
   LightModeIcon,
 } from "../../../public/assets/svg/SvgIcons";
@@ -44,35 +45,35 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
           <Link href="/">
             <h1>
-              <Image
-                src={icons.MainLogo}
-                alt="FlawDetector"
+              <FlawDetectorIconLogo
                 className="h-[30px] w-[30px] lg:hidden"
+                color="dark:stroke-primary-purple-300"
               />
               <FlawDetectorLogo
-                className={"hidden lg:block"}
+                className="hidden lg:block"
                 fill="currentColor"
+                color="dark:stroke-primary-purple-300"
               />
             </h1>
           </Link>
           <div className="flex items-center space-x-4 text-[14px] font-medium md:space-x-8 md:text-[18px]">
             <Link
               href="/vuldb"
-              className="cursor-pointer hover:text-primary-purple-500"
+              className="cursor-pointer hover:text-primary-purple-500 dark:hover:text-primary-purple-300"
             >
               취약점 DB
             </Link>
 
             <Link
               href="/repos"
-              className="cursor-pointer hover:text-primary-purple-500"
+              className="cursor-pointer hover:text-primary-purple-500 dark:hover:text-primary-purple-300"
             >
               MY 저장소
             </Link>
 
             {status === "authenticated" && (
               <span
-                className="cursor-pointer hover:text-primary-purple-500"
+                className="cursor-pointer hover:text-primary-purple-500 dark:hover:text-primary-purple-300"
                 onClick={() => setModalOpen(true)}
               >
                 로그아웃

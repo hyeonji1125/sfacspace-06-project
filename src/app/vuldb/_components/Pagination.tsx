@@ -27,7 +27,7 @@ export default function Pagination({
   }
 
   return (
-    <div className="mb-2 flex items-center justify-center text-base font-normal text-[#3f3f3f]">
+    <div className="mb-2 flex items-center justify-center text-base font-normal text-text-gray-default">
       {startPage > 1 && (
         <button
           className="hover:bg-bg-purple-light"
@@ -40,7 +40,7 @@ export default function Pagination({
         <button
           key={page}
           onClick={() => setCurrent(page)}
-          className={`h-9 w-9 px-2 hover:bg-bg-purple-light ${page === current ? "bg-bg-purple-light font-bold" : ""}`}
+          className={`rounded-1 h-9 w-9 px-2 hover:bg-bg-purple-light hover:dark:bg-grayscale-80 ${page === current ? "font-bold text-primary-purple-500 dark:text-custom-dark-text" : ""}`}
         >
           {page}
         </button>
