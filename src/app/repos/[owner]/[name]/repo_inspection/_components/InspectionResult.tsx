@@ -53,9 +53,8 @@ export default function InspectionResult() {
           <ul className="flex flex-col gap-7">
             {matchingResults.analysisResult.analysis
               .slice(0, loadedItems)
-              .map((item) => (
-                <li key={item.title}>
-                  {/* <span>ddd{item.lineNumber}</span> */}
+              .map((item, index) => (
+                <li key={`${item.title}-${index}`}>
                   <Infobox
                     {...item}
                     language={matchingResults.analysisResult.language}

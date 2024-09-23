@@ -33,10 +33,10 @@ export default function RepositoryList({
   return (
     <ul className="grid w-full grid-cols-4 gap-6">
       {currentRepos.length !== 0 &&
-        currentRepos.map((repo) => {
+        currentRepos.map((repo, index) => {
           const matchData = findMatchData(repo, reposData);
           return (
-            <li key={repo.name}>
+            <li key={`${repo.id || repo.name}-${index}`}>
               <RepositoryItem {...repo} matchData={matchData} />
             </li>
           );
