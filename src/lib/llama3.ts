@@ -12,11 +12,7 @@ function checkEnvVar(name: string): string {
 
 // JSON 문자열을 정리하는 함수
 function sanitizeJsonString(str: string) {
-  let result = str.replace(/[\n\r\t]/g, "");
-
-  result = result.replace(/(?<!\\)(?:\\\\)*\\/g, (match) => match + "\\");
-
-  return result;
+  return str.replace(/[\n\r\t]/g, "").replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
 }
 
 // JSON 파싱 시 실패할 경우 부분적으로 파싱 시도 함수
@@ -107,12 +103,13 @@ async function analyzeFile(
 
 조건 6: 취약점이 있는 코드 단락이 존재할때마다 하나의 배열 아이템을 가지게 됩니다. 예를들어 찾아낸 취약점이 5개일 경우 답변 배열 내부의 취약점 객체 아이템은 5개가 됩니다. 
 
-조건 7: 취약점 객체는 title, vulnerabilityCode, description, suggestion 프로퍼티를 가집니다. 취약점 객체 아이템은 아래의 형식을 따른다. 
+조건 7: 취약점 객체는 title, vulnerabilityCode, description, suggestion, lineNumber 프로퍼티를 가집니다. 취약점 객체 아이템은 아래의 형식을 따릅니다. 
 { 
    title: “취약점 이름(영어)”, 
    vulnerabilityCode: “취약점을 발견한 코드 단락(프로그래밍 언어)”, 
    description: “취약점 설명, 위험성, 문제점, 수정 방안에 대한 설명(한국어)”, 
-   suggestion: “취약점을 개선한 코드(프로그래밍 언어)” 
+   suggestion: “취약점을 개선한 코드(프로그래밍 언어)” ,
+   lineNumber: 취약점이 발견된 코드의 시작 줄 번호(숫자)
 }
 
 조건 8: title은 해당 코드 단락의 취약점에 대해 짧게 요약한 제목입니다. 취약점을 핵심적으로 설명한 Phrase를 title로 합니다. 예외적으로 영어 답변을 전달해야 하는 프로퍼티로, 명확한 영어 phrase를 전달해주세요.
@@ -127,11 +124,13 @@ async function analyzeFile(
 
 조건 13: 코드(vulnerabilityCode, suggestion)는 이스케이프 처리해야 합니다.
 
+조건 14: lineNumber는 취약점이 발견된 코드 단락의 시작 줄 번호입니다. 코드의 첫 줄을 1로 시작하여 계산합니다.
+
 파일명: ${file.name}
 코드:
 ${file.content}
 
-위 코드를 분석하고, 발견된 모든 취약점에 대해 지정된 JSON 형식으로 답변을 작성해주세요. suggestion은 꼭 수정이 필요한 코드 부분만 포함하고, 추가 설명 없이 코드만 제시해주세요. 코드는 일반 텍스트로 작성하되, 들여쓰기와 줄바꿈을 정확히 유지해주세요.`;
+위 코드를 분석하고, 발견된 모든 취약점에 대해 지정된 JSON 형식으로 답변을 작성해주세요. suggestion은 꼭 수정이 필요한 코드 부분만 포함하고, 추가 설명 없이 코드만 제시해주세요. 코드는 일반 텍스트로 작성하되, 들여쓰기와 줄바꿈을 정확히 유지해주세요. 각 취약점에 대해 정확한 lineNumber를 제공해주세요.`;
 
   const response = await fetch(`${checkEnvVar("LLAMA3_API_URL")}/generate`, {
     method: "POST",

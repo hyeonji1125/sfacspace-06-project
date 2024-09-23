@@ -5,7 +5,6 @@ import { PiSpinnerGapBold } from "react-icons/pi";
 import { useInView } from "react-intersection-observer";
 import { useLlama3Store } from "@/store/useLlama3Store";
 import { useRepoParams } from "../../_utils/useRepoParams";
-import { AnalysisResult } from "@/types";
 
 export default function InspectionResult() {
   const analysisResults = useLlama3Store((state) => state.analysisResults);
@@ -54,8 +53,8 @@ export default function InspectionResult() {
           <ul className="flex flex-col gap-7">
             {matchingResults.analysisResult.analysis
               .slice(0, loadedItems)
-              .map((item) => (
-                <li key={item.title}>
+              .map((item, index) => (
+                <li key={`${item.title}-${index}`}>
                   <Infobox
                     {...item}
                     language={matchingResults.analysisResult.language}
