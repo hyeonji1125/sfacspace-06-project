@@ -2,7 +2,6 @@
 import Button from "@/components/common/Button";
 import WaveCircle from "@/components/common/WaveCircle";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
@@ -12,9 +11,10 @@ export default function HeroSection() {
   const flawSectionRef = useRef<HTMLDivElement | null>(null); // Ref를 생성하여 FindingFlawSection에 연결
   const scrollToNextSection = () => {
     if (flawSectionRef.current) {
+      const headerEl = document.getElementById("header");
+      const headerHeight = headerEl?.scrollHeight ?? 0;
       const componentHeight = flawSectionRef.current.scrollHeight; // 컴포넌트의 전체 높이 가져오기
-      const componentTop = flawSectionRef.current.offsetTop; // 컴포넌트의 최상단 위치 가져오기
-      const scrollPosition = componentTop + componentHeight; // 최상단 위치에 컴포넌트 전체 높이를 더해서 최하단 위치 계산
+      const scrollPosition = componentHeight + headerHeight; // 최상단 위치에 컴포넌트 전체 높이를 더해서 최하단 위치 계산
 
       window.scrollTo({
         top: scrollPosition, // 컴포넌트의 전체 높이만큼 스크롤
@@ -28,7 +28,7 @@ export default function HeroSection() {
       <WaveCircle />
       <div className="z-20 flex w-full flex-col items-center justify-center gap-[20px]">
         <div className="text-4xl md:text-6xl">Find your Flaw,</div>
-        <div className="flex items-center justify-center rounded-full border-4 border-primary-purple-500 bg-white px-[15px] py-[10px] text-4xl tracking-wide dark:border-purple-50 dark:bg-custom-dark-bg md:px-[40px] md:py-[15px] md:text-6xl">
+        <div className="flex items-center justify-center rounded-full border-[3px] border-primary-purple-500 bg-white px-[15px] py-[10px] text-4xl tracking-wide dark:border-purple-50 dark:bg-custom-dark-bg md:border-4 md:px-[40px] md:py-[15px] md:text-6xl">
           FlawDetector
         </div>
         <p className="flex flex-col items-center pt-[10px] text-base md:text-xl lg:flex-row">

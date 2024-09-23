@@ -41,7 +41,10 @@ const Header: React.FC = () => {
       {modalOpen && (
         <LogoutConfirmModal isOpen={modalOpen} onClose={setModalOpen} />
       )}
-      <header className="sticky top-0 z-40 w-full border-b border-white bg-[rgba(255,255,255,0.16)] px-4 py-4 backdrop-blur-md dark:border-custom-dark-bg dark:bg-[rgba(0,0,0,0.16)] md:px-20 md:py-12">
+      <header
+        id="header"
+        className="sticky top-0 z-40 w-full border-b border-white bg-[rgba(255,255,255,0.16)] px-4 py-4 backdrop-blur-md dark:border-custom-dark-bg dark:bg-[rgba(0,0,0,0.16)] md:px-20 md:py-12"
+      >
         <div className="flex items-center justify-between text-custom-light-text dark:text-custom-dark-text">
           <Link href="/">
             <h1>
