@@ -19,6 +19,7 @@ export type AnalysisResult = {
 export type Llama3State = {
   isAnalyzing: boolean;
   analysisResults: AnalysisResult[];
+  focusedLocation: string | null;
   analysisStatus: Record<string, NonNullable<RepositoryContent["status"]>>;
   error: string | null;
   startAnalysis: (
@@ -31,5 +32,6 @@ export type Llama3State = {
     repoId: string,
   ) => Promise<Record<string, NonNullable<RepositoryContent["status"]>>>;
   setAnalysisResults: (results: AnalysisResult[]) => void;
+  setFocusedLocation: (title: string | null) => void;
   clearResults: () => void;
 };

@@ -1,3 +1,4 @@
+import { useLlama3Store } from "@/store/useLlama3Store";
 import { resultType } from "@/types";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
@@ -11,6 +12,7 @@ export default function Infobox({
   language,
 }: resultType & { language: string }) {
   const [isCopy, setIsCopy] = useState(false);
+  const setFocusedLocation = useLlama3Store((state) => state.setFocusedLocation);
 
   const handleCopyClick = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -30,6 +32,7 @@ export default function Infobox({
           <button
             type="button"
             className="whitespace-nowrap rounded-full border-2 border-accent-red px-2 text-accent-red hover:bg-white dark:hover:bg-white/20"
+            onClick={() => setFocusedLocation(title)}
           >
             위치보기
           </button>

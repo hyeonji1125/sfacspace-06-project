@@ -3,7 +3,7 @@ import { useGithubStore } from "@/store/useGithubStore";
 import { useLlama3Store } from "@/store/useLlama3Store";
 import { AnalysisResult, resultType } from "@/types/llama3";
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import hljs from "highlight.js";
 import "/src/styles/code.css";
 import InspectionAlert from "./InspectionAlert";
@@ -21,7 +21,10 @@ export default React.memo(function FileViewer() {
   }));
 
   const analysisResults = useLlama3Store((state) => state.analysisResults);
+  const focusedLocation = useLlama3Store((state) => state.focusedLocation);
   const [isOpenInspectionAlert, setIsOpenInspectionAlert] = useState(true);
+
+  const codeRef = useRef<HTMLPreElement>(null);
 
   const currentFileAnalysis = useMemo(() => {
     return analysisResults.find(result => result.path === selectedFile?.path);
@@ -49,6 +52,18 @@ export default React.memo(function FileViewer() {
     }
   }, [selectedFile, isResultPage]);
 
+  useEffect(() => {
+    if (focusedLocation && codeRef.current) {
+      const titleElement = codeRef.current.querySelector(`[data-title="${focusedLocation}"]`);
+      if (titleElement) {
+        titleElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        titleElement.classList.remove('text-yellow-400');
+        titleElement.classList.add('text-red-500');
+      }
+    }
+  }, [focusedLocation]);
+
+
   const renderContent = () => {
     if (!selectedFile || !selectedFile.content) return null;
 
@@ -60,7 +75,14 @@ export default React.memo(function FileViewer() {
       const lineNumber = index + 1;
       const analysisItem = analysisItems.find(item => item.lineNumber === lineNumber);
       
-      if (analysisItem) result += `<span class="text-yellow-400 font-bold">// ${analysisItems.indexOf(analysisItem) + 1}. ${analysisItem.title}</span>\n`;   
+      /* 
+      취약점 title 추가
+      이 부분은 HTML 동적으로 끼워넣어서 code highlight에서 오류를 보임
+      추후 수정해야함 
+      */
+      if (analysisItem) {
+        result += `<span class="text-yellow-400 font-bold" data-title="${analysisItem.title}">// ${analysisItems.indexOf(analysisItem) + 1}. ${analysisItem.title}</span>\n`;
+      }
       result += `<span class="hljs-line">${line}</span>\n`;
     });
 
@@ -79,7 +101,7 @@ export default React.memo(function FileViewer() {
         <FileViewerLoading />
       ) : selectedFile ? (
         <div className="custom-scrollbar h-full w-full overflow-y-auto">
-          <pre className="file-viewer-code whitespace-pre break-words">
+          <pre ref={codeRef} className="file-viewer-code whitespace-pre break-words">
             <code dangerouslySetInnerHTML={{ __html: renderContent() || '' }}></code>
           </pre>
           {isOpenInspectionAlert && (

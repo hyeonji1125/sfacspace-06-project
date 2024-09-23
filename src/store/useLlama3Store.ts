@@ -7,6 +7,7 @@ import { getLineNumber } from "@/utils/getLineNumber";
 export const useLlama3Store = create<Llama3State>((set, get) => ({
   isAnalyzing: false,
   analysisResults: [],
+  focusedLocation: null,
   analysisStatus: {},
   error: null,
 
@@ -48,6 +49,10 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
         if (!response.ok) throw new Error("Failed to get analysis");
 
         const data = await response.json();
+        if (!data.response || !data.response[0] || !data.response[0].analysis) {
+          throw new Error("Invalid response structure");
+        }
+    
         const analysisResult: AnalysisResult = data.response[0];
 
         // 정확한 줄 번호 계산 및 업데이트
@@ -138,5 +143,6 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
   },
 
   setAnalysisResults: (results) => set({ analysisResults: results }),
+  setFocusedLocation: (title) => set({ focusedLocation: title }),
   clearResults: () => set({ analysisResults: [], error: null, analysisStatus: {} }),
 }));

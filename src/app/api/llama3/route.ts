@@ -16,6 +16,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    console.log("파일 분석 시작:", fileContents.map(f => f.name).join(', '));
+
     const llama3Response = await analysisLlama3Response(
       fileContents,
       temperature,
