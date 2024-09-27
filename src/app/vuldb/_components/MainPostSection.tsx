@@ -46,22 +46,22 @@ export default function MainPostSection() {
   }, [sortType]); // sortType(hot, new) 정렬 버튼 클릭하면 변경되니까 정렬방식에 맞게 데이터 가져옴
 
   useEffect(() => {
-    // 페이지네이션 적용
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE; //시작 번호
-    // 페이지가 2일 경우 1페이지당 5개씩 보여주는데 2페이지면 5번째부터 보여줘야함
-    const endIndex = startIndex + ITEMS_PER_PAGE; // 끝 번호
-    setCurrentPosts(allPosts.slice(startIndex, endIndex)); // 전체 게시글에서 현재 페이지에 맞는 게시글만 저장
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    setCurrentPosts(allPosts.slice(startIndex, endIndex));
   }, [allPosts, currentPage, ITEMS_PER_PAGE]);
 
   const handleSortChange = (type: "hot" | "new") => {
     setSortType(type);
-    setCurrentPage(1); // 페이지를 1로 초기화
+    setCurrentPage(1);
   };
 
   return (
-    <section className="relative flex flex-col gap-4">
+    <section className="relative flex w-full max-w-[865px] flex-col gap-4">
       <div
         className={`flex flex-col gap-4 ${!session ? "pointer-events-none blur-[10px]" : ""}`}
+        style={{ minHeight: "723px" }}
       >
         <div className="flex justify-between">
           <h1 className="text-[28px] font-semibold">취약점 DB</h1>

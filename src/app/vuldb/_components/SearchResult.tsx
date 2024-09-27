@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import MainPostCardList from "../_components/mainPostCard/MainPostCardList";
 import VuldbPagination from "../_components/VuldbPagiNation";
+import SkeletonPostCard from "./mainPostCard/SkeletonPostCard";
 
 export default function SearchResult() {
   const { data: session } = useSession();
@@ -60,7 +61,16 @@ export default function SearchResult() {
             &lsquo;{query}&lsquo;의 검색결과
           </h1>
         </div>
-        {searchResults.length > 0 ? (
+
+        {isLoading ? (
+          <>
+            {Array(ITEMS_PER_PAGE)
+              .fill(0)
+              .map((_, index) => (
+                <SkeletonPostCard key={index} />
+              ))}
+          </>
+        ) : searchResults.length > 0 ? (
           <MainPostCardList postData={searchResults} />
         ) : (
           <div className="mt-[200px] flex w-full flex-col items-center gap-4">
