@@ -119,25 +119,19 @@
 
 #### BackEnd
 
-<img src="https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=white">
-<img src="https://img.shields.io/badge/FirebaseStore-DD2C00?style=for-the-badge&logo=firebase&logoColor=white">
-<img src="https://img.shields.io/badge/FirebaseAdmin-DD2C00?style=for-the-badge&logo=firebase&logoColor=white">
+<img src="https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=white"><img src="https://img.shields.io/badge/FirebaseStore-DD2C00?style=for-the-badge&logo=firebase&logoColor=white"><img src="https://img.shields.io/badge/FirebaseAdmin-DD2C00?style=for-the-badge&logo=firebase&logoColor=white">
 
 #### Deployment & AI Model
 
-<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
-<img src="https://img.shields.io/badge/llama3-0866FF?style=for-the-badge&logo=facebook&logoColor=white">
+<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"><img src="https://img.shields.io/badge/llama3-0866FF?style=for-the-badge&logo=facebook&logoColor=white">
 
 #### Test
 
-<img src="https://img.shields.io/badge/stroyBook-FF4785?style=for-the-badge&logo=storybook&logoColor=white">
-<img src="https://img.shields.io/badge/jest-C21325?style=for-the-badge&logo=jest&logoColor=white">
+<img src="https://img.shields.io/badge/stroyBook-FF4785?style=for-the-badge&logo=storybook&logoColor=white"><img src="https://img.shields.io/badge/jest-C21325?style=for-the-badge&logo=jest&logoColor=white">
 
 #### Miscellaneous
 
-<img src="https://img.shields.io/badge/GoogleTranslate-4285F4?style=for-the-badge&logo=Google Translate&logoColor=white">
-<img src="https://img.shields.io/badge/swr-000000?style=for-the-badge&logo=swr&logoColor=white">
-<img src="https://img.shields.io/badge/dateFns-770C56?style=for-the-badge&logo=datefns&logoColor=white">
+<img src="https://img.shields.io/badge/GoogleTranslate-4285F4?style=for-the-badge&logo=Google Translate&logoColor=white"><img src="https://img.shields.io/badge/swr-000000?style=for-the-badge&logo=swr&logoColor=white"><img src="https://img.shields.io/badge/dateFns-770C56?style=for-the-badge&logo=datefns&logoColor=white">
 
 <br />
 
@@ -146,3 +140,5 @@
 - 현재 버전: 1.0.0
 - 최신 업데이트: 2024년 9월
 - 다음 업데이트 예정 기능: 미정
+
+<!-- ## Image -->
