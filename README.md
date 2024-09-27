@@ -113,9 +113,7 @@
 
 #### FrontEnd
 
-  <img src="https://img.shields.io/badge/nextjs-000000?style=for-the-badge&logo=next.js&logoColor=white"> 
-  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
-  <img src="https://img.shields.io/badge/tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+  <img src="https://img.shields.io/badge/nextjs-000000?style=for-the-badge&logo=next.js&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><img src="https://img.shields.io/badge/tailwind-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
 
 #### BackEnd
 
@@ -127,11 +125,11 @@
 
 #### Test
 
-<img src="https://img.shields.io/badge/stroyBook-FF4785?style=for-the-badge&logo=storybook&logoColor=white"><img src="https://img.shields.io/badge/jest-C21325?style=for-the-badge&logo=jest&logoColor=white">
+<img src="https://img.shields.io/badge/jest-C21325?style=for-the-badge&logo=jest&logoColor=white"><img src="https://img.shields.io/badge/stroyBook-FF4785?style=for-the-badge&logo=storybook&logoColor=white">
 
 #### Miscellaneous
 
-<img src="https://img.shields.io/badge/GoogleTranslate-4285F4?style=for-the-badge&logo=Google Translate&logoColor=white"><img src="https://img.shields.io/badge/swr-000000?style=for-the-badge&logo=swr&logoColor=white"><img src="https://img.shields.io/badge/dateFns-770C56?style=for-the-badge&logo=datefns&logoColor=white">
+<img src="https://img.shields.io/badge/swr-000000?style=for-the-badge&logo=swr&logoColor=white"><img src="https://img.shields.io/badge/dateFns-770C56?style=for-the-badge&logo=datefns&logoColor=white"><img src="https://img.shields.io/badge/GoogleTranslate-4285F4?style=for-the-badge&logo=Google Translate&logoColor=white">
 
 <br />
 
@@ -139,6 +137,6 @@
 
 - 현재 버전: 1.0.0
 - 최신 업데이트: 2024년 9월
-- 다음 업데이트 예정 기능: 미정
+- 다음 업데이트 예정 기능: 취약 상세페이지(쿼리->동적페이지로 변경) 및 취약점 DB페이지 크롤링 추가기능
 
 <!-- ## Image -->
