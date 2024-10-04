@@ -45,12 +45,10 @@ export default React.memo(function FileItem({
       if (!email) throw new Error("로그인된 사용자 이메일이 없습니다.");
       if (!repoName) throw new Error("리포지토리 이름이 없습니다.");
       if (!path) throw new Error("파일 경로가 없습니다.");
-
       // 북마크 추가 또는 제거
       isBookmark
         ? await removeBookmark(email, repoName, path)
         : await addBookmark(email, repoName, path);
-
       setIsBookmark((prev) => !prev);
     } catch (error: any) {
       console.error("북마크 처리 중 에러:", error.message);
@@ -118,7 +116,6 @@ export default React.memo(function FileItem({
             type="button"
             title="bookmark"
             className="z-10 text-lg"
-            id={name}
             onClick={handleBookmarkClick}
           >
             {/* 북마크 */}
