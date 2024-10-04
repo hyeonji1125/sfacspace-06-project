@@ -25,7 +25,7 @@ export const addBookmark = async (
       filePaths: arrayUnion(filePath),
       bookmarkedAt: new Date(),
     });
-    alert("북마크 저장 완료");
+    console.log("북마크 저장 완료");
   } catch (error: any) {
     console.error("북마크 저장 중 에러:", error);
 
@@ -38,7 +38,6 @@ export const addBookmark = async (
           bookmarkedAt: new Date(),
         });
         console.log("북마크 새 문서로 저장 완료");
-        alert("북마크 새 문서로 저장 완료");
       } catch (setError) {
         console.error("북마크 새 문서 저장 중 에러:", setError);
       }
@@ -56,38 +55,13 @@ export const removeBookmark = async (
     if (!userId || !repoName) {
       throw new Error("Invalid userId or repoName");
     }
-
     const bookmarkRef = doc(db, "users", userId, "bookmarks", repoName);
-
     await updateDoc(bookmarkRef, {
       filePaths: arrayRemove(filePath),
     });
     console.log("북마크 삭제 완료");
-    alert("북마크 삭제 완료");
   } catch (error) {
     console.error("북마크 삭제 중 에러:", error);
-  }
-};
-
-// 북마크 클릭 핸들러 함수
-export const handleBookmarkClick = async (
-  email: string | null,
-  repoName: string | null,
-  path: string,
-  isBookmark: boolean,
-  setIsBookmark: (state: boolean) => void,
-) => {
-  if (!email || !repoName) return;
-  setIsBookmark(!isBookmark); // 북마크 상태 토글
-
-  try {
-    if (isBookmark) {
-      await removeBookmark(email, repoName, path); // 북마크 삭제
-    } else {
-      await addBookmark(email, repoName, path); // 북마크 추가
-    }
-  } catch (error) {
-    console.error("북마크 추가/삭제 중 에러:", error);
   }
 };
 

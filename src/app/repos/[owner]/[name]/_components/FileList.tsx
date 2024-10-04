@@ -23,7 +23,7 @@ export default function FileList({
   );
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [sortList, setSortList] = useState<SortList>("파일순"); // 정렬 상태 관리
+  const [sortList, setSortList] = useState<SortList>("폴더순"); // 정렬 상태 관리
 
   const handleMultiSelectToggle = () => {
     setIsMultiSelectMode(!isMultiSelectMode);
@@ -62,7 +62,11 @@ export default function FileList({
               />
             </button>
             {isDropdownVisible && (
-              <FileDropdown sortList={sortList} setSortList={setSortList} />
+              <FileDropdown
+                sortList={sortList}
+                setSortList={setSortList}
+                setIsDropdownVisible={setIsDropdownVisible}
+              />
             )}
           </div>
         </div>
