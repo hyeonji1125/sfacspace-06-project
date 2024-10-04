@@ -1,7 +1,7 @@
 "use client";
 import { useGithubStore } from "@/store/useGithubStore";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiChecks } from "react-icons/pi";
 import FileDropdown from "./FileDropdown";
 import FileListContent from "./FileListContent";
@@ -31,6 +31,9 @@ export default function FileList({
       clearSelectedFiles();
     }
   };
+  useEffect(() => {
+    console.log(isDropdownVisible);
+  }, [isDropdownVisible]);
 
   return (
     <div className="flex max-h-[800px] w-80 flex-col rounded-lg border border-line-default dark:border-line-dark/50">
@@ -52,7 +55,9 @@ export default function FileList({
           <div className="relative flex items-center">
             <button
               type="button"
-              onClick={() => setIsDropdownVisible((prev) => !prev)}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                setIsDropdownVisible(!isDropdownVisible);
+              }}
             >
               <Image
                 src="/assets/images/myRepository/listCaption.svg"

@@ -23,19 +23,33 @@ export default function FileDropdown({
   };
 
   // 외부 클릭 감지를 위한 useEffect
+  // 이벤트버블링으로 중복클릭 막으려고 TimeOut 사용함.
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null; // 타이머 ID를 저장할 변수
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsDropdownVisible(false); // 외부 클릭 시 드롭다운 닫기
+        // 드롭다운이 닫히기 전에 timeoutId가 설정되어 있는지 확인
+        if (timeoutId) {
+          clearTimeout(timeoutId); // 이전 타이머를 클리어
+        }
+
+        // 0.1초 후에 드롭다운을 닫는 함수 설정
+        timeoutId = setTimeout(() => {
+          setIsDropdownVisible(false); // 외부 클릭 시 드롭다운 닫기
+        }, 200);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      if (timeoutId) {
+        clearTimeout(timeoutId); // 컴포넌트 언마운트 시 타이머 클리어
+      }
     };
   }, [setIsDropdownVisible]);
 

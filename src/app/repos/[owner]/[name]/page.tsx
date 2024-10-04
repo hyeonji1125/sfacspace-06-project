@@ -90,7 +90,7 @@ export default function AnalyzePage() {
     <section className="m-auto mb-20 hidden min-h-screen w-full max-w-[1920px] flex-col gap-11 px-20 xl:flex">
       <ReposTitle>{name}</ReposTitle>
       <div className="flex gap-7">
-        <div className="flex flex-col justify-stretch gap-6">
+        <div className="z-16 flex flex-col justify-stretch gap-6">
           <Button
             type="button"
             theme={"filled"}
