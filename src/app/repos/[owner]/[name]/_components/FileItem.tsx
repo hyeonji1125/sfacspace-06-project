@@ -1,7 +1,8 @@
 "use client";
 import {
+  addBookmark,
   fetchBookmarks,
-  handleBookmarkClick,
+  removeBookmark,
 } from "@/app/repos/_utils/bookmark";
 import { useGetUser } from "@/hooks/useGetUser";
 import { useGithubStore } from "@/store/useGithubStore";
@@ -35,41 +36,41 @@ export default React.memo(function FileItem({
   const { email } = useGetUser();
   const { name: repoName } = useRepoParams(); // 훅을 최상단에서 호출
 
-  // 북마크정보 가져오기
-  useEffect(() => {
-    const checkBookmarkStatus = async () => {
-      // email, repoName, path가 유효할 때만 실행
-      if (!email || !repoName || !path) return;
-      try {
-        const isBookmarked = await fetchBookmarks(email, repoName, path);
-        setIsBookmark(isBookmarked);
-      } catch (error) {
-        console.error("북마크 상태를 가져오는 중 에러:", error);
-      }
-    };
+  const handleBookmarkClick = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.stopPropagation();
 
-    checkBookmarkStatus();
-  }, [email, repoName, path]);
-  //북마크 클릭 함수
-  const handleClick = async () => {
     try {
-      // 필수 값이 없을 때 예외 처리
       if (!email) throw new Error("로그인된 사용자 이메일이 없습니다.");
       if (!repoName) throw new Error("리포지토리 이름이 없습니다.");
       if (!path) throw new Error("파일 경로가 없습니다.");
-      await handleBookmarkClick(
-        email,
-        repoName,
-        path,
-        isBookmark,
-        setIsBookmark,
-      );
+      // 북마크 추가 또는 제거
+      isBookmark
+        ? await removeBookmark(email, repoName, path)
+        : await addBookmark(email, repoName, path);
+      setIsBookmark((prev) => !prev);
     } catch (error: any) {
-      // 에러 메시지 출력
       console.error("북마크 처리 중 에러:", error.message);
       alert(`북마크 처리 중 에러: ${error.message}`);
     }
   };
+
+  // 북마크정보 가져오기
+  const checkBookmarkStatus = async () => {
+    // email, repoName, path가 유효할 때만 실행
+    if (!email || !repoName || !path) return;
+    try {
+      const isBookmarked = await fetchBookmarks(email, repoName, path);
+      setIsBookmark(isBookmarked);
+    } catch (error) {
+      console.error("북마크 상태를 가져오는 중 에러:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkBookmarkStatus();
+  }, []);
 
   const statusIcons = {
     inprogress: (
@@ -115,7 +116,7 @@ export default React.memo(function FileItem({
             type="button"
             title="bookmark"
             className="z-10 text-lg"
-            onClick={handleClick}
+            onClick={handleBookmarkClick}
           >
             {/* 북마크 */}
             {isBookmark ? (
