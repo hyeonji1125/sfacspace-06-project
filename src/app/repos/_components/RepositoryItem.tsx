@@ -1,6 +1,6 @@
 "use client";
 
-import { RepositoryProps, RepositoryStatus } from "@/types";
+import { RepositoryStatus } from "@/types";
 import RepositoryChip from "./RepositoryChip";
 import BookmarkButton from "./BookmarkButton";
 import { format } from "date-fns";
@@ -12,7 +12,10 @@ type TRepositoryItemProps = {
     recent?: boolean;
     status?: RepositoryStatus;
   };
-} & RepositoryProps;
+  name: string;
+  owner: { login: string };
+  created_at: string;
+};
 
 export default function RepositoryItem({
   name,

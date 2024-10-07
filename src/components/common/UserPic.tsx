@@ -1,15 +1,17 @@
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 
+type TUserPicProps = {
+  image?: string;
+  name: string;
+  size?: "small" | "large";
+};
+
 export default function UserPic({
   image,
   name,
   size = "large",
-}: {
-  image?: string;
-  name: string;
-  size?: "small" | "large";
-}) {
+}: TUserPicProps) {
   return (
     <div
       className={twMerge(
