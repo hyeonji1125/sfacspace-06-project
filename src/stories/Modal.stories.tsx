@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import Modal from "@/components/common/Modal";
 import Button from "@/components/common/Button";
+import { ThemeProvider } from "next-themes";
 
 const meta = {
   title: "common/Modal",
@@ -13,19 +14,16 @@ const meta = {
   argTypes: {
     shadow: {
       control: "boolean",
-      type: "boolean",
       description:
         "옵셔널한 값으로 modal container의 shadow를 선택할 수 있습니다.",
     },
     dimmed: {
       control: "boolean",
-      type: "boolean",
       description:
         "옵셔널한 값으로 modal container 뒷부분의 dimmed 처리를 선택할 수 있습니다.",
     },
     className: {
       control: "text",
-      type: "string",
       description:
         "옵셔널한 값으로 필요한 경우 className을 통해 Modal에 추가적인 tailwindCSS 속성을 부여합니다.",
     },
@@ -34,7 +32,6 @@ const meta = {
     },
     children: {
       control: "text",
-      type: "string",
       description:
         "모달 내부에 전달될 아이템을 정의합니다. <Modal.Title>, <Modal.Desc>, <Modal.Box>, <Modal.Button>, <Modal.Content>",
     },
@@ -46,6 +43,13 @@ const meta = {
   args: {
     className: "w-[400px]",
   },
+  decorators: [
+    (Story) => (
+      <ThemeProvider>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
 } satisfies Meta<typeof Modal>;
 
 export default meta;
@@ -79,7 +83,7 @@ const Template: StoryFn<typeof Modal> = (args) => {
             </Modal.Desc>
           </Modal.Box>
           <Modal.Content>
-            <div className="flex w-full flex-col items-center justify-center border border-black py-4">
+            <div className="flex w-full flex-col items-center justify-center border border-black py-4 dark:text-text-gray-default">
               <p>Content</p>
               <p>필요한 아이템을 넣을 수 있어요.</p>
             </div>
@@ -105,3 +109,21 @@ Default.args = {
   shadow: true,
   dimmed: true,
 };
+
+export const DarkMode = Template.bind({});
+DarkMode.args = {
+  shadow: false,
+  dimmed: false,
+};
+DarkMode.parameters = {
+  backgrounds: { default: "dark" },
+};
+DarkMode.decorators = [
+  (Story) => (
+    <ThemeProvider forcedTheme="dark">
+      <div className="dark">
+        <Story />
+      </div>
+    </ThemeProvider>
+  ),
+];
