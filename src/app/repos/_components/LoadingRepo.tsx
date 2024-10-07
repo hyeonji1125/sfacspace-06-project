@@ -18,7 +18,7 @@ export default function LoadingRepository() {
   const items = Array.from({ length: 12 }, (_, index) => index);
 
   return (
-    <div className="grid w-full grid-cols-4 gap-6">
+    <div className="grid w-full min-w-[980px] grid-cols-4 gap-6">
       {items.map((item) => (
         <LoadingRepo key={item} />
       ))}
