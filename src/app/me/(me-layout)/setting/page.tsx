@@ -1,13 +1,8 @@
 import PageTitle from "@/components/common/PageTitle";
 import EmailToggle from "./_components/EmailToggle";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import UserItemWithLogout from "@/app/repos/_components/UserItemWithLogout";
 
 export default async function SettingPage() {
-  const session = await getServerSession(authOptions);
-  const { user } = session ?? {};
-
   return (
     <>
       <PageTitle>Setting</PageTitle>
