@@ -14,12 +14,12 @@ export default function RepositoryList({
 }: {
   currentRepos: RepositoryProps[];
 }) {
-  const { isLoading, error } = useGithubStore();
-  const { reposData } = useLibraryStore();
+  const { error } = useGithubStore();
+  const { reposData, status } = useLibraryStore();
 
-  if (isLoading) return <LoadingRepository />;
+  if (status === "LOADING" || status === "IDLE") return <LoadingRepository />;
   if (error) return <div>{error}</div>;
-  if (currentRepos.length === 0)
+  if (status === "SUCCESS" && currentRepos.length === 0)
     return (
       <EmptyContent
         icon={

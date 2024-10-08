@@ -3,7 +3,8 @@ import { LibraryState } from "@/types/library";
 import { create } from "zustand";
 
 export const useLibraryStore = create<LibraryState>((set, get) => ({
-  status: { isLoading: false, error: null },
+  status: "IDLE",
+  error: null,
   libraryState: { recent: false, bookmark: false },
   ITEMS_PER_PAGE: 16,
   currentPage: 1,
@@ -15,14 +16,15 @@ export const useLibraryStore = create<LibraryState>((set, get) => ({
   setCurrentPage: (page) => set({ currentPage: page }),
   fetchReposData: async (email) => {
     set({
-      status: { isLoading: true, error: null },
+      status: "LOADING",
     });
     try {
       const repos = await getReposData(email);
-      set({ reposData: repos, status: { isLoading: false, error: null } });
+      set({ reposData: repos, status: "SUCCESS" });
     } catch (error) {
       set({
-        status: { isLoading: false, error: (error as Error).message },
+        status: "ERROR",
+        error: (error as Error).message,
       });
     }
   },
