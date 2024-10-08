@@ -41,7 +41,7 @@ export default function RepositoryItem({
           </h4>
         )}
       </div>
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between gap-2">
         <DetectLink
           status={matchData?.status}
           recent={matchData?.recent}
