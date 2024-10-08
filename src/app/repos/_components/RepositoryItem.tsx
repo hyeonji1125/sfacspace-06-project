@@ -26,20 +26,18 @@ export default function RepositoryItem({
   return (
     <div className="group flex h-[225px] w-full flex-col justify-between rounded-xl border border-primary-purple-100 p-5 hover:bg-bg-purple-light dark:border-opacity-20 dark:bg-custom-light-bg dark:bg-opacity-0 hover:dark:bg-opacity-5">
       <div className="flex flex-col gap-1">
-        <div className="flex w-full items-center justify-between gap-4">
-          {matchData?.status && <RepositoryChip type={matchData?.status} />}
-          {!matchData?.status && (
-            <h4 className="max-w-[270px] truncate text-[28px] font-medium leading-[48px] text-text-gray-dark dark:text-text-gray-light">
+        <div className="align-start flex w-full gap-4">
+          <div className="flex flex-grow flex-col gap-1">
+            {matchData?.status && <RepositoryChip type={matchData?.status} />}
+            <h4
+              title={name}
+              className="max-w-[150px] truncate text-[28px] font-medium leading-[48px] text-text-gray-dark dark:text-text-gray-light"
+            >
               {name}
             </h4>
-          )}
+          </div>
           <BookmarkButton bookmark={matchData?.bookmark} name={name} />
         </div>
-        {matchData?.status && (
-          <h4 className="max-w-[270px] truncate text-[28px] font-medium text-text-gray-dark dark:text-text-gray-light">
-            name
-          </h4>
-        )}
       </div>
       <div className="flex items-end justify-between gap-2">
         <DetectLink
