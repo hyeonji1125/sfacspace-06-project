@@ -24,7 +24,7 @@ export default function RepositoryChip({ type }: { type?: RepositoryStatus }) {
   return (
     <div
       className={twMerge(
-        "flex w-auto items-center justify-center rounded-full px-3 py-2 text-base font-medium tracking-tight dark:border dark:bg-transparent",
+        "flex items-center justify-center self-start rounded-full px-3 py-2 text-base font-medium tracking-tight dark:border dark:bg-transparent",
         style,
       )}
     >
