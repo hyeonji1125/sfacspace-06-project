@@ -9,7 +9,7 @@ export type Article = {
 };
 
 export type ScrapState = {
-  isLoading: boolean;
+  status: "IDLE" | "LOADING" | "SUCCESS" | "ERROR";
   error: string | null;
   scraps: Article[];
   ITEMS_PER_PAGE: number;

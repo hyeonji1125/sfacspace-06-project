@@ -17,6 +17,7 @@ export const useLibraryStore = create<LibraryState>((set, get) => ({
   fetchReposData: async (email) => {
     set({
       status: "LOADING",
+      error: null,
     });
     try {
       const repos = await getReposData(email);
