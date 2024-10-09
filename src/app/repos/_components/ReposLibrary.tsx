@@ -16,13 +16,8 @@ export default function ReposLibrary() {
     [],
   );
   const { repositories, fetchRepositories } = useGithubStore();
-  const {
-    status,
-    fetchReposData,
-    currentPage,
-    setCurrentPage,
-    ITEMS_PER_PAGE,
-  } = useLibraryStore();
+  const { fetchReposData, currentPage, setCurrentPage, ITEMS_PER_PAGE } =
+    useLibraryStore();
   const { reposItemsPerPage } = usePaginationStore();
   const { email } = useGetUser();
 

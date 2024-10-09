@@ -18,7 +18,7 @@ function LoadingArticle() {
 export default function LoadingArticles() {
   const items = Array.from({ length: 6 }, (_, index) => index);
   return (
-    <div className="grid w-full grid-cols-3 gap-6">
+    <div className="grid w-full min-w-[980px] grid-cols-3 gap-6">
       {items.map((item) => (
         <LoadingArticle key={item} />
       ))}

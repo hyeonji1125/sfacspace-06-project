@@ -1,30 +1,31 @@
-import AskButton from "@/components/common/AskButton";
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
+import LoadingRepo from "@/app/repos/_components/LoadingRepo";
 import { ThemeProvider } from "next-themes";
 
-const meta: Meta<typeof AskButton> = {
-  title: "common/Buttons/AskButton",
-  component: AskButton,
-  parameters: {
-    layout: "padded",
-  },
+const meta = {
+  title: "Repository/LoadingRepo",
+  component: LoadingRepo,
   tags: ["autodocs"],
+  parameters: {
+    layout: "centered",
+  },
   decorators: [
     (Story) => (
       <ThemeProvider>
-        <div className="h-[700px]">
+        <div className="w-[1280px]">
           <Story />
         </div>
       </ThemeProvider>
     ),
   ],
-};
+} satisfies Meta<typeof LoadingRepo>;
 
 export default meta;
-
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Basic: Story = {
+  args: {},
+};
 
 export const DarkMode: Story = {
   args: {},
