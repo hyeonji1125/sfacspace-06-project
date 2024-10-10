@@ -2,6 +2,7 @@
 
 import AskButton from "@/components/common/AskButton";
 import Modal from "@/components/common/Modal";
+import { useChatbotStore } from "@/store/useChatbotStore";
 import { usePostStore } from "@/store/usePostStore";
 import { PostDataType } from "@/types";
 import { useSession } from "next-auth/react";
@@ -10,7 +11,7 @@ import { useEffect, useState } from "react";
 import SmallPostCardList from "../../_components/smallPostCard/SmallPostCardList";
 import DetailHeader from "./_components/DetailHeader";
 import DetailMainSection from "./_components/DetailMainSection";
-import { useChatbotStore } from "@/store/useChatbotStore";
+import SkeletonDetailPage from "./_components/SkeletonDetailPage";
 
 export default function PostDetailPage() {
   const { data: session } = useSession();
@@ -18,9 +19,14 @@ export default function PostDetailPage() {
   const { posts, fetchPosts } = usePostStore();
   const { setPostDetail, clearChatLog } = useChatbotStore();
   const [post, setPost] = useState<PostDataType | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPosts();
+    const loadPosts = async () => {
+      await fetchPosts(); // fetchPosts가 비동기 함수임을 보장
+      setLoading(false);
+    };
+    loadPosts(); // 비동기 함수 실행
   }, [fetchPosts]);
 
   // ID에 해당하는 게시글 찾기
@@ -37,6 +43,10 @@ export default function PostDetailPage() {
       clearChatLog();
     }
   }, [post, setPostDetail, clearChatLog]);
+
+  if (loading) {
+    return <SkeletonDetailPage />;
+  }
 
   if (!post) {
     return <div>게시글을 찾을 수 없습니다.</div>;

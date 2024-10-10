@@ -7,7 +7,7 @@ type ImageCardProps = {
   title: string;
   date: string;
   image: "cardImage1" | "cardImage2" | "cardImage3";
-  widthStyle: string;
+  flexGrow: number;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
 };
@@ -17,7 +17,7 @@ export default function ImageCardItem({
   title,
   date,
   image,
-  widthStyle,
+  flexGrow,
   onMouseEnter,
   onMouseLeave,
 }: ImageCardProps) {
@@ -27,7 +27,7 @@ export default function ImageCardItem({
     cardImage3: "bg-[url('/assets/images/vuldb/items/CardImg3.png')]",
   };
 
-  const isWide = widthStyle === "625px";
+  const isWide = flexGrow === 2;
 
   const titleClass = isWide ? "text-[28px] w-[420px]" : "text-lg w-[136px]";
   const dateClass = isWide ? "text-xl w-[420px]" : "text-xs w-[136px]";
@@ -36,19 +36,29 @@ export default function ImageCardItem({
     <Link href={`/vuldb/items/${id}`}>
       <div
         className={twMerge(
-          "flex h-[390px] rounded-[20px] bg-cover bg-center duration-300",
+          "flex h-[390px] transform overflow-hidden rounded-[20px] bg-cover bg-center duration-100 ease-out",
           imageSrc[image],
         )}
-        style={{ width: widthStyle }}
+        style={{ flexGrow, transition: "flex-grow 0.3s ease-out" }} // flexGrow로 비율 설정
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
         <div className="flex w-full items-end justify-between px-9 py-9">
           <div className="flex flex-col gap-2">
-            <h1 className={twMerge("font-semibold text-white", titleClass)}>
+            <h1
+              className={twMerge(
+                "transform font-semibold text-white duration-100 ease-in-out",
+                titleClass,
+              )}
+            >
               {title}
             </h1>
-            <p className={twMerge("font-medium text-[#969696]", dateClass)}>
+            <p
+              className={twMerge(
+                "transform font-medium text-[#969696] duration-200 ease-in-out",
+                dateClass,
+              )}
+            >
               {date}
             </p>
           </div>
