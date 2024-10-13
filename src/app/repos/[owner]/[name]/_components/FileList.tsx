@@ -6,6 +6,7 @@ import { PiChecks } from "react-icons/pi";
 import FileDropdown from "./FileDropdown";
 import FileListContent from "./FileListContent";
 import FileListLoading from "./FileListLoading";
+import { useSession } from "next-auth/react";
 
 export type SortList = "파일순" | "폴더순" | "북마크순";
 
@@ -21,7 +22,7 @@ export default function FileList({
   const clearSelectedFiles = useGithubStore(
     (state) => state.clearSelectedFiles,
   );
-
+  const { status } = useSession();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [sortList, setSortList] = useState<SortList>("폴더순"); // 정렬 상태 관리
 
@@ -78,7 +79,7 @@ export default function FileList({
       </div>
 
       <div className="custom-scrollbar flex-grow overflow-y-auto">
-        {isLoading ? (
+        {status === "loading" || isLoading ? (
           <FileListLoading />
         ) : (
           <FileListContent

@@ -4,13 +4,13 @@ import Infobox from "./Infobox";
 import { PiSpinnerGapBold } from "react-icons/pi";
 import { useInView } from "react-intersection-observer";
 import { useLlama3Store } from "@/store/useLlama3Store";
-import { useRepoParams } from "../../_utils/useRepoParams";
+import { useGithubStore } from "@/store/useGithubStore";
 
 export default function InspectionResult() {
   const analysisResults = useLlama3Store((state) => state.analysisResults);
-  const { repoPath } = useRepoParams();
+  const selectedFile = useGithubStore((state) => state.selectedFile);
   const matchingResults =
-    analysisResults?.find((r) => r?.path === repoPath) || null;
+    analysisResults?.find((r) => r?.path === selectedFile.path) || null;
   const hasVulnerabilities = matchingResults?.analysisResult?.isVulnerable;
   const firstAnalysis = matchingResults?.analysisResult?.analysis?.[0];
   const noVulnerabilities =
@@ -71,7 +71,7 @@ export default function InspectionResult() {
           )}
         </>
       ) : (
-        <div className="flex h-[400px] flex-col items-center justify-center gap-[10px]">
+        <div className="flex h-[300px] flex-col items-center gap-[10px] pt-10">
           <h3 className="text-[28px] font-semibold text-text-gray-dark dark:text-text-gray-light">
             검출된 취약점이 없어요
           </h3>

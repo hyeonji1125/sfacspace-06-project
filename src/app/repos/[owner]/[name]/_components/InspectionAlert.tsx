@@ -1,6 +1,5 @@
 "use client";
 import Button from "@/components/common/Button";
-import { useRouter } from "next/navigation";
 import { GoXCircleFill } from "react-icons/go";
 import { IoCloseOutline } from "react-icons/io5";
 import { PiArrowsCounterClockwise, PiHourglassHighFill } from "react-icons/pi";
@@ -8,8 +7,8 @@ import { useRepoParams } from "../_utils/useRepoParams";
 import { useEffect, useState } from "react";
 import { useLlama3Store } from "@/store/useLlama3Store";
 import { useGetUser } from "@/hooks/useGetUser";
-import { getSelectedItems } from "../_utils/getSelectedItems";
 import { useGithubStore } from "@/store/useGithubStore";
+import { useResultOpenStore } from "@/store/useResultOpenStore";
 
 export default function InspectionAlert({
   close,
@@ -18,11 +17,10 @@ export default function InspectionAlert({
   close: () => void;
   filePath: string;
 }) {
-  const router = useRouter();
   const stateArr = {
     inprogress: {
       icon: (
-        <PiArrowsCounterClockwise className="animate-spinReverse text-5xl text-primary-purple-500" />
+        <PiArrowsCounterClockwise className="animate-spinReverse text-5xl text-primary-purple-500 dark:text-primary-purple-300" />
       ),
       title: "검사중...",
       description: ["코드가 많을수록 처리시간이 길어집니다."],
@@ -47,7 +45,7 @@ export default function InspectionAlert({
     },
     completed: {
       icon: (
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-purple-500">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-purple-500 dark:bg-primary-purple-300">
           <svg
             width="40"
             height="40"
@@ -74,7 +72,7 @@ export default function InspectionAlert({
   };
 
   const { email } = useGetUser();
-  const { owner, name, repoPath } = useRepoParams();
+  const { owner, name } = useRepoParams();
   const repoId = `${owner}/${name}`;
   const { analysisStatus, startAnalysis } = useLlama3Store((state) => ({
     analysisStatus: state.analysisStatus,
@@ -82,6 +80,7 @@ export default function InspectionAlert({
   }));
   const selectedFile = useGithubStore((state) => state.selectedFile);
   const [state, setState] = useState<keyof typeof stateArr | null>(null);
+  const setResultOpen = useResultOpenStore((state) => state.setResultOpen);
 
   const reAnalyzeSubmit = async () => {
     if (email) {
@@ -94,8 +93,7 @@ export default function InspectionAlert({
 
   const fileButtonHandler = (state: string) => {
     if (state === "completed") {
-      const targetURL = `/repos/${owner}/${name}/repo_inspection?repo=${repoPath}`;
-      router.push(targetURL);
+      setResultOpen(true);
     } else if (state === "error") {
       reAnalyzeSubmit();
     }

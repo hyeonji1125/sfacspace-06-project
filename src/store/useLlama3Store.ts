@@ -20,11 +20,14 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
         acc[file.path] = "pending";
         return acc;
       },
-      {} as Record<string, NonNullable<RepositoryContent["status"]>>
+      {} as Record<string, NonNullable<RepositoryContent["status"]>>,
     );
     set({ analysisStatus: initialStatus });
 
-    const updateFileStatus = (filePath: string, status: NonNullable<RepositoryContent["status"]>) => {
+    const updateFileStatus = (
+      filePath: string,
+      status: NonNullable<RepositoryContent["status"]>,
+    ) => {
       set((state) => ({
         analysisStatus: {
           ...state.analysisStatus,
@@ -33,7 +36,11 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
       }));
     };
 
-    const analyzeFile = async (file: { name: string; content: string; path: string }) => {
+    const analyzeFile = async (file: {
+      name: string;
+      content: string;
+      path: string;
+    }) => {
       updateFileStatus(file.path, "inprogress");
       try {
         const response = await fetch("/api/llama3", {
@@ -52,13 +59,13 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
         if (!data.response || !data.response[0] || !data.response[0].analysis) {
           throw new Error("Invalid response structure");
         }
-    
+
         const analysisResult: AnalysisResult = data.response[0];
 
         // 정확한 줄 번호 계산 및 업데이트
-        const updatedAnalysis = analysisResult.analysis.map(item => ({
+        const updatedAnalysis = analysisResult.analysis.map((item) => ({
           ...item,
-          lineNumber: getLineNumber(file.content, item.vulnerabilityCode)
+          lineNumber: getLineNumber(file.content, item.vulnerabilityCode),
         }));
 
         const updatedAnalysisResult = {
@@ -84,7 +91,7 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
               content: file.content,
               path: file.path,
               analysisResult: updatedAnalysisResult,
-            }
+            },
           );
         }
 
@@ -115,7 +122,7 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
   fetchAnalysisResults: async (userEmail: string, repoId: string) => {
     try {
       const results = await getData(
-        `users/${userEmail}/analysis-results/${repoId}`
+        `users/${userEmail}/analysis-results/${repoId}`,
       );
       const analysisStatus: Record<
         string,
@@ -144,5 +151,6 @@ export const useLlama3Store = create<Llama3State>((set, get) => ({
 
   setAnalysisResults: (results) => set({ analysisResults: results }),
   setFocusedLocation: (title) => set({ focusedLocation: title }),
-  clearResults: () => set({ analysisResults: [], error: null, analysisStatus: {} }),
+  clearResults: () =>
+    set({ analysisResults: [], error: null, analysisStatus: {} }),
 }));

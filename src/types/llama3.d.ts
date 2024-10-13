@@ -5,6 +5,7 @@ export type resultType = {
   suggestion: string;
   vulnerabilityCode: string;
   lineNumber: number;
+  summery: string;
 };
 
 export type AnalysisResult = {

@@ -74,7 +74,7 @@ export default React.memo(function FileItem({
 
   const statusIcons = {
     inprogress: (
-      <PiArrowsCounterClockwise className="text-lg text-primary-purple-500" />
+      <PiArrowsCounterClockwise className="animate-spinReverse text-lg text-primary-purple-500 dark:text-primary-purple-300" />
     ),
     pending: (
       <span className="whitespace-nowrap text-sm text-text-gray-default">
@@ -87,12 +87,7 @@ export default React.memo(function FileItem({
   };
 
   return (
-    <div
-      className={twMerge(
-        "group relative flex flex-col gap-1 px-[10px] py-2 text-custom-light-text transition-all duration-200 hover:bg-primary-purple-light dark:bg-transparent dark:text-white",
-        selectedFiles.includes(path) && "bg-primary-purple-50 dark:bg-white/20",
-      )}
-    >
+    <div className="flex flex-col gap-1 px-[10px] py-2 text-custom-light-text dark:text-white">
       <div className="flex justify-between">
         <div className="flex w-4/5 items-center gap-1">
           {selectedFiles.includes(path) && (
