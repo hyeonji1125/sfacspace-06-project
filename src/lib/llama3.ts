@@ -106,7 +106,8 @@ async function analyzeFile(
 조건 7: 취약점 객체는 title, vulnerabilityCode, description, suggestion, lineNumber 프로퍼티를 가집니다. 취약점 객체 아이템은 아래의 형식을 따릅니다. 
 { 
    title: “취약점 이름(영어)”, 
-   vulnerabilityCode: “취약점을 발견한 코드 단락(프로그래밍 언어)”, 
+   vulnerabilityCode: “취약점을 발견한 코드 단락(프로그래밍 언어)”,
+   summery: "취약점에 대한 요약 설명(한국어)",
    description: “취약점 설명, 위험성, 문제점, 수정 방안에 대한 설명(한국어)”, 
    suggestion: “취약점을 개선한 코드(프로그래밍 언어)” ,
    lineNumber: 취약점이 발견된 코드의 시작 줄 번호(숫자)

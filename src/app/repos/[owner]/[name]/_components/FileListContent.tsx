@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useRepoParams } from "../_utils/useRepoParams";
 import FileItem from "./FileItem";
+import { twMerge } from "tailwind-merge";
 
 export default function FileListContent({
   isMultiSelectMode,
@@ -17,7 +18,7 @@ export default function FileListContent({
   isMultiSelectMode: boolean;
   sortList: "폴더순" | "파일순" | "북마크순";
 }) {
-  const router = useRouter();
+  // const router = useRouter();
   const { email } = useGetUser();
   const { owner, name: repoName } = useRepoParams(); // 리포지토리 정보 가져오기
   const {
@@ -25,11 +26,17 @@ export default function FileListContent({
     fetchSubDirectoryContents,
     toggleSelectFile,
     selectedFiles,
+    selectFile,
+    selectedFile,
+    clearSelection,
   } = useGithubStore((state) => ({
     repoContents: state.repoContents,
     fetchSubDirectoryContents: state.fetchSubDirectoryContents,
     toggleSelectFile: state.toggleSelectFile,
+    selectFile: state.selectFile,
     selectedFiles: state.selectedFiles,
+    selectedFile: state.selectedFile,
+    clearSelection: state.clearSelection,
   }));
   const { fetchAnalysisResults, analysisStatus } = useLlama3Store();
 
@@ -75,52 +82,61 @@ export default function FileListContent({
     } else {
       if (!selectedFiles.length) {
         toggleSelectFile(item.path);
+        selectFile(owner, repoName, item.path);
       } else {
-        toggleSelectFile(selectedFiles[0]);
-        toggleSelectFile(item.path);
+        if (selectedFile?.path === item.path) {
+          clearSelection();
+          toggleSelectFile(item.path);
+        } else {
+          toggleSelectFile(selectedFiles[0]);
+          toggleSelectFile(item.path);
+          selectFile(owner, repoName, item.path);
+        }
       }
-      const baseUrl = `/repos/${owner}/${repoName}`;
-      const targetURL =
-        status === "completed"
-          ? `${baseUrl}/repo_inspection?repo=${item.path}`
-          : `${baseUrl}?repo=${item.path}`;
-
-      router.push(targetURL);
     }
   };
 
-  const renderTree = (nodes: RepositoryContent[]) => {
+  const renderTree = (nodes: RepositoryContent[], level = 0) => {
     return (
-      <>
+      <ul className="pl-0">
         {nodes.map((node) => {
           const status = analysisStatus[node.path] || "none";
           return (
             <li
               key={node.sha}
-              className="cursor-pointer border-b border-line-gray-10 last:border-b-0 dark:border-line-dark/50"
+              className="cursor-pointer border-b border-line-gray-10 last:border-b-0 dark:border-line-dark/30"
             >
-              {node.type === "dir" ? (
-                <>
-                  <div onClick={() => handleFolderClick(node)}>
-                    <FileItem
-                      {...node}
-                      expanded={node.expanded}
-                      status={status}
-                    />
-                  </div>
-                  {node.expanded && node.children && (
-                    <ul className="pl-4">{renderTree(node.children)}</ul>
+              <div
+                onClick={() =>
+                  node.type === "dir"
+                    ? handleFolderClick(node)
+                    : handleFileClick(node, status)
+                }
+                className="border-b border-line-gray-10 last:border-b-0 dark:border-line-dark/30"
+              >
+                <div
+                  className={twMerge(
+                    "group relative transition-all duration-200 last:border-b-0 hover:bg-primary-purple-light dark:bg-transparent dark:hover:bg-primary-purple-light/10",
+                    selectedFiles.includes(node.path) &&
+                      "bg-primary-purple-50 dark:bg-white/20",
                   )}
-                </>
-              ) : (
-                <div onClick={() => handleFileClick(node, status)}>
-                  <FileItem {...node} status={status} />
+                  style={{ paddingLeft: `${level * 16}px` }}
+                >
+                  <FileItem
+                    {...node}
+                    expanded={node.expanded}
+                    status={status}
+                  />
                 </div>
+              </div>
+
+              {node.type === "dir" && node.expanded && node.children && (
+                <ul className="pl-0">{renderTree(node.children, level + 1)}</ul>
               )}
             </li>
           );
         })}
-      </>
+      </ul>
     );
   };
 

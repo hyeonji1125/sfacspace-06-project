@@ -64,8 +64,6 @@ export type RepositoryState = {
 export type TAnalyzeModalProp = {
   isOpen: boolean;
   setIsOpen: (value: SetStateAction<boolean>) => void;
-  isWhole: boolean;
-  title: string;
   fileList: RepositoryContent[];
   setIsMultiSelectMode: (value: boolean) => void;
 };
