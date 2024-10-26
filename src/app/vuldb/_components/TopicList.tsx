@@ -88,7 +88,7 @@ export default function TopicList() {
           <div className="h-6 w-[130px] animate-pulse rounded-lg bg-grayscale-10 dark:bg-grayscale-80"></div>
         )}
       </div>
-      <div className="w-[346px] rounded-lg border border-line-default bg-white px-5 py-1 dark:bg-custom-light-bg dark:bg-opacity-5">
+      <div className="w-[328px] rounded-lg border border-line-default bg-white px-5 py-1 dark:bg-custom-light-bg dark:bg-opacity-5">
         <ul className="text-lg">
           {topicList.length > 0
             ? topicList.map((item, index) => (
