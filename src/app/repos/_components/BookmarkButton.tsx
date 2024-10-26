@@ -41,7 +41,6 @@ export default function BookmarkButton({
       }
     } catch (error) {
       setIsBookmarked((prev) => prev);
-      console.log(error);
     }
   };
 

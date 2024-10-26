@@ -29,8 +29,6 @@ export default function SearchResult() {
           `/api/vuldb/search?query=${encodeURIComponent(query)}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`,
         );
         const data = await res.json();
-        // console.log("page.tsx", data);
-        // console.log("Fetching data for page:", currentPage); // 데이터 가져올 때 로그 추가
         if (data.results && data.results.length > 0) {
           setSearchResults(data.results);
           setTotalItems(data.totalItems); // 서버에서 총 아이템 수를 받는다고 가정

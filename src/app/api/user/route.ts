@@ -6,7 +6,6 @@ export async function DELETE(req: NextRequest) {
     const { email } = await req.json();
 
     await deleteUserData(email);
-    console.log("유저 데이터 삭제 완료");
 
     return NextResponse.json({ response: "Delete user data successfully." });
   } catch (error) {

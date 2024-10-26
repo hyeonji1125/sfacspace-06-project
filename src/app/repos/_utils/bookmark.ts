@@ -25,7 +25,6 @@ export const addBookmark = async (
       filePaths: arrayUnion(filePath),
       bookmarkedAt: new Date(),
     });
-    console.log("북마크 저장 완료");
   } catch (error: any) {
     console.error("북마크 저장 중 에러:", error);
 
@@ -37,7 +36,6 @@ export const addBookmark = async (
           filePaths: [filePath],
           bookmarkedAt: new Date(),
         });
-        console.log("북마크 새 문서로 저장 완료");
       } catch (setError) {
         console.error("북마크 새 문서 저장 중 에러:", setError);
       }
@@ -59,7 +57,6 @@ export const removeBookmark = async (
     await updateDoc(bookmarkRef, {
       filePaths: arrayRemove(filePath),
     });
-    console.log("북마크 삭제 완료");
   } catch (error) {
     console.error("북마크 삭제 중 에러:", error);
   }

@@ -61,8 +61,6 @@ export const putData = async (baseCollectionPath: string, filePath: string, data
       ...data,
       originalPath: filePath 
     }, { merge: true });
-
-    console.log("Document successfully updated or created");
     return "Document updated or created";
   } catch (error) {
     console.error("Error updating document: ", error);

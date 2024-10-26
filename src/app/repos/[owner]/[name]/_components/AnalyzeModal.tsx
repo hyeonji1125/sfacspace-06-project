@@ -24,10 +24,6 @@ export default function AnalyzeModal({
   const { owner, name } = useRepoParams();
   const repoId = `${owner}/${name}`;
 
-  useEffect(() => {
-    console.log("Updated analysisResults:", analysisResults);
-  }, [analysisResults]);
-
   const handleClose = () => {
     setIsOpen(false);
   };

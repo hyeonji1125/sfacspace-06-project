@@ -161,13 +161,5 @@ function generateUniqueId(content) {
     }),
   );
 
-  // for (const post of translatedPostDetails) {
-  //   await saveToFirestore(post);
-  // }
-
-  // 번역된 게시글 출력
-  // console.log(JSON.stringify(translatedPostDetails, null, 2));
-  console.log(translatedPostDetails);
-
   await browser.close();
 })();

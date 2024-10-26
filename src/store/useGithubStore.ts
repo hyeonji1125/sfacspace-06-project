@@ -70,10 +70,10 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
           if (node.path === path) {
             return {
               ...node,
-              children: children.map(child => ({
+              children: children.map((child) => ({
                 ...child,
                 children: [],
-                expanded: false
+                expanded: false,
               })),
               expanded: !node.expanded,
             };
@@ -144,7 +144,6 @@ export const useGithubStore = create<RepositoryState>((set, get) => ({
       const selectedFiles = state.selectedFiles.includes(filePath)
         ? state.selectedFiles.filter((path) => path !== filePath)
         : [...state.selectedFiles, filePath];
-      console.log(selectedFiles);
 
       return { selectedFiles };
     });
