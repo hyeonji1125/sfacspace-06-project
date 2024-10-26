@@ -1,23 +1,38 @@
+import { useLlama3Store } from "@/store/useLlama3Store";
 import { useSession } from "next-auth/react";
 import { IoIosCode } from "react-icons/io";
-import { IoClose, IoEllipse, IoTriangle } from "react-icons/io5";
+import { IoClose, IoEllipse } from "react-icons/io5";
 
 export default function FileInspectionProgress() {
+  const analysisResults = useLlama3Store((state) => state.analysisResults);
+
+  const total = analysisResults.length;
+  const detectedFile = analysisResults.reduce((count, file) => {
+    if (
+      file.analysisResult.isVulnerable &&
+      file.analysisResult.analysis &&
+      file.analysisResult.analysis.some((item) => item.lineNumber)
+    ) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
+
   const inspectionData = [
     {
       icon: <IoIosCode className="text-3xl text-accent-blue" />,
       label: "검사한 파일 개수",
-      count: 0,
+      count: total,
     },
     {
       icon: <IoClose className="text-3xl text-accent-red" />,
       label: "검출된 취약점",
-      count: 0,
+      count: detectedFile,
     },
     {
       icon: <IoEllipse className="ml-1 text-2xl text-accent-green" />,
       label: "문제 없음",
-      count: 0,
+      count: total - detectedFile,
     },
   ];
 
