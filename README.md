@@ -35,22 +35,46 @@
 
 ## 🙋‍♂️ 무엇을 이용할 수 있나요?
 
+### 랜딩 페이지
+<img src="https://github.com/user-attachments/assets/c72764a4-6e4b-4c36-9711-36520e667440"  width="740" height="350"/>
+<img src="https://github.com/user-attachments/assets/39860169-5d37-4fe5-9130-3034d55f5c10"  width="740" height="350"/>
+
+<br/>
+<br/>
+
+### 마이페이지
+<img src="https://github.com/user-attachments/assets/2e05a250-60e9-4710-97ac-3eb1a0a7b6d8"  width="740" height="350"/>
+<img src="https://github.com/user-attachments/assets/9a7d15e3-e7f1-4577-a156-5a03f325f0dd"  width="740" height="350"/>
+
+<br/>
+<br/>
+
 ### 취약점 DB (/vuldb/) (로그인 필요)
+<img src="https://github.com/user-attachments/assets/e990a878-a685-4e77-9fed-cfe66086c4b7"  width="740" height="350"/>
+<img src="https://github.com/user-attachments/assets/d9c0e67b-df41-4925-b0db-14cde046bc10"  width="350" height="350"/>
 
 - 해당 페이지는 보안이슈 사례들을 Hot/New 키워드로 나뉘어 제공됩니다.
 - 실시간 Topic 제공이 제공됩니다.
-- 검색기능이 제공됩니다.<br/>
-  (무자본 프로젝트인만큼 검색기능은 일부 제한됩니다.)
-  <br/>
+- 챗봇 기능이 제공됩니다.
+- 검색기능이 제공됩니다.(무자본 프로젝트인만큼 검색기능은 일부 제한됩니다.)
+  
+<br/>
+<br/>
 
 ### MY 저장소 (/repos) (로그인 필요)
+<img src="https://github.com/user-attachments/assets/364d0236-2cab-41e9-992f-f334d0fad65a"  width="740" height="350"/>
 
 - 깃허브에서 받아온 나의 레파지토리를 볼 수 있습니다.
 - 레파지토리를 선택해 검사페이지로 이동 가능합니다.
 - 정렬기능이 제공됩니다.<br/>(검사완료/검사중 , 최신/이름 ,최근 순,북마크 등)
 - 레파지토리 북마크를 추가,삭제할 수 있습니다.
 
+<br/>
+<br/>
+
 ### 검사페이지 (/repos/[id])(로그인 필요)
+<img src="https://github.com/user-attachments/assets/3e6830d5-c70d-4668-80fa-8cc12515613b"  width="740" height="350"/>
+<img src="https://github.com/user-attachments/assets/46e72657-0229-46f2-a0ed-08191be29b2a"  width="740" height="350"/>
 
 - 정렬기능이 제공됩니다.(폴더순/파일순/북마크순)
 - 코드검사기능이 제공되고 검사결과를 볼 수 있습니다.<br/>
@@ -58,7 +82,11 @@
 - ProgressBar를 사용해 현재 진행상황을 볼 수 있습니다.
 - 파일 북마크를 추가,삭제 할 수 있습니다.
 
+<br/>
+<br/>
+
 ### Dark-Mode
+<img src="https://github.com/user-attachments/assets/6a89dab6-eaf6-451c-9717-0db778b41a48"  width="740" height="350"/>
 
 - 다크모드 기능이 제공됩니다.
 
