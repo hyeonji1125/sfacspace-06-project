@@ -9,8 +9,6 @@ export const customSignOut = async (email: string, callbackUrl?: string) => {
           email,
         }),
       });
-
-      console.log("User data deleted successfully");
     }
     await signOut({ callbackUrl });
   } catch (error) {

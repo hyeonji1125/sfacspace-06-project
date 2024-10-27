@@ -56,7 +56,6 @@ export const getScrapPosts = async (userEmail: string) => {
         });
         return posts;
       } else {
-        console.log("No scrap posts");
         return [];
       }
     } else {

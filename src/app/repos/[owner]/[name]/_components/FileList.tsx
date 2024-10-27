@@ -32,9 +32,6 @@ export default function FileList({
       clearSelectedFiles();
     }
   };
-  useEffect(() => {
-    console.log(isDropdownVisible);
-  }, [isDropdownVisible]);
 
   return (
     <div className="flex max-h-[800px] w-80 flex-col rounded-lg border border-line-default dark:border-line-dark/50">
