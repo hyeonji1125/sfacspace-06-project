@@ -33,7 +33,6 @@ export default function VuldbPagination({
         <button
           className="hover:bg-bg-purple-light"
           onClick={() => {
-            console.log("Previous group button clicked", startPage - 1);
             setCurrent(startPage - 1);
           }}
         >
@@ -44,7 +43,6 @@ export default function VuldbPagination({
         <button
           key={page}
           onClick={() => {
-            console.log("Page button clicked", page);
             setCurrent(page);
           }}
           className={`h-9 w-9 px-2 hover:bg-bg-purple-light ${
@@ -58,7 +56,6 @@ export default function VuldbPagination({
         <button
           className="hover:bg-bg-purple-light"
           onClick={() => {
-            console.log("Next group button clicked", endPage + 1);
             setCurrent(endPage + 1);
           }}
         >

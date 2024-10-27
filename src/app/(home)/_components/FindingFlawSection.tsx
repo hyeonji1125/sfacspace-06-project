@@ -8,7 +8,7 @@ import {
 
 export default function FindingFlawSection() {
   return (
-    <section className="flex h-full justify-center bg-primary-purple-50 dark:bg-[#160D25]">
+    <section className="dark:bg-custom-purple-bg flex h-full justify-center bg-primary-purple-50">
       <div className="flex h-[700px] w-full max-w-[1920px] overflow-hidden md:h-[900px] xl:h-[1020px]">
         <div className="relative flex w-full flex-col items-center px-[10%] py-[120px] xl:flex-row xl:py-0">
           <div className="flex flex-col gap-7 text-center xl:gap-[60px] xl:text-left">
@@ -17,7 +17,7 @@ export default function FindingFlawSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeIn" }}
               viewport={{ once: true }}
-              className="flex flex-col text-4xl font-bold tracking-[-1px] text-primary-purple-500 sm:text-5xl md:text-6xl 2xl:text-[72px]"
+              className="flex flex-col text-4xl font-bold tracking-[-1px] text-primary-purple-500 dark:text-primary-purple-100 sm:text-5xl md:text-6xl 2xl:text-[72px]"
             >
               <p className="leading-snug">쉽고 편하게</p>
               <p className="leading-snug">취약점을 발견하다</p>
@@ -38,7 +38,7 @@ export default function FindingFlawSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeIn" }}
                 viewport={{ once: true }}
-                className="flex flex-col text-sm font-normal !leading-normal text-text-gray-default sm:text-base xl:text-xl"
+                className="flex flex-col text-sm font-normal !leading-normal text-text-gray-default dark:text-primary-purple-200 sm:text-base xl:text-xl"
               >
                 <p className="whitespace-nowrap">
                   플로디텍터는 안전한 소프트웨어 개발을 위한 필수 도구로,
@@ -53,10 +53,10 @@ export default function FindingFlawSection() {
             </div>
           </div>
           <div className="absolute hidden w-[900px] xl:right-[-350px] xl:block 2xl:right-[-430px] 2xl:w-[1100px]">
-            <FindingFlawRowImg />
+            <FindingFlawRowImg className="dark:fill-primary-purple-100" />
           </div>
           <div className="absolute bottom-[-150px] w-[300px] md:bottom-[-250px] md:w-[500px] xl:hidden">
-            <FindingFlawColImg />
+            <FindingFlawColImg className="dark:fill-primary-purple-100" />
           </div>
         </div>
       </div>

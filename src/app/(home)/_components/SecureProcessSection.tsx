@@ -2,7 +2,7 @@ import ServiceCardsGrid from "./Card/ServiceCardsGrid";
 
 export default function SecureProcessSection() {
   return (
-    <section className="flex h-auto w-full flex-col justify-center bg-primary-purple-500 pb-10 pt-[120px] md:h-full">
+    <section className="dark:bg-custom-purple-bg flex h-auto w-full flex-col justify-center bg-primary-purple-500 pb-10 pt-[120px] md:h-full">
       <div className="mb-[80px] flex justify-center px-[10%] text-center text-3xl font-bold text-white dark:text-custom-dark-text md:text-5xl xl:text-6xl">
         <p className="leading-snug tracking-[-1px]">
           안전과 보호를 우선으로 하는

@@ -80,17 +80,39 @@ export default function Modal({
   );
 }
 
-function Title({ children }: { children: React.ReactNode }) {
+function Title({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <h3 className="flex justify-center p-[10px] text-2xl font-semibold text-custom-light-text dark:text-custom-dark-text">
+    <h3
+      className={twMerge(
+        "flex justify-center p-[10px] text-2xl font-semibold text-custom-light-text dark:text-custom-dark-text",
+        className && className,
+      )}
+    >
       {children}
     </h3>
   );
 }
 
-function Description({ children }: { children: React.ReactNode }) {
+function Description({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="flex flex-col items-center justify-center gap-[20px] p-[10px] text-text-gray-default">
+    <div
+      className={twMerge(
+        "flex flex-col items-center justify-center gap-[20px] p-[10px] text-center text-text-gray-default",
+        className && className,
+      )}
+    >
       {children}
     </div>
   );

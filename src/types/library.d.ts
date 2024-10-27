@@ -13,10 +13,8 @@ export type FilterType = {
 };
 
 export type LibraryState = {
-  status: {
-    isLoading: boolean;
-    error: string | null;
-  };
+  status: "IDLE" | "LOADING" | "SUCCESS" | "ERROR";
+  error: string | null;
   libraryState: FilterType;
   ITEMS_PER_PAGE: number;
   currentPage: number;

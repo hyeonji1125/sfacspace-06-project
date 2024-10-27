@@ -21,7 +21,7 @@ export default function FileViewerLoading({
       {widths.map((width, idx) => (
         <li
           key={idx}
-          className={`h-4 rounded-full bg-gray-200 dark:bg-neutral-700`}
+          className={`h-4 rounded-full bg-grayscale-10 dark:bg-grayscale-80`}
           style={{ width }}
         />
       ))}

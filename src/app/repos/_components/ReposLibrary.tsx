@@ -16,13 +16,8 @@ export default function ReposLibrary() {
     [],
   );
   const { repositories, fetchRepositories } = useGithubStore();
-  const {
-    status,
-    fetchReposData,
-    currentPage,
-    setCurrentPage,
-    ITEMS_PER_PAGE,
-  } = useLibraryStore();
+  const { fetchReposData, currentPage, setCurrentPage, ITEMS_PER_PAGE } =
+    useLibraryStore();
   const { reposItemsPerPage } = usePaginationStore();
   const { email } = useGetUser();
 
@@ -41,10 +36,6 @@ export default function ReposLibrary() {
     const endIndex = startIndex + ITEMS_PER_PAGE;
     setCurrentPageRepos(repos.slice(startIndex, endIndex));
   }, [repos, currentPage, ITEMS_PER_PAGE]);
-
-  useEffect(() => {
-    return setCurrentPage(1);
-  }, [setCurrentPage]);
 
   return (
     <section className="flex w-full flex-col gap-6">

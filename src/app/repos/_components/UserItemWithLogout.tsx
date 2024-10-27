@@ -18,7 +18,7 @@ export default function UserItemWithLogout() {
         <Button
           theme="tonal"
           size="small"
-          className="h-14 w-[196px] text-2xl font-medium sm:text-2xl md:text-2xl"
+          className="h-14 w-[196px] text-2xl font-medium dark:bg-primary-purple-300 dark:text-custom-dark-bg sm:text-2xl md:text-2xl"
           onClick={() => setModalOpen(true)}
         >
           로그아웃

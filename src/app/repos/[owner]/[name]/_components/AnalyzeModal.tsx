@@ -4,9 +4,8 @@ import Button from "@/components/common/Button";
 import Modal from "@/components/common/Modal";
 import { useGetUser } from "@/hooks/useGetUser";
 import { useLlama3Store } from "@/store/useLlama3Store";
-import { TAnalyzeModalProp } from "@/types";
+import { RepositoryContent, TAnalyzeModalProp } from "@/types";
 import { useEffect } from "react";
-import { AiFillFolderOpen } from "react-icons/ai";
 import { RxFile } from "react-icons/rx";
 import { useRepoParams } from "../_utils/useRepoParams";
 import { useGithubStore } from "@/store/useGithubStore";
@@ -14,23 +13,16 @@ import { useGithubStore } from "@/store/useGithubStore";
 export default function AnalyzeModal({
   isOpen,
   setIsOpen,
-  isWhole,
-  title,
   fileList,
   setIsMultiSelectMode,
 }: TAnalyzeModalProp) {
   const { startAnalysis, analysisResults } = useLlama3Store();
-  const { clearSelectedFiles, toggleSelectFile } = useGithubStore((state) => ({
+  const { clearSelectedFiles } = useGithubStore((state) => ({
     clearSelectedFiles: state.clearSelectedFiles,
-    toggleSelectFile: state.toggleSelectFile,
   }));
   const { email } = useGetUser();
-  const { owner, name, repoPath } = useRepoParams();
+  const { owner, name } = useRepoParams();
   const repoId = `${owner}/${name}`;
-
-  useEffect(() => {
-    console.log("Updated analysisResults:", analysisResults);
-  }, [analysisResults]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -41,13 +33,44 @@ export default function AnalyzeModal({
       setIsMultiSelectMode(false);
       setIsOpen(false);
       clearSelectedFiles();
-      if (repoPath) toggleSelectFile(repoPath);
       const encodedRepoId = encodeURIComponent(repoId).replace(/%2F/g, "/");
       await startAnalysis(fileList, email, encodedRepoId);
     } else {
       console.error("유효하지 않은 사용자입니다.");
     }
   };
+
+  // 파일 목록 렌더링 함수
+  const renderFileList = (files: RepositoryContent[], title: string) => (
+    <div>
+      <div className="py-2 text-center text-xl font-semibold">{title}</div>
+      <div className="custom-scrollbar max-h-[220px] overflow-hidden overflow-y-auto">
+        <ul className="overflow-hidden rounded-lg border border-line-default dark:border-line-dark/30">
+          {files.map((file) => (
+            <li
+              key={file.sha}
+              className="flex w-[450px] items-center justify-between border-b border-line-default p-[10px] last:border-b-0 dark:border-line-dark/50"
+            >
+              <div className="flex w-60 items-center gap-[10px]">
+                <RxFile className="flex-shrink-0 text-2xl text-[#848484]" />
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                  {file.name}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+
+  // 새로 검사할 파일 및 재검사할 파일 필터링
+  const newFiles = fileList.filter((file) =>
+    analysisResults.every((result) => result.path !== file.path),
+  );
+  const recheckFiles = fileList.filter((file) =>
+    analysisResults.some((result) => result.path === file.path),
+  );
 
   return (
     <>
@@ -60,30 +83,15 @@ export default function AnalyzeModal({
           className="gap-10 p-12"
         >
           <p className="text-nowrap text-2xl font-medium">
-            {isWhole ? "폴더 전체를" : "선택된 파일을"} 검사하시겠습니까?
+            선택된 파일을 검사하시겠습니까?
           </p>
           <Modal.Content>
-            {isWhole ? (
-              <div className="flex flex-col items-center gap-3">
-                <AiFillFolderOpen className="text-5xl text-primary-purple-500" />
-                <span className="text-xl">{title}</span>
-              </div>
-            ) : (
-              <div className="custom-scrollbar max-h-[220px] overflow-hidden overflow-y-auto">
-                <ul className="grid w-[450px] grid-cols-3 gap-3 overflow-hidden">
-                  {fileList.map((file) => (
-                    <li key={file.sha}>
-                      <div className="flex items-center gap-2 rounded-[10px] border border-line-gray-10 p-4">
-                        <RxFile className="flex-shrink-0 text-xl text-[#848484]" />
-                        <span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-                          {file.name}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="flex gap-4">
+              {newFiles.length > 0 &&
+                renderFileList(newFiles, "새로 검사할 파일")}
+              {recheckFiles.length > 0 &&
+                renderFileList(recheckFiles, "재검사할 파일")}
+            </div>
           </Modal.Content>
           <Modal.Button>
             <Button

@@ -7,7 +7,15 @@ export default function UserItem() {
   const { status, user, name, image, email } = useGetUser();
 
   if (status === "loading") {
-    return <p>loading...</p>;
+    return (
+      <div className="flex animate-pulse items-center gap-11">
+        <div className="h-[107px] w-[107px] rounded-full bg-grayscale-10 dark:bg-grayscale-80" />
+        <div className="flex flex-col gap-4">
+          <div className="h-10 w-24 rounded-xl bg-grayscale-10 dark:bg-grayscale-80" />
+          <div className="h-10 w-80 rounded-xl bg-grayscale-10 dark:bg-grayscale-80" />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -16,7 +24,7 @@ export default function UserItem() {
       {name && (
         <div className="flex items-center gap-11">
           <UserPic image={image ?? ""} name={name} />
-          <p className="text-text-gray-dark flex flex-col text-[40px] font-medium leading-[1.2] tracking-tighter dark:text-custom-dark-text">
+          <p className="flex flex-col text-[40px] font-medium leading-[1.2] tracking-tighter text-text-gray-dark dark:text-custom-dark-text">
             <span>Hello,</span>
             <span>{email}</span>
           </p>

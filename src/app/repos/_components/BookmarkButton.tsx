@@ -41,7 +41,6 @@ export default function BookmarkButton({
       }
     } catch (error) {
       setIsBookmarked((prev) => prev);
-      console.log(error);
     }
   };
 
@@ -49,8 +48,8 @@ export default function BookmarkButton({
     <button
       onClick={handleClickBookmark}
       className={twMerge(
-        "invisible box-border flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl p-1 group-hover:visible group-hover:border group-hover:border-primary-purple-100 group-hover:bg-white group-hover:dark:bg-opacity-0",
-        isBookmarked && "visible",
+        "box-border hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl p-1 group-hover:flex group-hover:border group-hover:border-primary-purple-100 group-hover:bg-white group-hover:dark:bg-opacity-0",
+        isBookmarked && "visible flex",
       )}
     >
       {isBookmarked ? (

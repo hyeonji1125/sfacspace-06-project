@@ -41,14 +41,12 @@ export async function getRepositoryContents(
 ) {
   const octokit = new Octokit({ auth: accessToken });
   try {
-    console.log(`Fetching contents for ${owner}/${repo}, path: ${path}`);
     const encodedPath = path.split("/").map(encodeURIComponent).join("/");
     const response = await octokit.rest.repos.getContent({
       owner,
       repo,
       path: encodedPath,
     });
-    console.log("Content fetched successfully");
     return response.data;
   } catch (error) {
     throw error;
@@ -63,7 +61,6 @@ export async function getFileContent(
 ) {
   const octokit = new Octokit({ auth: accessToken });
   try {
-    console.log(`Fetching file content for ${owner}/${repo}, path: ${path}`);
     const encodedPath = path
       .split("/")
       .map(encodeURIComponent)
@@ -79,10 +76,8 @@ export async function getFileContent(
     });
 
     if (Array.isArray(response.data)) {
-      console.log("Received directory listing instead of file content");
       return response.data;
     } else if (response.data.type === "file") {
-      console.log("File content fetched successfully");
       return response.data;
     } else {
       throw new Error("Unexpected content type");

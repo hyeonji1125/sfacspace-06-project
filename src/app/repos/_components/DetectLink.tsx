@@ -24,10 +24,10 @@ export default function DetectLink({
   let style;
   switch (status) {
     case "COMPLETED":
-      style = "bg-grayscale-100";
+      style = "bg-grayscale-100 dark:bg-grayscale-40";
       break;
     default:
-      style = "bg-primary-purple-500";
+      style = "bg-primary-purple-500 dark:bg-primary-purple-300 ";
       break;
   }
 
@@ -47,14 +47,17 @@ export default function DetectLink({
     >
       <div
         className={twMerge(
-          "flex items-center gap-[7px] whitespace-nowrap rounded-[14px] p-[10px] text-white",
+          "flex items-center gap-[7px] whitespace-nowrap rounded-[14px] p-[10px] text-white dark:font-medium dark:text-custom-dark-bg",
           style,
         )}
         onClick={handleClickRepo}
       >
-        <Bug />
+        <Bug color="fill-white dark:fill-custom-dark-bg" />
         {status === "COMPLETED" ? "결과보기" : "검사하기"}
-        <CaretRight className="h-5 w-5" color="fill-white" />
+        <CaretRight
+          className="h-5 w-5"
+          color="fill-white dark:fill-custom-dark-bg"
+        />
       </div>
     </Link>
   );
